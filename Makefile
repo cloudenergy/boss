@@ -1,3 +1,6 @@
-export PATH := ./node_modules/.bin:$(PATH)
-build: src/*
-	browserify -p tsify src/app.tsx > public/app.js
+
+.PHONY: assets
+
+assets:
+	cp node_modules/bootstrap/dist/css/bootstrap.css assets/css/
+	cp node_modules/echarts/dist/echarts.simple.min.js assets/js/
