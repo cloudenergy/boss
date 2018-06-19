@@ -23,7 +23,7 @@
   <body>
     <main role="main" class="container">
       <div class="row">
-        <div id="piechart" class="piechart col-sm">
+        <div id="fund-piechart" class="piechart col-sm">
           Bar Chart
         </div>
         <div class="col-lg">
@@ -40,7 +40,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form>
+          <form id="login-form">
             <div class="modal-body">
 
               <div class="form-group">
@@ -53,11 +53,11 @@
               </div>
 
 
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-            <input type="submit" class="btn btn-primary" value="登陆">
-          </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+              <input type="submit" class="btn btn-primary" value="登陆">
+            </div>
           </form>
         </div>
       </div>
@@ -65,30 +65,7 @@
     <script src="../assets/js/echarts.simple.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
-    <script>
-      var myChart = echarts.init(document.getElementById('piechart'));
-
-      // specify chart configuration item and data
-      var option = {
-        title: {
-          text: 'ECharts entry example'
-        },
-        tooltip: {},
-        legend: {
-          data:['Sales']
-        },
-        xAxis: {
-          data: ["shirt","cardign","chiffon shirt","pants","heels","socks"]
-        },
-        yAxis: {},
-        series: [{
-          name: 'Sales',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
-        }]
-      };
-      myChart.setOption(option)
-    </script>
+    <script src="index.js"> </script>
 
   </body>
 </html>
