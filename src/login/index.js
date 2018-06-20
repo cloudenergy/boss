@@ -1,24 +1,25 @@
-require('whatwg-fetch')
 const {Observable} = require('rxjs/Rx')
 const q = document.querySelector.bind(document)
 const loginForm = q('#form-signin')
-const md5 = require('md5')
+const r = require('ramda')
 
 Observable.fromEvent(loginForm, 'submit')
   .do(e=>e.preventDefault())
-  .mergeMap(e=>{
-    let form = e.target
-    let username = form.querySelector('#inputUserName').value
-    let password = form.querySelector('#inputPassword').value
-    return Observable.from(fetch('http://localhost:8000/v1.0/login',{
+  .mergeMap(()=>Observable.ajax({
+    url: 'http://127.0.0.1:8000/v1.0/login',
+    crossDomain: true,
+    responseType: 'json',
     method: 'POST',
-    credentials: 'include',
-    body: JSON.stringify({
-      username,
-      password: md5(password),
-      keepAlive:2
-    })
+    body: {
+      username: 'admin100',
+      password: '5f4dcc3b5aa765d61d8327deb882cf99',
+    }
   }))
+  .subscribe((result) => {
+    let lensSuccess = r.lensPath(['response', 'code'])
+    if(r.view(lensSuccess, result) == 0) {
+      window.location = '/dashboard'
+    }
+  },(error) =>{
+    console.error(error)
   })
-  .do(()=>loginModal.set({show: false}))
-  .subscribe(() => console.log('Logged in'));
