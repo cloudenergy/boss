@@ -1,3 +1,3 @@
-const {bindLogin} = require('./fundChannel')
+const {drawFundChannelChart} = require('./fundChannel')
 
-bindLogin()
+drawFundChannelChart()
