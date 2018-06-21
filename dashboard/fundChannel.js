@@ -1,14 +1,40 @@
-import r from 'ramda'
-import 'whatwg-fetch'
-const fundChannelChart = echarts.init(document.getElementById('fund-piechart'));
-const logiModal = $('#login-modal')
-const option = {
+const r = require('ramda')
+const {Observable} = require('rxjs/Rx')
+const q = document.querySelector.bind(document)
+const loginForm = q('#login-form')
+const fundChannelChart = echarts.init(q('#fund-piechart'))
+
+const DATA = [
+  {name: '现金',
+   value: 110
+  },{
+    name:'支付宝',
+    value: 200
+  },{
+    name: '工商银行',
+    value:20
+  }, {
+    name: '预付费代扣',
+    value:80
+  },{
+    name: '微信',
+    value: 73
+  }
+]
+
+const configure = {
   title: {
-    text: '支付渠道'
+    text: '支付渠道',
+    x:'center'
   },
-  tooltip: {},
+  tooltip : {
+    trigger: 'item',
+    formatter: "{a} <br/>{b} : {c} ({d}%)"
+  },
   legend: {
-    data:['支付宝','微信']
+    orient: 'vertical',
+    left: 'left',
+    data:[]
   },
   series: [{
     name: 'Sales',
@@ -19,16 +45,18 @@ const option = {
   }]
 }
 
-const lensData = r.lensPath(['series','data'])
-fetch('http://127.0.0.1:8081/api/v1.0/login',{
-  method: 'POST',
-  body: JSON.stringify({
-    username: 'admin100',
-    password: '5f4dcc3b5aa765d61d8327deb882cf99',
-  })
-}).then(response=>{
-  loginModal.set({show: false})
-})
-  .catch(e=>console.error(e))
+const lensSeries = r.lensPath(['series',0,'data'])
+const lensLegend = r.lensPath(['legend', 'data'])
 
-fundChannelChart.setOption(option)
+function drawFundChannelChart(){
+  // Observable.ajax("http://api/flows").map(result => {
+    let option = r.pipe(
+      r.set(lensSeries, DATA),
+      r.set(lensLegend, DATA.map(r.prop('name')))
+    )(configure)
+  console.log(option)
+    fundChannelChart.setOption(option)
+  // })
+}
+
+module.exports = {drawFundChannelChart}

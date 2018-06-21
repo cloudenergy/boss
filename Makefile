@@ -1,12 +1,26 @@
+PATH := node_modules/.bin:$(PATH)
+SHELL := /bin/bash
 
-export PATH := node_modules/.bin/:$(PATH)
+.PHONY: login dashboard management public
 
-dashboard/index.js: src/dashboard/index.js
-	browserify src/dashboard/index.js > dashboard/index.js
+public: public/dashboard/index.js public/login/index.js assets
 
-login/index.js: src/login/index.js
-	browserify src/login/index.js > login/index.js
+public/dashboard/index.js: dashboard/*
+	browserify dashboard/index.js > public/dashboard/index.js
+
+dashboard: dashboard/*
+	watchify dashboard/index.js -dv -o public/dashboard/index.js
+
+public/login/index.js: login/*
+	browserify login/index.js > public/login/index.js
+
+login: src/login/*
+	watchify src/login/index.js -dv -o public/login/index.js
+
+management:
+	cd management && yarn build
+	cp -r management/build public/management
 
 assets:
-	cp node_modules/bootstrap/dist/css/bootstrap.css assets/css/
-	cp node_modules/echarts/dist/echarts.simple.min.js assets/js/
+	cp node_modules/bootstrap/dist/css/bootstrap.css public/assets/css/
+	cp node_modules/echarts/dist/echarts.simple.min.js public/assets/js/
