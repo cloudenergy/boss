@@ -1,9 +1,14 @@
 PATH := node_modules/.bin:$(PATH)
 SHELL := /bin/bash
 
-.PHONY: login dashboard management public
+.PHONY: login dashboard management public clean
 
-public: public/dashboard/index.js public/login/index.js assets
+public: public/dashboard/index.js public/login/index.js management assets
+
+clean:
+	rm public/dashboard/index.js
+	rm public/login/index.js
+	rm -r public/management/
 
 public/dashboard/index.js: dashboard/*
 	browserify dashboard/index.js > public/dashboard/index.js
