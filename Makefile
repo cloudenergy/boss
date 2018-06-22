@@ -23,7 +23,7 @@ login: src/login/*
 	watchify src/login/index.js -dv -o public/login/index.js
 
 management:
-	cd management && yarn build
+	cd management && yarn && yarn build
 	cp -r management/build public/management
 
 assets:
