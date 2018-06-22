@@ -10,5 +10,6 @@ deploy:
   github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   keep-history: true
   local-dir: public
+  fqdn: boss.51dianxiaoge.com
   on:
     branch: master
