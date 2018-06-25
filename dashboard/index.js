@@ -49,15 +49,14 @@ const configure = {
 const lensSeries = r.lensPath(['series',0,'data'])
 const lensLegend = r.lensPath(['legend', 'data'])
 
-function drawFundChannelChart(){
-  // Observable.ajax("http://api/flows").map(result => {
+function drawFundChannelChart(api){
+  return Observable.ajax({url: `${api}/v1.0/boss/fundChannels`,crossDomain:true, withCredentials: true}).map(({response}) => {
     let option = r.pipe(
-      r.set(lensSeries, DATA),
-      r.set(lensLegend, DATA.map(r.prop('name')))
-    )(configure)
-  console.log(option)
+      r.set(lensSeries, response),
+      r.set(lensLegend, response.map(r.prop('name')))
+    )(configure);
     fundChannelChart.setOption(option)
-  // })
+  })
 }
 
 module.exports = {drawFundChannelChart}
@@ -65,7 +64,9 @@ module.exports = {drawFundChannelChart}
 },{"ramda":87,"rxjs/Rx":553}],2:[function(require,module,exports){
 const {drawFundChannelChart} = require('./fundChannel')
 
-drawFundChannelChart()
+const API = "https://saas.51dianxiaoge.com" || 'http://127.0.0.1:8000'
+
+drawFundChannelChart(API).subscribe((result)=>console.log(result), error=>console.error(error))
 
 },{"./fundChannel":1}],3:[function(require,module,exports){
 var always = /*#__PURE__*/require('./always');
