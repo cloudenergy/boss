@@ -4,6 +4,8 @@ const loginForm = q('#form-signin')
 const r = require('ramda')
 const md5 = require('md5')
 
+const API = process.env.API_URI || 'http://127.0.0.1:8000'
+
 Observable.fromEvent(loginForm, 'submit')
   .do(e=>e.preventDefault())
   .mergeMap(e=>{
@@ -11,8 +13,9 @@ Observable.fromEvent(loginForm, 'submit')
     let username = form.querySelector('#inputUserName').value
     let password = form.querySelector('#inputPassword').value
     return Observable.ajax({
-      url: 'http://127.0.0.1:8000/v1.0/login',
+      url: `${API}/v1.0/login`,
       crossDomain: true,
+      withCredentials: true,
       responseType: 'json',
       method: 'POST',
       body: {

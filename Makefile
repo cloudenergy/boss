@@ -11,16 +11,16 @@ clean:
 	rm -r public/management/
 
 public/dashboard/index.js: dashboard/*
-	browserify dashboard/index.js > public/dashboard/index.js
+	env API_URI=https://saas.51dianxiaoge.com browserify dashboard/index.js -t envify > public/dashboard/index.js
 
 dashboard: dashboard/*
-	watchify dashboard/index.js -dv -o public/dashboard/index.js
+	watchify dashboard/index.js -t envify -dv -o public/dashboard/index.js
 
 public/login/index.js: login/*
-	browserify login/index.js > public/login/index.js
+	env API_URI=https://saas.51dianxiaoge.com browserify login/index.js -t envify > public/login/index.js
 
-login: src/login/*
-	watchify src/login/index.js -dv -o public/login/index.js
+login: login/*
+	watchify login/index.js -t envify -dv -o public/login/index.js
 
 public/management:
 	cd management && yarn && yarn build

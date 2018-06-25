@@ -48,15 +48,14 @@ const configure = {
 const lensSeries = r.lensPath(['series',0,'data'])
 const lensLegend = r.lensPath(['legend', 'data'])
 
-function drawFundChannelChart(){
-  // Observable.ajax("http://api/flows").map(result => {
+function drawFundChannelChart(api){
+  return Observable.ajax({url: `${api}/v1.0/boss/fundChannels`,crossDomain:true, withCredentials: true}).map(({response}) => {
     let option = r.pipe(
-      r.set(lensSeries, DATA),
-      r.set(lensLegend, DATA.map(r.prop('name')))
-    )(configure)
-  console.log(option)
+      r.set(lensSeries, response),
+      r.set(lensLegend, response.map(r.prop('name')))
+    )(configure);
     fundChannelChart.setOption(option)
-  // })
+  })
 }
 
 module.exports = {drawFundChannelChart}
