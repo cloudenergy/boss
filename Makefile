@@ -1,5 +1,6 @@
 PATH := node_modules/.bin:$(PATH)
 SHELL := /bin/bash
+API_URL := https://api.51dianxiaoge.com
 
 .PHONY: login dashboard management public clean public/management
 
@@ -11,13 +12,13 @@ clean:
 	rm -r public/management/
 
 public/dashboard/index.js: dashboard/*
-	env API_URI=https://saas.51dianxiaoge.com browserify dashboard/index.js -t envify > public/dashboard/index.js
+	browserify dashboard/index.js -t envify > public/dashboard/index.js
 
 dashboard: dashboard/*
 	watchify dashboard/index.js -t envify -dv -o public/dashboard/index.js
 
 public/login/index.js: login/*
-	env API_URI=https://saas.51dianxiaoge.com browserify login/index.js -t envify > public/login/index.js
+	browserify login/index.js -t envify > public/login/index.js
 
 login: login/*
 	watchify login/index.js -t envify -dv -o public/login/index.js
