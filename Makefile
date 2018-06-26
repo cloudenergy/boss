@@ -11,14 +11,14 @@ clean:
 	rm public/login/index.js
 	rm -r public/management/
 
-public/dashboard/index.js: dashboard/*
-	browserify dashboard/index.js -t envify > public/dashboard/index.js
+public/dashboard/index.js: dashboard/index.js
+	env API_URI=${API_URI} browserify dashboard/index.js -t envify > public/dashboard/index.js
 
 dashboard: dashboard/*
 	watchify dashboard/index.js -t envify -dv -o public/dashboard/index.js
 
-public/login/index.js: login/*
-	browserify login/index.js -t envify > public/login/index.js
+public/login/index.js: login/index.js
+	env API_URI=${API_URI} browserify login/index.js -t envify > public/login/index.js
 
 login: login/*
 	watchify login/index.js -t envify -dv -o public/login/index.js
