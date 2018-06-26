@@ -1,6 +1,6 @@
 PATH := node_modules/.bin:$(PATH)
 SHELL := /bin/bash
-API_URL := https://api.51dianxiaoge.com
+API_URI := https://api.51dianxiaoge.com
 
 .PHONY: login dashboard management public clean public/management
 
