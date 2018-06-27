@@ -31,4 +31,6 @@ management:
 
 assets:
 	cp node_modules/bootstrap/dist/css/bootstrap.css public/assets/css/
-	cp node_modules/echarts/dist/echarts.simple.min.js public/assets/js/
+	cp node_modules/bootstrap/dist/css/bootstrap.css.map public/assets/css/
+	cp node_modules/jquery/dist/jquery.min.js public/assets/js/
+	cp node_modules/echarts/dist/echarts.min.js public/assets/js/
