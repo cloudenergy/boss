@@ -7,57 +7,56 @@ const fundChannelChart = echarts.init(q('#fund-piechart'))
 
 const DATA = {
   today:[
-  {name: '现金',
-   value: 110
-  },{
-    name:'支付宝',
-    value: 200
-  },{
-    name: '工商银行',
-    value:20
-  }, {
-    name: '预付费代扣',
-    value:80
-  },{
-    name: '微信',
-    value: 73
-  }
+    {name: '现金',
+     value: 110
+    },{
+      name:'支付宝',
+      value: 200
+    },{
+      name: '工商银行',
+      value:20
+    }, {
+      name: '预付费代扣',
+      value:80
+    },{
+      name: '微信',
+      value: 73
+    }
   ],
   month:[
-  {name: '现金',
-   value: 11
-  },{
-    name:'支付宝',
-    value: 200
-  },{
-    name: '工商银行',
-    value:20
-  }, {
-    name: '预付费代扣',
-    value:80
-  },{
-    name: '微信',
-    value: 73
-  }
+    {name: '现金',
+     value: 11
+    },{
+      name:'支付宝',
+      value: 200
+    },{
+      name: '工商银行',
+      value:20
+    }, {
+      name: '预付费代扣',
+      value:80
+    },{
+      name: '微信',
+      value: 73
+    }
   ],year:[
-  {name: '现金',
-   value: 110
-  },{
-    name:'支付宝',
-    value: 20
-  },{
-    name: '工商银行',
-    value:20
-  }, {
-    name: '预付费代扣',
-    value:80
-  },{
-    name: '微信',
-    value: 73
-  }
-]
+    {name: '现金',
+     value: 110
+    },{
+      name:'支付宝',
+      value: 20
+    },{
+      name: '工商银行',
+      value:20
+    }, {
+      name: '预付费代扣',
+      value:80
+    },{
+      name: '微信',
+      value: 73
+    }
+  ]
 }
-
 
 const configure = {
   title: {
@@ -94,7 +93,6 @@ function drawFundChannelChart(api){
         .map(e=>e.target.querySelector('input').value)
         .startWith('today')
         .map(timespan=>{
-          response = DATA
           let option = r.pipe(
             r.set(lensSeries, response[timespan]),
             r.set(lensLegend, response[timespan].map(r.prop('name')))
