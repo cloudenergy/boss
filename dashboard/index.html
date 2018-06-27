@@ -24,16 +24,18 @@
           <div id="fund-piechart" class="piechart">
             Loading Chart...
           </div>
-          <div id="fund-piechart-controls" class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary active">
-              <input type="radio" name="timespan" value="today" autocomplete="off" checked> 今日
-            </label>
-            <label class="btn btn-secondary">
-              <input type="radio" name="timespan" value="month" autocomplete="off"> 月
-            </label>
-            <label class="btn btn-secondary">
-              <input type="radio" name="timespan" value="year" autocomplete="off"> 年
-            </label>
+          <div class="mx-auto" style="width: 140px;">
+            <div id="fund-piechart-controls" data-toggle="buttons" class="btn-group btn-group-toggle">
+              <label class="btn btn-secondary active">
+                <input name="timespan" value="today" autocomplete="off" checked="" type="radio"> 今日
+              </label>
+              <label class="btn btn-secondary">
+                <input name="timespan" value="month" autocomplete="off" type="radio"> 月
+              </label>
+              <label class="btn btn-secondary">
+                <input name="timespan" value="year" autocomplete="off" type="radio"> 年
+              </label>
+            </div>
           </div>
         </div>
         <div class="col">
