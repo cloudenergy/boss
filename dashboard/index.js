@@ -109,7 +109,7 @@ console.log(aggregateCashCatergory(DATA))
 
 function drawFundChannelChart(api){
   return Observable
-    .of({response:DATA})//.ajax({url: `${api}/v1.0/boss/fundChannels`,crossDomain:true, withCredentials: true})
+    .ajax({url: `${api}/v1.0/boss/fundChannels`,crossDomain:true, withCredentials: true})
     .map(r.prop('response'))
     .map(aggregateCashCatergory)
     .flatMap(response => {
@@ -137,25 +137,30 @@ const template = $('#income-summary-template').html()
 M.parse(template)
 const anchor = $('#income-summary')
 
-const DATA = {response:{
-  incomeSummary: [{
+const view = ({sum, withdraw, fee, arrears}) => {
+  return {incomeSummary: [{
     name: '平台账户总金额',
-    value: '99.18'
+    value: sum
   },{
     name: '平台充值服务费',
-    value: '100.99'
+    value: fee
   },{
     name: '平台提现总金额',
-    value: '9999.88'
-  }]
-}}
+    value: withdraw
+  },{
+    name: '平台欠费租户金额',
+    value: arrears[0].value
+  },{
+    name: '平台欠费租户数量',
+    value: arrears[0].count
+  }]}
+}
 
 function drawIncomeSummary(api) {
   return Observable
-    .of(DATA)
-    // .ajax({url: `${api}/v1.0/boss/incomeSummary`,crossDomain:true, withCredentials: true})
+    .ajax({url: `${api}/v1.0/boss/incomeSummary`,crossDomain:true, withCredentials: true})
     .map(({response}) => {
-    return anchor.html(M.render(template, response))
+      return anchor.html(M.render(template, view(response)))
   })
 }
 
