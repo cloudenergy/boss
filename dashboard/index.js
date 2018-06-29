@@ -171,14 +171,15 @@ const {drawFundChannelChart} = require('./fundChannel')
 const API = "https://api.51dianxiaoge.com" || 'http://127.0.0.1:8000'
 const {drawIncomeSummary} = require('./incomeSummary')
 const {drawTopupTrendChart} = require('./topupTrend')
-const {Observable, Subscriber} = require('rxjs/Rx')
+const {Observable} = require('rxjs/Rx')
 
-const subscriber = Subscriber.create(result=>console.debug("updated view:", result),
+
+drawFundChannelChart(API).subscribe(result=>console.debug("updated view:", result),
                                      error=>console.error(error))
-
-drawFundChannelChart(API).subscribe(subscriber)
-drawIncomeSummary(API).subscribe(subscriber)
-drawTopupTrendChart(API).subscribe(subscriber)
+drawIncomeSummary(API).subscribe(result=>console.debug("updated view:", result),
+                                     error=>console.error(error))
+drawTopupTrendChart(API).subscribe(result=>console.debug("updated view:", result),
+                                     error=>console.error(error))
 
 },{"./fundChannel":1,"./incomeSummary":2,"./topupTrend":4,"rxjs/Rx":556}],4:[function(require,module,exports){
 const r = require('ramda')
