@@ -171,13 +171,13 @@ const {drawFundChannelChart} = require('./fundChannel')
 
 const API = "https://api.51dianxiaoge.com" || 'http://127.0.0.1:8000'
 const {drawIncomeSummary} = require('./incomeSummary')
-const {Observable} = require('rxjs/Rx')
+const {Observable, Subscriber} = require('rxjs/Rx')
 
-Observable.merge(
-  drawFundChannelChart(API),
-  drawIncomeSummary(API)
-).subscribe(result=>console.debug("updated view:", result),
-            error=>console.error(error))
+const subscriber = Subscriber.create(result=>console.debug("updated view:", result),
+                                         error=>console.error(error))
+
+drawFundChannelChart(API).subscribe(subscriber)
+drawIncomeSummary(API).subscribe(subscriber)
 
 },{"./fundChannel":1,"./incomeSummary":2,"rxjs/Rx":555}],4:[function(require,module,exports){
 /*!
