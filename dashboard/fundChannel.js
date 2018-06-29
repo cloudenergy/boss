@@ -108,7 +108,7 @@ console.log(aggregateCashCatergory(DATA))
 
 function drawFundChannelChart(api){
   return Observable
-    .of({response:DATA})//.ajax({url: `${api}/v1.0/boss/fundChannels`,crossDomain:true, withCredentials: true})
+    .ajax({url: `${api}/v1.0/boss/fundChannels`,crossDomain:true, withCredentials: true})
     .map(r.prop('response'))
     .map(aggregateCashCatergory)
     .flatMap(response => {
