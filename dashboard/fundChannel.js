@@ -2,7 +2,6 @@ const r = require('ramda')
 const {Observable} = require('rxjs/Rx')
 const q = document.querySelector.bind(document)
 const qa = document.querySelectorAll.bind(document)
-const loginForm = q('#login-form')
 const fundChannelChart = echarts.init(q('#fund-piechart'))
 
 const DATA = {
@@ -65,7 +64,7 @@ const DATA = {
 
 const configure = {
   title: {
-    text: '支付渠道',
+    text: '收入详情分析图',
     x:'center'
   },
   tooltip : {
