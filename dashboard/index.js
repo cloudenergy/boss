@@ -102,12 +102,13 @@ const aggregateCashCatergory = r.map(
           r.identity))),
     r.map(r.compose(r.sum, r.map(r.prop('value')))),
     r.toPairs,
-    r.map(([key,val])=>({name: key, value: val}))))
-
-console.log(aggregateCashCatergory(DATA))
+    r.filter(([key,val])=>key!='现金'),
+    r.map(([key,val])=>({name: key, value: val})),
+  ))
 
 function drawFundChannelChart(api){
   return Observable
+    // .of({response: DATA})
     .ajax({url: `${api}/v1.0/boss/fundChannels`,crossDomain:true, withCredentials: true})
     .map(r.prop('response'))
     .map(aggregateCashCatergory)
