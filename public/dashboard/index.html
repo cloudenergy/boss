@@ -52,28 +52,27 @@
           </script>
         </div>
         <div class="col">
+          <div id="project-topup">
+          <script id="project-topup-template" type="x-tmpl-mustache">
           <table class="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">项目</th>
+                <th scope="col">金额</th>
               </tr>
             </thead>
             <tbody>
+              {{#projectTopup}}
               <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
+                <th scope="row">{{index}}</th>
+                <td>{{name}}</td>
+                <td>{{value}}</td>
               </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-              </tr>
+              {{/projectTopup}}
             </tbody>
           </table>
+          </script>
         </div>
       </div>
       <div class="row">

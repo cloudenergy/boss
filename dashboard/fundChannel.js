@@ -77,7 +77,7 @@ const configure = {
     data:[]
   },
   series: [{
-    name: 'Sales',
+    name: '收入',
     type: 'pie',
     radius : '55%',
     center: ['50%', '60%'],
