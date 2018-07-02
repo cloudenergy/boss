@@ -52,63 +52,50 @@
           </script>
         </div>
         <div class="col">
+          <div id="project-topup"></div>
+          <script id="project-topup-template" type="x-tmpl-mustache">
           <table class="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">项目</th>
+                <th scope="col">金额</th>
               </tr>
             </thead>
             <tbody>
+              {{#projectTopup}}
               <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
+                <th scope="row">{{index}}</th>
+                <td>{{name}}</td>
+                <td>{{value}}</td>
               </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-              </tr>
+              {{/projectTopup}}
             </tbody>
           </table>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-8">
-         <div id="topupt-trend" class="barchart">
-          Loading Chart...
+          </script>
           </div>
         </div>
-        <div class="col-4">
-          <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5>
-                <small>3 days ago</small>
-              </div>
-              <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-              <small>Donec id elit non mi porta.</small>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5>
-                <small class="text-muted">3 days ago</small>
-              </div>
-              <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-              <small class="text-muted">Donec id elit non mi porta.</small>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5>
-                <small class="text-muted">3 days ago</small>
-              </div>
-              <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-              <small class="text-muted">Donec id elit non mi porta.</small>
-            </a>
+        <div class="row">
+          <div class="col-8">
+            <div id="topupt-trend" class="barchart">
+              Loading Chart...
+            </div>
           </div>
+          <div class="col-4">
+            <div id="topup-events"></div>
+            <script id="topup-events-template" type="x-tmpl-mustache">
+              <div class="list-group">
+              {{#topupEvents}}
+              <div class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{name}}</h5>
+              <small>{{createdAt}}</small>
+              </div>
+              <p class="mb-1">{{amount}}元</p>
+              </div>
+              {{/topupEvents}}
+              </div>
+            </script>
         </div>
       </div>
     </main>
