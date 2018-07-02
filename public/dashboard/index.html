@@ -46,7 +46,7 @@
           <script id="income-summary-template" type="x-tmpl-mustache">
             <ul class="list-group">
             {{#incomeSummary}}
-              <li class="list-group-item">{{name}}: {{value}}</li>
+            <li class="list-group-item">{{name}}: {{value}}</li>
             {{/incomeSummary}}
             </ul>
           </script>
@@ -54,48 +54,48 @@
         <div class="col">
           <div id="project-topup"></div>
           <script id="project-topup-template" type="x-tmpl-mustache">
-          <table class="table">
+            <table class="table">
             <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">项目</th>
-                <th scope="col">金额</th>
-              </tr>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">项目</th>
+            <th scope="col">金额</th>
+            </tr>
             </thead>
             <tbody>
-              {{#projectTopup}}
-              <tr>
-                <th scope="row">{{index}}</th>
-                <td>{{name}}</td>
-                <td>{{value}}</td>
-              </tr>
-              {{/projectTopup}}
+            {{#projectTopup}}
+            <tr>
+            <th scope="row">{{index}}</th>
+            <td>{{name}}</td>
+            <td>{{value}}</td>
+            </tr>
+            {{/projectTopup}}
             </tbody>
-          </table>
+            </table>
           </script>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-8">
+          <div id="topupt-trend" class="barchart">
+            Loading Chart...
           </div>
         </div>
-        <div class="row">
-          <div class="col-8">
-            <div id="topupt-trend" class="barchart">
-              Loading Chart...
+        <div class="col-4">
+          <div id="topup-events"></div>
+          <script id="topup-events-template" type="x-tmpl-mustache">
+            <div class="list-group">
+            {{#topupEvents}}
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{name}}</h5>
+            <small>{{createdAt}}</small>
             </div>
-          </div>
-          <div class="col-4">
-            <div id="topup-events"></div>
-            <script id="topup-events-template" type="x-tmpl-mustache">
-              <div class="list-group">
-              {{#topupEvents}}
-              <div class="list-group-item list-group-item-action flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{name}}</h5>
-              <small>{{createdAt}}</small>
-              </div>
-              <p class="mb-1">{{amount}}元</p>
-              </div>
-              {{/topupEvents}}
-              </div>
-            </script>
+            <p class="mb-1">{{amount}}元</p>
+            </div>
+            {{/topupEvents}}
+            </div>
+          </script>
         </div>
       </div>
     </main>

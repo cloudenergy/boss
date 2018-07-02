@@ -4,11 +4,12 @@ const {Observable} = require('rxjs/Rx')
 const template = $('#project-topup-template').html()
 M.parse(template)
 const anchor = $('#project-topup')
+const {currency} = require('./utils')
 
 const view = r.addIndex(r.map)((val, index) => ({
   index,
   name: val.name,
-  value: val.value
+  value: currency(val.value) + '元'
 }))
 
 function drawProjectTopup(api) {

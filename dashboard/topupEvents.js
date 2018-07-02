@@ -5,9 +5,16 @@ const template = $('#topup-events-template').html()
 M.parse(template)
 const anchor = $('#topup-events')
 const moment = require('moment')
+const {currency} = require('./utils')
 
 const timeLens = r.lensProp('createdAt')
-const view = r.compose(r.take(6), r.map(r.over(timeLens, t=>moment(t).fromNow())))
+const amountLens = r.lensProp('amount')
+const view = r.compose(r.take(6),
+                       r.map(
+                         r.compose(
+                           r.over(amountLens, currency),
+                           r.over(timeLens, t=>moment(t).fromNow())
+                         )))
 
 function drawTopupEvents(api) {
   return Observable

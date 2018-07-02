@@ -3,7 +3,7 @@ const {Observable} = require('rxjs/Rx')
 const q = document.querySelector.bind(document)
 const qa = document.querySelectorAll.bind(document)
 const fundChannelChart = echarts.init(q('#fund-piechart'))
-
+const {currency} = require('./utils')
 const DATA = {
   today:[
   {name: '现金',
@@ -102,7 +102,7 @@ const aggregateCashCatergory = r.map(
     r.map(r.compose(r.sum, r.map(r.prop('value')))),
     r.toPairs,
     r.filter(([key,val])=>key!='现金'),
-    r.map(([key,val])=>({name: key, value: val})),
+    r.map(([key,val])=>({name: key, value: currency(val)})),
   ))
 
 function drawFundChannelChart(api){
