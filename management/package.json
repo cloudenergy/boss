@@ -6,7 +6,9 @@
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-router5": "^6.0.4",
     "react-scripts": "1.1.4",
+    "router5": "^6.2.4",
     "rxjs-compat": "^6.2.1"
   },
   "scripts": {

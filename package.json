@@ -30,6 +30,7 @@
     "react-dom": "^16.4.1",
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",
+    "union-type": "^0.4.1",
     "watchify": "^3.11.0",
     "whatwg-fetch": "^2.0.4"
   },

@@ -2,21 +2,11 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {ActionContext} from './Context'
-class App extends Component {
-  render() {
-    return (
-      <ActionContext.Provider>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to React</h1>
-          </header>
-          <p className="App-intro">
-            To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
-        </div>
-      </ActionContext.Provider>
-    );
+function App({route}) {
+  if(!route) { return null}
+  switch(route.name) {
+  case 'home': return <h1>Home</h1>
+  case 'profile': return <h1>Account</h1>
   }
 }
 
