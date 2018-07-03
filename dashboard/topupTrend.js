@@ -4,13 +4,6 @@ const q = document.querySelector.bind(document)
 const topupTrendChart = echarts.init(q('#topupt-trend'))
 const {currency} = require('./utils')
 
-const DATA = {response: [
-  {time:'2018-03-15 18:00', name:'随寓公寓',value:6000},
-  {time:'2018-03-16 13:00', name:'随寓公寓',value:1200},
-  {time:'2018-04-09 11:00', name:'随寓公寓',value:100000},
-  {time:'2018-06-07 22:00', name:'随寓公寓',value:200}
-]}
-
 const configure = {
   title: {
     text: '充值金额',
