@@ -5,64 +5,6 @@ const q = document.querySelector.bind(document)
 const qa = document.querySelectorAll.bind(document)
 const fundChannelChart = echarts.init(q('#fund-piechart'))
 const {currency} = require('./utils')
-const DATA = {
-  today:[
-  {name: '现金',
-   value: 110
-  },{
-    name:'支付宝',
-    value: 200
-  },{
-    name: '工商银行',
-    value:20
-  }, {
-    name: '预付费代扣',
-    value:80
-  },{
-    name: '微信',
-    value: 73
-  }
-  ],
-  month:[
-  {name: '现金',
-   value: 11
-  },{
-    name:'支付宝',
-    value: 200
-  },{
-    name: '工商银行',
-    value:20
-  }, {
-    name: '预付费代扣',
-    value:80
-  },{
-    name: '微信',
-    value: 73
-  }
-  ],year:[
-    {
-      name: '现金',
-      value: 110
-    },{
-      name: '微信转账',
-      value: 100,
-    },{
-    name:'支付宝',
-    value: 20
-  },{
-    name: '工商银行',
-    value:20
-  }, {
-    name: '预付费代扣',
-    value:80
-  },{
-    name: '微信',
-    value: 73
-  }
-]
-}
-
-
 const configure = {
   title: {
     text: '收入详情分析图',
@@ -108,7 +50,6 @@ const aggregateCashCatergory = r.map(
 
 function drawFundChannelChart(api){
   return Observable
-    // .of({response: DATA})
     .ajax({url: `${api}/v1.0/boss/fundChannels`,crossDomain:true, withCredentials: true})
     .map(r.prop('response'))
     .map(aggregateCashCatergory)
@@ -226,12 +167,13 @@ const {currency} = require('./utils')
 
 const timeLens = r.lensProp('createdAt')
 const amountLens = r.lensProp('amount')
-const view = r.compose(r.take(6),
-                       r.map(
-                         r.compose(
-                           r.over(amountLens, currency),
-                           r.over(timeLens, t=>moment(t).fromNow())
-                         )))
+const view = r.compose(
+  r.take(6),
+  r.map(
+    r.compose(
+      r.over(amountLens, currency),
+      r.over(timeLens, t=>moment(t).fromNow())
+    )))
 
 function drawTopupEvents(api) {
   return Observable
@@ -251,13 +193,6 @@ const {Observable} = require('rxjs/Rx')
 const q = document.querySelector.bind(document)
 const topupTrendChart = echarts.init(q('#topupt-trend'))
 const {currency} = require('./utils')
-
-const DATA = {response: [
-  {time:'2018-03-15 18:00', name:'随寓公寓',value:6000},
-  {time:'2018-03-16 13:00', name:'随寓公寓',value:1200},
-  {time:'2018-04-09 11:00', name:'随寓公寓',value:100000},
-  {time:'2018-06-07 22:00', name:'随寓公寓',value:200}
-]}
 
 const configure = {
   title: {
