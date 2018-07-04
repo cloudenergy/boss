@@ -2,7 +2,7 @@
   "name": "management",
   "version": "0.1.0",
   "private": true,
-  "homepage": "management",
+  "homepage": "https://boss.51dianxiaoge.com/management",
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

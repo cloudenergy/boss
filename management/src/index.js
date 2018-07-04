@@ -4,12 +4,15 @@ import createRouter from 'router5'
 import browserPlugin from 'router5/plugins/browser'
 import {RouteProvider, Route} from 'react-router5'
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.css'
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 const routes = [
-    { name: 'home', path: '/' },
-    { name: 'profile', path: '/profile' }
+  { name: 'project', path: '/project' },
+  { name: 'account', path: '/account' },
+  { name: 'event', path: '/event' },
+  { name: 'finance', path: '/finance' },
 ]
 
 const router = createRouter(routes)
