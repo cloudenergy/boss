@@ -13,7 +13,7 @@ const Nav = (props) => (
            {name: 'Account', value:'account'}
           ].map(({name, value}, key)=>(
             <li key={key} className="nav-item">
-               <Link className="nav-link" routeName={name}>{value}</Link>
+               <Link className="nav-link" routeName={value}>{name}</Link>
              </li>
            ))
         }
