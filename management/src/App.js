@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
 import Nav from './Nav'
-
+import Project from './Project'
 function Page({route}) {
   if(!route) { return <h1>404</h1>}
   switch(route.name) {
-  case 'project': return <h1>Home</h1>
-  case 'profile': return <h1>Account</h1>
+  case 'project': return <Project/>
+  case 'account': return <h1>Account</h1>
   default: return <h1>404</h1>
   }}
 
