@@ -1,27 +1,22 @@
 import React from 'react'
+import { Link } from 'react-router5'
 const Nav = (props) => (
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">BOSS</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+  <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <a className="navbar-brand" href="/dashboard">BOSS</a>
+    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="/dashboard/">Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#/project">Project</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#/account">Account</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#/event">Event</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#/finance">Finance</a>
-        </li>
+    <div className="collapse navbar-collapse" id="navbarNav">
+      <ul className="navbar-nav">
+        {
+          [{name: 'Project', value: 'project'},
+           {name: 'Account', value:'account'}
+          ].map(({name, value}, key)=>(
+            <li key={key} className="nav-item">
+               <Link className="nav-link" routeName={name}>{value}</Link>
+             </li>
+           ))
+        }
       </ul>
     </div>
   </nav>)
