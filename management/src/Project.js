@@ -8,13 +8,13 @@ const tableColumns = [{
   lens: r.lensPath(['project', 'name'])
 },{
   name: '房间数量',
-  lens: r.lensProp('roomCount')
+  lens: r.lensPath(['roomCount'])
 },{
   name: '账号数量',
   lens: r.lensProp('userCount')
 },{
   name: '仪表数量',
-  lens: r.lensPath(['device', 'count'])
+  lens: r.lensPath(['deviceCount'])
 },{
   name: '入住数量',
   lens: r.lensProp('hehe')
@@ -28,7 +28,7 @@ export default class Project extends React.Component {
         project: {name: 'hehe'},
         roomCount: 100,
         userCount: 15,
-        device:{count:100},
+        deviceCount:100,
         hehe:'hihi'
       }]
     }
