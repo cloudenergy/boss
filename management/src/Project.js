@@ -17,7 +17,10 @@ const tableColumns = [{
   lens: r.lensPath(['deviceCount'])
 },{
   name: '入住数量',
-  lens: r.lensProp('hehe')
+  lens: r.lensProp('activeCount')
+},{
+  name: '描述',
+  lens: r.lensPath(['project', 'description'])
 }]
 
 export default class Project extends React.Component {
