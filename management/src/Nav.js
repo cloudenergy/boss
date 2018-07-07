@@ -10,7 +10,8 @@ const Nav = (props) => (
       <ul className="navbar-nav">
         {
           [{name: 'Project', value: 'project'},
-           {name: 'Account', value:'account'}
+           {name: 'Account', value:'account'},
+           {name: 'Finance', value:'finance'}
           ].map(({name, value}, key)=>(
             <li key={key} className="nav-item">
                <Link className="nav-link" routeName={value}>{name}</Link>
