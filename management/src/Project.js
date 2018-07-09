@@ -5,22 +5,35 @@ import * as r from 'ramda'
 
 const tableColumns = [{
   name: '项目名称',
-  lens: r.lensPath(['project', 'name'])
+  lens: r.view(r.lensPath(['project', 'name']))
 },{
   name: '房间数量',
-  lens: r.lensPath(['roomCount'])
+  lens: r.view(r.lensPath(['roomCount']))
 },{
   name: '账号数量',
-  lens: r.lensProp('userCount')
+  lens: r.view(r.lensProp('userCount'))
 },{
   name: '仪表数量',
-  lens: r.lensPath(['deviceCount'])
+  lens: r.view(r.lensPath(['deviceCount']))
 },{
   name: '入住数量',
-  lens: r.lensProp('activeCount')
+  lens: r.view(r.lensProp('activeCount'))
 },{
   name: '描述',
-  lens: r.lensPath(['project', 'description'])
+  lens: r.view(r.lensPath(['project', 'description']))
+},{
+  name: '操作',
+  lens: r.compose(
+    project => (<div>
+               <button type="button" className="btn btn-link" onClick={_=>console.log(project)}>
+               管理
+               </button>
+               <button type="button" className="btn btn-link" onClick={_=>console.log(project)}>
+               删除
+               </button>
+               </div>),
+    r.view(r.lensPath(['project']))
+  )
 }]
 
 export default class Project extends React.Component {
@@ -53,8 +66,8 @@ export default class Project extends React.Component {
         <tbody>
         {this.state.projects.map((project,index)=>(
           <tr key={index}>
-            {tableColumns.map(col=>(
-              <td>{r.view(col.lens, project)}</td>
+            {tableColumns.map((col,index)=>(
+                <td key={index}>{col.lens(project)}</td>
             ))}
           </tr>
         ))}
