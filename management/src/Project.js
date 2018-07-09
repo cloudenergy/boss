@@ -2,6 +2,15 @@ import React from 'react'
 import {Observable} from 'rxjs-compat'
 import {API_URI} from './env'
 import * as r from 'ramda'
+import {createActionContext} from './Context'
+import * as Type from 'union-type'
+
+function isProject(project) {
+  return project && project.id && project.name
+}
+
+const ProjectAction = Type({Modify:[isProject], Delete:[String]})
+const {Context: ProjectContext, Val} = createActionContext()
 
 const tableColumns = [{
   name: '项目名称',
@@ -24,14 +33,18 @@ const tableColumns = [{
 },{
   name: '操作',
   lens: r.compose(
-    project => (<div>
-               <button type="button" className="btn btn-link" onClick={_=>console.log(project)}>
-               管理
-               </button>
-               <button type="button" className="btn btn-link" onClick={_=>console.log(project)}>
-               删除
-               </button>
-               </div>),
+    project => (<ProjectContext.Consumer>{actions=>(
+      <div>
+      <button type="button" className="btn btn-link" onClick={_=>actions.next(ProjectAction.Modify(project))}>
+        管理
+      </button>
+      <button type="button" className="btn btn-link" onClick={_=>actions.next(ProjectAction.Delete(project.id))}>
+        删除
+      </button>
+      </div>
+    )}
+
+               </ProjectContext.Consumer>),
     r.view(r.lensPath(['project']))
   )
 }]
@@ -40,21 +53,31 @@ export default class Project extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      projects: [{
-        project: {name: 'hehe'},
-        roomCount: 100,
-        userCount: 15,
-        deviceCount:100,
-        hehe:'hihi'
-      }]
+      projects: []
     }
   }
   componentDidMount() {
     Observable.ajax({url: `${API_URI}/v1.0/boss/projects`,crossDomain:true, withCredentials: true})
       .subscribe(({response})=>this.setState({projects: response}))
+
+    Val.flatMap(action => action.case({
+      Modify: (project) => Observable.ajax({url: `${API_URI}/v1.0/boss/projects/${project.id}`,
+                                           method: 'PUT',
+                                           crossDomain:true,
+                                           withCredentials: true,
+                                           body:project
+                                          }),
+      Delete: (id) => Observable.ajax({url: `${API_URI}/v1.0/boss/projects/${id}`,
+                                      method: 'DELETE',
+                                      crossDomain:true,
+                                      withCredentials: true
+                                      })
+    }))
+      .subscribe()
   }
   render() {
     return (
+      <ProjectContext.Provider value={Val}>
       <table className="table">
         <thead>
           <tr>
@@ -72,7 +95,8 @@ export default class Project extends React.Component {
           </tr>
         ))}
         </tbody>
-      </table>
+        </table>
+       </ProjectContext.Provider>
     )
   }
 }

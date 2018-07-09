@@ -1,6 +1,5 @@
 import React from 'react'
-import { Subject, Observable } from 'rxjs-compat'
-import Action from './Action'
+import { Subject } from 'rxjs-compat'
 
 export function createActionContext() {
   let A = new Subject()
@@ -8,5 +7,5 @@ export function createActionContext() {
     next=>console.debug('new Action:', next),
     error => console.error('ERROR: ', error)
   )
-  return  React.createContext(A)
+  return {Context: React.createContext(A), Val: A}
 }
