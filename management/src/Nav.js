@@ -9,9 +9,9 @@ const Nav = (props) => (
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         {
-          [{name: 'Project', value: 'project'},
-           {name: 'Account', value:'account'},
-           {name: 'Finance', value:'finance'}
+          [{name: '项目管理', value: 'project'},
+           {name: '账户管理', value:'account'},
+           {name: '平台财务', value:'finance'}
           ].map(({name, value}, key)=>(
             <li key={key} className="nav-item">
                <Link className="nav-link" routeName={value}>{name}</Link>

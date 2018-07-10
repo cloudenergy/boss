@@ -23,9 +23,6 @@ const payChannelTable = [{
   name: '申请时间',
   lens: r.compose(x=>new Date(x).toLocaleString(),
                   r.view(r.lensPath(['fundChannel', 'createdAt'])))
-},{
-  name: '明细查看',
-  lens: r.always(<button type="button" className="btn btn-link" onClick={e=>console.log(e)}>查看明细</button>)
 }]
 
 const withDrawTable =[{
@@ -62,7 +59,11 @@ export default class Finance extends React.Component {
     super(props)
     this.state = {
       payChannel: [],
-      withDraw: []
+      withDraw: [],
+      display:{
+        cashing: '',
+        banking: 'show',
+      }
     }
   }
   componentDidMount() {
@@ -72,25 +73,48 @@ export default class Finance extends React.Component {
    render() {
      return (
        <div>
-         <table className="table">
-           <thead>
-             <tr>
-               {payChannelTable.map((col, i) =>(
-                 <th key={i} scope="col">{col.name}</th>
+         <div className="accordion" id="banking-audit">
+           <div className="card">
+             <div className="card-header bg-warning" id="banking-audit-title"  onClick={_=>this.setState({display:{banking: 'show'}})}>
+               <h5 className="mb-0">
+                   银行卡审核
+               </h5>
+             </div>
+             <div id="collapseOne" className={"collapse " + this.state.display.banking} aria-labelledby="banking-audit-title" data-parent="#banking-audit">
+               <div className="card-body">
+                 <table className="table">
+                   <thead>
+                     <tr>
+                       {payChannelTable.map((col, i) =>(
+                         <th key={i} scope="col">{col.name}</th>
+                       ))}
+                     </tr>
+                   </thead>
+                 <tbody>
+               {this.state.payChannel.map((project,index)=>(
+                 <tr key={index}>
+                   {payChannelTable.map((col,index)=>(
+                     <td key={index}>{col.lens(project)}</td>
+                   ))}
+                 </tr>
                ))}
-             </tr>
-           </thead>
-         <tbody>
-         {this.state.payChannel.map((project,index)=>(
-           <tr key={index}>
-             {payChannelTable.map((col,index)=>(
-               <td key={index}>{col.lens(project)}</td>
-             ))}
-           </tr>
-         ))}
-       </tbody>
-         </table>
-         <table className="table">
+                   </tbody>
+                 </table>
+               </div>
+         </div>
+
+       </div>
+         </div>
+<div className="accordion" id="cashing-audit">
+           <div className="card">
+         <div className="card-header bg-info" id="cashing-audit-title" onClick={_=>this.setState({display:{cashing: 'show'}})}>
+               <h5 className="mb-0">
+                   提现审核
+               </h5>
+             </div>
+             <div id="cashing-audit-body" className={"collapse " + this.state.display.cashing} aria-labelledby="cashing-audit-title" data-parent="#cashing-audit">
+               <div className="card-body">
+                 <table className="table">
          <thead>
          <tr>
          {withDrawTable.map((col, i) =>(
@@ -108,6 +132,12 @@ export default class Finance extends React.Component {
          ))}
        </tbody>
          </table>
+               </div>
+         </div>
+
+       </div>
+         </div>
+
          </div>
     )
   }
