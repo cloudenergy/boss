@@ -2,6 +2,7 @@ import React from 'react'
 import {Observable} from 'rxjs-compat'
 import {API_URI} from './env'
 import * as r from 'ramda'
+import './Finance.css'
 
 const payChannelTable = [{
   name: '项目名称',
@@ -61,9 +62,14 @@ export default class Finance extends React.Component {
       payChannel: [],
       withDraw: [],
       display:{
-        cashing: '',
+        cashing: 'show',
         banking: 'show',
-      }
+      },
+      height: {
+        cashing: '300px',
+        banking: '300px'
+      },
+      expand: false
     }
   }
   componentDidMount() {
@@ -75,13 +81,16 @@ export default class Finance extends React.Component {
        <div>
          <div className="accordion" id="banking-audit">
            <div className="card">
-             <div className="card-header bg-warning" id="banking-audit-title"  onClick={_=>this.setState({display:{banking: 'show'}})}>
+             <div className="card-header bg-warning" id="banking-audit-title"  onClick={_=>{
+                 this.setState({display:{banking: 'show'},
+                                height:{banking: '700px'}})
+               }}>
                <h5 className="mb-0">
                    银行卡审核
                </h5>
              </div>
              <div id="collapseOne" className={"collapse " + this.state.display.banking} aria-labelledby="banking-audit-title" data-parent="#banking-audit">
-               <div className="card-body">
+               <div className="card-body" style={{height: this.state.height.banking}}>
                  <table className="table">
                    <thead>
                      <tr>
@@ -99,21 +108,37 @@ export default class Finance extends React.Component {
                  </tr>
                ))}
                    </tbody>
-                 </table>
-               </div>
+         </table>
+         <div className="mx-auto" style={{width: '100px'}}>
+         <button type="button" className="btn btn-link" onClick={() => this.setState(s=>{
+           let height = s.expand ? {cashing: '300px', banking:'300px'}: {cashing: '100px', banking: '500px'}
+           return {expand: !s.expand, height,
+                   display:{
+                     cashing: 'show',
+                     banking: 'show',
+                   }}
+         })}>
+         {this.state.expand?'收起':'展开'}
+       </button>
+         </div>
+         </div>
+
          </div>
 
        </div>
          </div>
 <div className="accordion" id="cashing-audit">
            <div className="card">
-         <div className="card-header bg-info" id="cashing-audit-title" onClick={_=>this.setState({display:{cashing: 'show'}})}>
+         <div className="card-header bg-info" id="cashing-audit-title" onClick={_=>{
+           this.setState({display:{cashing: 'show'},
+                          height:{cashing: '700px'}})
+         }}>
                <h5 className="mb-0">
                    提现审核
                </h5>
              </div>
              <div id="cashing-audit-body" className={"collapse " + this.state.display.cashing} aria-labelledby="cashing-audit-title" data-parent="#cashing-audit">
-               <div className="card-body">
+               <div className="card-body" style={{height: this.state.height.cashing}}>
                  <table className="table">
          <thead>
          <tr>
