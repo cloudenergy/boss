@@ -109,6 +109,7 @@ export default class Finance extends React.Component {
                ))}
                    </tbody>
          </table>
+         </div>
          <div className="mx-auto" style={{width: '100px'}}>
          <button type="button" className="btn btn-link" onClick={() => this.setState(s=>{
            let height = s.expand ? {cashing: '300px', banking:'300px'}: {cashing: '100px', banking: '500px'}
@@ -121,8 +122,6 @@ export default class Finance extends React.Component {
          {this.state.expand?'收起':'展开'}
        </button>
          </div>
-         </div>
-
          </div>
 
        </div>
