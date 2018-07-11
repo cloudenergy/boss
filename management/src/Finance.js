@@ -3,6 +3,12 @@ import {Observable} from 'rxjs-compat'
 import {API_URI} from './env'
 import * as r from 'ramda'
 import './Finance.css'
+import {createActionContext} from './Context'
+import * as Type from 'union-type'
+
+const BankingAction = Type({Approve:[Number], Deny:[Number], Popup:[Number], Close: []})
+
+const {Context, Val} = createActionContext()
 
 const payChannelTable = [{
   name: '项目名称',
@@ -24,35 +30,15 @@ const payChannelTable = [{
   name: '申请时间',
   lens: r.compose(x=>new Date(x).toLocaleString(),
                   r.view(r.lensPath(['fundChannel', 'createdAt'])))
-}]
-
-const withDrawTable =[{
-  name: '项目名称',
-  lens: r.view(r.lensPath(['channel', 'project', 'name']))
-},{
-  name: '交易账户',
-  lens: r.view(r.lensPath(['channel', 'name']))
-},{
-  name: '提现金额',
-  lens: r.view(r.lensProp('amount'))
-},{
-  name: '提现服务费',
-  lens: r.view(r.lensPath(['']))
-},{
-  name: '到账金额',
-  lens: r.view(r.lensProp(['meh']))
-},{
-  name: '操作后余额',
-  lens: r.view(r.lensPath(['fundChannel', 'createdAt']))
-},{
-  name: '提交时间',
-  lens: r.compose(x=>new Date(x).toLocaleString(),
-                  r.view(r.lensPath(['createdAt'])))
 },{
   name: '操作',
-  lens: r.always(<button type="button" className="btn btn-link" onClick={e=>console.log(e)}>
-                   审核
-                 </button>)
+  lens: ({fundChannel}) => (
+    <Context.Consumer>{action=>(
+      <button type="button" className="btn btn-link" onClick={e=>action.next(BankingAction.Popup(fundChannel.id))}>
+        审核
+      </button>
+    )}
+    </Context.Consumer>)
 }]
 
 export default class Finance extends React.Component {
@@ -60,109 +46,110 @@ export default class Finance extends React.Component {
     super(props)
     this.state = {
       payChannel: [],
-      withDraw: [],
-      display:{
-        cashing: 'show',
-        banking: 'show',
-      },
-      height: {
-        cashing: '300px',
-        banking: '300px'
-      },
-      expand: false
+      auditId: '',
+      popup: 'none',
     }
   }
   componentDidMount() {
     Observable.ajax({url: `${API_URI}/v1.0/boss/finance`,crossDomain:true, withCredentials: true})
-      .subscribe(({response})=>this.setState(response))
+              .subscribe(({response})=>this.setState(response))
+    Val.flatMap(action => action.case({
+      Popup: id => Observable.of(this.setState({auditId: id, popup: 'block'})),
+      Close: () => Observable.of(this.setState({popup: 'none'})),
+      Approve: id => Observable.ajax({
+        method: 'PUT',
+        url: `${API_URI}/v1.0/boss/fundChannels/${id}/status`,
+        body: {status: 'PASSED'},
+        crossDomain:true,
+        withCredentials: true}),
+      Deny: id => Observable.ajax({
+        method: 'PUT',
+        url: `${API_URI}/v1.0/boss/fundChannels/${id}/status`,
+        body: {status: 'DENY'},
+        crossDomain:true,
+        withCredentials: true})
+    })).subscribe()
   }
-   render() {
-     return (
-       <div>
-         <div className="accordion" id="banking-audit">
-           <div className="card">
-             <div className="card-header bg-warning" id="banking-audit-title"  onClick={_=>{
-                 this.setState({display:{banking: 'show'},
-                                height:{banking: '700px'}})
-               }}>
-               <h5 className="mb-0">
-                   银行卡审核
-               </h5>
-             </div>
-             <div id="collapseOne" className={"collapse " + this.state.display.banking} aria-labelledby="banking-audit-title" data-parent="#banking-audit">
-               <div className="card-body" style={{height: this.state.height.banking}}>
-                 <table className="table">
-                   <thead>
-                     <tr>
-                       {payChannelTable.map((col, i) =>(
-                         <th key={i} scope="col">{col.name}</th>
-                       ))}
-                     </tr>
-                   </thead>
-                 <tbody>
-               {this.state.payChannel.map((project,index)=>(
-                 <tr key={index}>
-                   {payChannelTable.map((col,index)=>(
-                     <td key={index}>{col.lens(project)}</td>
-                   ))}
-                 </tr>
-               ))}
-                   </tbody>
-         </table>
-         </div>
-         <div className="mx-auto" style={{width: '100px'}}>
-         <button type="button" className="btn btn-link" onClick={() => this.setState(s=>{
-           let height = s.expand ? {cashing: '300px', banking:'300px'}: {cashing: '100px', banking: '500px'}
-           return {expand: !s.expand, height,
-                   display:{
-                     cashing: 'show',
-                     banking: 'show',
-                   }}
-         })}>
-         {this.state.expand?'收起':'展开'}
-       </button>
-         </div>
-         </div>
-
-       </div>
-         </div>
-<div className="accordion" id="cashing-audit">
-           <div className="card">
-         <div className="card-header bg-info" id="cashing-audit-title" onClick={_=>{
-           this.setState({display:{cashing: 'show'},
-                          height:{cashing: '700px'}})
-         }}>
-               <h5 className="mb-0">
-                   提现审核
-               </h5>
-             </div>
-             <div id="cashing-audit-body" className={"collapse " + this.state.display.cashing} aria-labelledby="cashing-audit-title" data-parent="#cashing-audit">
-               <div className="card-body" style={{height: this.state.height.cashing}}>
-                 <table className="table">
-         <thead>
-         <tr>
-         {withDrawTable.map((col, i) =>(
-           <th key={i} scope="col">{col.name}</th>
-         ))}
-       </tr>
-         </thead>
-         <tbody>
-         {this.state.withDraw.map((project,index)=>(
-           <tr key={index}>
-             {withDrawTable.map((col,index)=>(
-               <td key={index}>{col.lens(project)}</td>
-             ))}
-           </tr>
-         ))}
-       </tbody>
-         </table>
-               </div>
-         </div>
-
-       </div>
-         </div>
-
-         </div>
+  render() {
+    return (
+      <div>
+        <Confirm show={this.state.popup} banking={this.state.payChannel.filter(p=> p.fundChannel.id=== this.state.auditId )} />
+        <div className="accordion" id="banking-audit">
+          <div className="card">
+            <div className="card-header bg-warning">
+              <h5 className="mb-0">
+                银行卡审核
+              </h5>
+            </div>
+            <div>
+              <div className="card-body">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      {payChannelTable.map((col, i) =>(
+                        <th key={i} scope="col">{col.name}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.payChannel.map((project,index)=>(
+                      <tr key={index}>
+                        {payChannelTable.map((col,index)=>(
+                          <td key={index}>{col.lens(project)}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     )
   }
 }
+
+const firstId = r.lensPath(['0','fundChannel','id'])
+
+const Confirm = (props) => (
+  <div className="modal" tabindex="-1" role="dialog" style={{display: props.show}}>
+    <div className="modal-dialog" role="document">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h5 className="modal-title">Modal title</h5>
+          <Context.Consumer>{action=>(
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={()=> action.next(BankingAction.Close)
+            }>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          )}
+          </Context.Consumer>
+        </div>
+        <div className="modal-body">
+          <ul>
+            {r.take(5)(payChannelTable).map((col,index)=>(
+              <li key={index}>{col.lens(props.banking[0])}</li>
+            ))}
+          </ul>
+        </div>
+        <Context.Consumer>{action=>(
+          <div className="modal-footer">
+            <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={()=>{
+                action.next(BankingAction.Approve(r.view(firstId, props.banking)))
+                action.next(BankingAction.Close)
+            }}>
+              通过审核
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={()=>{
+                console.log(props.banking)
+                action.next(BankingAction.Deny(r.view(firstId, props.banking)))
+                action.next(BankingAction.Close)
+            }}>审核失败</button>
+          </div>
+        )}
+        </Context.Consumer>
+      </div>
+    </div>
+  </div>
+)

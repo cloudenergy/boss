@@ -12,7 +12,8 @@ const routes = [
   { name: 'project', path: '/project' },
   { name: 'account', path: '/account' },
   { name: 'event', path: '/event' },
-  { name: 'finance', path: '/finance' },
+  { name: 'cashing', path: '/cashing' },
+  { name: 'banking', path: '/banking' },
 ]
 
 const router = createRouter(routes)
