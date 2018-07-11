@@ -10,6 +10,11 @@ const BankingAction = Type({Approve:[Number], Deny:[Number], Popup:[Number], Clo
 
 const {Context, Val} = createActionContext()
 
+const statusMap = {
+  'PASSED': '通过',
+  'DENY': '失败',
+  'PENDING': '待审核'
+}
 const payChannelTable = [{
   name: '项目名称',
   lens: r.view(r.lensPath(['fundChannel', 'project', 'name']))
@@ -24,7 +29,7 @@ const payChannelTable = [{
   lens: r.view(r.lensPath(['locate']))
 },{
   name: '审核',
-  lens: r.compose(r.ifElse(r.equals('PASSED'), r.always('通过'), r.always('失败')),
+  lens: r.compose(r.prop(r.__, statusMap),
                   r.view(r.lensPath(['fundChannel', 'status'])))
 },{
   name: '申请时间',
