@@ -43,7 +43,7 @@ const aggregateCashCatergory = r.map(
           r.identity))),
     r.map(r.compose(r.sum, r.map(r.prop('value')))),
     r.toPairs,
-    r.filter(([key,val])=>key!='现金'),
+    r.filter(([key,])=>key!=='现金'),
     r.map(([key,val])=>({name: key, value: currency(val)})),
   ))
 

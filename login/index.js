@@ -26,13 +26,13 @@ Observable.fromEvent(loginForm, 'submit')
   })
   .subscribe((result) => {
     let lensSuccess = r.lensPath(['response', 'code'])
-    if(r.view(lensSuccess, result) == 0) {
-      window.location = '/dashboard'
+    if(r.view(lensSuccess, result) === 0) {
+      window.location = '/'
     } else {
       let lensMessage = r.lensPath(['response', 'message'])
       window.alert(r.view(lensMessage, result))
     }
   },(error) =>{
-    window.alert('哪里太对')
+    window.alert('哪里不太对？')
     console.error(error)
   })

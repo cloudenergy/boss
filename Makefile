@@ -3,18 +3,18 @@ SHELL := /bin/bash
 
 .PHONY: login dashboard management public clean public/management
 
-public: public/dashboard/index.js public/login/index.js assets public/management
+public: public/index.js public/login/index.js assets public/management
 
 clean:
-	rm public/dashboard/index.js
+	rm public/index.js
 	rm public/login/index.js
 	rm -r public/management/
 
-public/dashboard/index.js: dashboard/index.js
-	env browserify dashboard/index.js -t envify > public/dashboard/index.js
+public/index.js: dashboard/index.js
+	env browserify dashboard/index.js -t envify > public/index.js
 
 dashboard: dashboard/*
-	watchify dashboard/index.js -t envify -dv -o public/dashboard/index.js
+	watchify dashboard/index.js -t envify -dv -o public/index.js
 
 public/login/index.js: login/index.js
 	env browserify login/index.js -t envify > public/login/index.js
