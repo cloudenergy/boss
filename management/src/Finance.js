@@ -39,7 +39,7 @@ const payChannelTable = [{
   name: '操作',
   lens: ({fundChannel}) => (
     <Context.Consumer>{action=>(
-      <button type="button" className="btn btn-link" onClick={e=>action.next(BankingAction.Popup(fundChannel.id))}>
+      <button type="button" className="btn btn-link" onClick={e=>action.next(BankingAction.Popup(fundChannel.id||-1))}>
         审核
       </button>
     )}
@@ -78,7 +78,7 @@ export default class Finance extends React.Component {
   render() {
     return (
       <div>
-        <Confirm show={this.state.popup} banking={this.state.payChannel.filter(p=> p.fundChannel.id=== this.state.auditId )} />
+        <Confirm show={this.state.popup} banking={this.state.payChannel.filter(p=> r.path(['fundChannel', 'id'])(p)=== this.state.auditId )} />
         <div className="accordion" id="banking-audit">
           <div className="card">
             <div className="card-header bg-warning">
