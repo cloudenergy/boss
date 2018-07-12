@@ -7,7 +7,7 @@ import {createActionContext} from './Context'
 import * as Type from 'union-type'
 import logo from './logo.png'
 
-const BankingAction = Type({Approve:[Number], Deny:[Number], Popup:[Number], Close: []})
+const BankingAction = Type({Approve:[Number], Deny:[Number], Popup:[Number, Boolean], Close: []})
 
 const {Context, Val} = createActionContext()
 
@@ -46,6 +46,7 @@ export default class Finance extends React.Component {
     this.state = {
       payChannel: [],
       auditId: '',
+      auditEnable: true,
       popup: 'none',
     }
   }
@@ -54,7 +55,7 @@ export default class Finance extends React.Component {
     loadData()
 
     Val.flatMap(action => action.case({
-      Popup: id => Observable.of(this.setState({auditId: id, popup: 'block'})),
+      Popup: (id,status) => Observable.of(this.setState({auditId: id, auditEnable: status, popup: 'block'})),
       Close: () => Observable.of(this.setState({popup: 'none'})),
       Approve: id => Observable.ajax({
         method: 'PUT',
@@ -77,7 +78,10 @@ export default class Finance extends React.Component {
   render() {
     return (
       <div>
-        <Confirm show={this.state.popup} banking={this.state.payChannel.filter(p=> r.path(['fundChannel', 'id'])(p)=== this.state.auditId )} />
+        <Confirm
+        enable={this.state.auditEnable}
+          show={this.state.popup}
+          banking={this.state.payChannel.filter(p=> r.path(['fundChannel', 'id'])(p)=== this.state.auditId )} />
         <div className="accordion" id="banking-audit">
           <div className="card">
             <div className="card-header bg-warning">
@@ -101,7 +105,8 @@ export default class Finance extends React.Component {
                       this.state.payChannel.map((project,index)=>(
                         <tr key={index} onClick={()=>{
                             let id = r.view(r.lensPath(['fundChannel', 'id']), project)
-                            action.next(BankingAction.Popup(id))
+                            let status = r.view(r.lensPath(['fundChannel', 'status']), project) === "PENDING"
+                            action.next(BankingAction.Popup(id, status))
                         }}>
                           {payChannelTable.map((col,index)=>(
                             <td key={index}>{col.lens(project)}</td>
@@ -144,7 +149,7 @@ const Confirm = (props) => (
             </div>
             <div className="col-9">
               <ul className="audit-content">
-                {r.take(5)(payChannelTable).map((col,index)=>(
+                {r.take(6)(payChannelTable).map((col,index)=>(
                   <li key={index}>{`${col.name}: ${col.lens(props.banking[0])}`}</li>
                 ))}
               </ul>
@@ -153,13 +158,13 @@ const Confirm = (props) => (
         </div>
         <Context.Consumer>{action=>(
           <div className="modal-footer">
-            <button type="button" className="btn btn-success" data-dismiss="modal" onClick={()=>{
+            <button type="button" disabled={!props.enable} className="btn btn-success" data-dismiss="modal" onClick={()=>{
                 action.next(BankingAction.Approve(r.view(firstId, props.banking)))
                 action.next(BankingAction.Close)
             }}>
               确认审核
             </button>
-            <button type="button" className="btn btn-danger" onClick={()=>{
+            <button type="button" disabled={!props.enable} className="btn btn-danger" onClick={()=>{
                 console.log(props.banking)
                 action.next(BankingAction.Deny(r.view(firstId, props.banking)))
                 action.next(BankingAction.Close)
