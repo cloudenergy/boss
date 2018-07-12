@@ -97,7 +97,6 @@ export default class Finance extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-
                     <Context.Consumer>{action=>(
                       this.state.payChannel.map((project,index)=>(
                         <tr data-toggle="modal" data-target="#audit-banking" key={index} onClick={()=>{
@@ -112,7 +111,6 @@ export default class Finance extends React.Component {
                       ))
                     )}
                     </Context.Consumer>
-
                   </tbody>
                 </table>
               </div>
@@ -128,12 +126,12 @@ const firstId = r.lensPath(['0','fundChannel','id'])
 
 const Confirm = (props) => (
   <div className="modal" id="audit-banking" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div className="modal-dialog" role="document">
-  <div className="modal-content">
-  <div className="modal-header">
-    <button type="button" className="close" aria-label="Close" data-dismiss="modal">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <div className="modal-dialog" role="document">
+      <div className="modal-content">
+        <div className="modal-header">
+          <button type="button" className="close" aria-label="Close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div className="modal-body container">
           <div className="row">
@@ -146,24 +144,24 @@ const Confirm = (props) => (
                   <li key={index}>{col.name}: {col.lens(props.banking[0])}</li>
                 ))}
               </ul>
-      </div>
-      </div>
-      </div>
-      <Context.Consumer>{action=>(
-        <div className="modal-footer">
-          <button type="button" disabled={!props.enable} className="btn btn-success" data-dismiss="modal" onClick={()=>{
-              action.next(BankingAction.Approve(r.view(firstId, props.banking)))
-          }}>
-            确认审核
-          </button>
-          <button type="button" disabled={!props.enable} className="btn btn-danger" data-dismiss="modal" onClick={()=>{
-              console.log(props.banking)
-              action.next(BankingAction.Deny(r.view(firstId, props.banking)))
-          }}>审核失败</button>
+            </div>
+          </div>
         </div>
-      )}
-      </Context.Consumer>
+        <Context.Consumer>{action=>(
+          <div className="modal-footer">
+            <button type="button" disabled={!props.enable} className="btn btn-success" data-dismiss="modal" onClick={()=>{
+                action.next(BankingAction.Approve(r.view(firstId, props.banking)))
+            }}>
+              确认审核
+            </button>
+            <button type="button" disabled={!props.enable} className="btn btn-danger" data-dismiss="modal" onClick={()=>{
+                console.log(props.banking)
+                action.next(BankingAction.Deny(r.view(firstId, props.banking)))
+            }}>审核失败</button>
+          </div>
+        )}
+        </Context.Consumer>
       </div>
-      </div>
-      </div>
+    </div>
+  </div>
 )
