@@ -145,7 +145,7 @@ const Confirm = (props) => (
         <div className="modal-body container">
           <div className="row">
             <div className="col-3">
-              <img src={logo} />
+              <img alt="logo" src={logo} />
             </div>
             <div className="col-9">
               <ul className="audit-content">
