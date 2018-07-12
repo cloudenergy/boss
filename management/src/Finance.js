@@ -7,7 +7,7 @@ import {createActionContext} from './Context'
 import * as Type from 'union-type'
 import logo from './logo.png'
 
-const BankingAction = Type({Approve:[Number], Deny:[Number], Popup:[Number, Boolean], Close: []})
+const BankingAction = Type({Approve:[Number], Deny:[Number], Popup:[Number, Boolean]})
 
 const {Context, Val} = createActionContext()
 
@@ -47,7 +47,6 @@ export default class Finance extends React.Component {
       payChannel: [],
       auditId: '',
       auditEnable: true,
-      popup: 'none',
     }
   }
   componentDidMount() {
@@ -55,8 +54,7 @@ export default class Finance extends React.Component {
     loadData()
 
     Val.flatMap(action => action.case({
-      Popup: (id,status) => Observable.of(this.setState({auditId: id, auditEnable: status, popup: 'block'})),
-      Close: () => Observable.of(this.setState({popup: 'none'})),
+      Popup: (id,status) => Observable.of(this.setState({auditId: id, auditEnable: status})),
       Approve: id => Observable.ajax({
         method: 'PUT',
         url: `${API_URI}/v1.0/boss/fundChannels/${id}/status`,
@@ -79,8 +77,7 @@ export default class Finance extends React.Component {
     return (
       <div>
         <Confirm
-        enable={this.state.auditEnable}
-          show={this.state.popup}
+          enable={this.state.auditEnable}
           banking={this.state.payChannel.filter(p=> r.path(['fundChannel', 'id'])(p)=== this.state.auditId )} />
         <div className="accordion" id="banking-audit">
           <div className="card">
@@ -103,7 +100,7 @@ export default class Finance extends React.Component {
 
                     <Context.Consumer>{action=>(
                       this.state.payChannel.map((project,index)=>(
-                        <tr key={index} onClick={()=>{
+                        <tr data-toggle="modal" data-target="#audit-banking" key={index} onClick={()=>{
                             let id = r.view(r.lensPath(['fundChannel', 'id']), project)
                             let status = r.view(r.lensPath(['fundChannel', 'status']), project) === "PENDING"
                             action.next(BankingAction.Popup(id, status))
@@ -130,17 +127,13 @@ export default class Finance extends React.Component {
 const firstId = r.lensPath(['0','fundChannel','id'])
 
 const Confirm = (props) => (
-  <div className="modal" tabindex="-1" role="dialog" style={{display: props.show}}>
-    <div className="modal-dialog" role="document">
-      <div className="modal-content">
-        <div className="modal-header">
-          <Context.Consumer>{action=>(
-            <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={()=> action.next(BankingAction.Close)
-            }>
-              <span aria-hidden="true">&times;</span>
-            </button>
-          )}
-          </Context.Consumer>
+  <div className="modal" id="audit-banking" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+  <div className="modal-content">
+  <div className="modal-header">
+    <button type="button" className="close" aria-label="Close" data-dismiss="modal">
+      <span aria-hidden="true">&times;</span>
+    </button>
         </div>
         <div className="modal-body container">
           <div className="row">
@@ -150,29 +143,27 @@ const Confirm = (props) => (
             <div className="col-9">
               <ul className="audit-content">
                 {r.take(6)(payChannelTable).map((col,index)=>(
-                  <li key={index}>{`${col.name}: ${col.lens(props.banking[0])}`}</li>
+                  <li key={index}>{col.name}: {col.lens(props.banking[0])}</li>
                 ))}
               </ul>
-            </div>
-          </div>
-        </div>
-        <Context.Consumer>{action=>(
-          <div className="modal-footer">
-            <button type="button" disabled={!props.enable} className="btn btn-success" data-dismiss="modal" onClick={()=>{
-                action.next(BankingAction.Approve(r.view(firstId, props.banking)))
-                action.next(BankingAction.Close)
-            }}>
-              确认审核
-            </button>
-            <button type="button" disabled={!props.enable} className="btn btn-danger" onClick={()=>{
-                console.log(props.banking)
-                action.next(BankingAction.Deny(r.view(firstId, props.banking)))
-                action.next(BankingAction.Close)
-            }}>审核失败</button>
-          </div>
-        )}
-        </Context.Consumer>
       </div>
-    </div>
-  </div>
+      </div>
+      </div>
+      <Context.Consumer>{action=>(
+        <div className="modal-footer">
+          <button type="button" disabled={!props.enable} className="btn btn-success" data-dismiss="modal" onClick={()=>{
+              action.next(BankingAction.Approve(r.view(firstId, props.banking)))
+          }}>
+            确认审核
+          </button>
+          <button type="button" disabled={!props.enable} className="btn btn-danger" data-dismiss="modal" onClick={()=>{
+              console.log(props.banking)
+              action.next(BankingAction.Deny(r.view(firstId, props.banking)))
+          }}>审核失败</button>
+        </div>
+      )}
+      </Context.Consumer>
+      </div>
+      </div>
+      </div>
 )

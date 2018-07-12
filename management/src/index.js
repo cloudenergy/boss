@@ -5,6 +5,8 @@ import browserPlugin from 'router5/plugins/browser'
 import {RouteProvider, Route} from 'react-router5'
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css'
+import 'jquery/dist/jquery.slim.js'
+import 'bootstrap/dist/js/bootstrap.js'
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
