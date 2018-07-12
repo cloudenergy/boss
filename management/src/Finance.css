@@ -1,3 +1,7 @@
-.card-body {
-  overflow-y: scroll;
+.audit-content {
+  list-style-type: none;
+}
+
+thead.sticky-top {
+  background-color: white;
 }
