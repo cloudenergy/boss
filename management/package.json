@@ -5,6 +5,7 @@
   "homepage": "https://boss.51dianxiaoge.com/management",
   "dependencies": {
     "bootstrap": "^4.1.1",
+    "dateformat": "^3.0.3",
     "fuse.js": "^3.2.1",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
