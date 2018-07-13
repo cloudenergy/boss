@@ -140,7 +140,7 @@ const firstId = r.lensPath(['0','fundChannel','id'])
 
 const Confirm = (props) => (
   <div className="modal" id="audit-banking" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div className="modal-dialog" role="document">
+    <div className="modal-dialog modal-lg" role="document">
       <div className="modal-content">
         <div className="modal-header">
           <button type="button" className="close" aria-label="Close" data-dismiss="modal">
@@ -150,14 +150,18 @@ const Confirm = (props) => (
         <div className="modal-body container">
           <div className="row">
             <div className="col-3">
-              <img alt="logo" src={logo} />
+              <img alt="logo" src={logo} style={{width: '160px'}} />
             </div>
-            <div className="col-9">
-              <ul className="audit-content">
-                {r.take(6)(payChannelTable).map((col,index)=>(
-                  <li key={index}>{col.name}: {col.lens(props.banking[0])}</li>
-                ))}
-              </ul>
+            <div className="col-9 border-left">
+
+              {r.take(6)(payChannelTable).map((col,index)=>(
+                <dl className="row">
+                  <dt className="col-4" key={index}>{col.name}:</dt>
+                  <dd className="col-8" key={index}>{col.lens(props.banking[0])}</dd>
+                </dl>
+              ))}
+
+
             </div>
           </div>
         </div>
