@@ -5,6 +5,7 @@
   "homepage": "https://boss.51dianxiaoge.com/management",
   "dependencies": {
     "bootstrap": "^4.1.1",
+    "fuse.js": "^3.2.1",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
     "ramda": "^0.25.0",

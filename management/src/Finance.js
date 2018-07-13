@@ -6,6 +6,10 @@ import './Finance.css'
 import {createActionContext} from './Context'
 import * as Type from 'union-type'
 import logo from './logo.png'
+import fuseOptFrom from './fuseOpt'
+import Fuse from 'fuse.js'
+
+const fuseOpt = fuseOptFrom(['fundChannel.project.name', 'account', 'subbranch', 'locate', 'fundChannel.status'])
 
 const BankingAction = Type({Approve:[Number], Deny:[Number], Popup:[Number, Boolean]})
 
@@ -47,6 +51,8 @@ export default class Finance extends React.Component {
       payChannel: [],
       auditId: '',
       auditEnable: true,
+      query: "",
+      fuse: new Fuse([], fuseOpt)
     }
   }
   componentDidMount() {
@@ -71,14 +77,18 @@ export default class Finance extends React.Component {
   }
   _loadData() {
     Observable.ajax({url: `${API_URI}/v1.0/boss/finance`,crossDomain:true, withCredentials: true})
-              .subscribe(({response})=>this.setState(response))
+              .subscribe(({response})=>this.setState({
+                payChannel: response.payChannel,
+                fuse: new Fuse(response.payChannel, fuseOpt)
+              }))
   }
   render() {
+    let filtered = this.state.query? this.state.fuse.search(this.state.query): this.state.payChannel
     return (
       <div>
         <Confirm
           enable={this.state.auditEnable}
-          banking={this.state.payChannel.filter(p=> r.path(['fundChannel', 'id'])(p)=== this.state.auditId )} />
+          banking={filtered.filter(p=> r.path(['fundChannel', 'id'])(p)=== this.state.auditId )} />
         <div className="accordion" id="banking-audit">
           <div className="card">
             <div className="card-header bg-warning">
@@ -88,36 +98,39 @@ export default class Finance extends React.Component {
             </div>
             <div>
               <div className="card-body">
-                <table className="table">
-                  <thead className="sticky-top">
-                    <tr>
-                      {payChannelTable.map((col, i) =>(
-                        <th key={i} scope="col">{col.name}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <Context.Consumer>{action=>(
-                      this.state.payChannel.map((project,index)=>(
-                        <tr data-toggle="modal" data-target="#audit-banking" key={index} onClick={()=>{
-                            let id = r.view(r.lensPath(['fundChannel', 'id']), project)
-                            let status = r.view(r.lensPath(['fundChannel', 'status']), project) === "PENDING"
-                            action.next(BankingAction.Popup(id, status))
-                        }}>
-                          {payChannelTable.map((col,index)=>(
-                            <td key={index}>{col.lens(project)}</td>
-                          ))}
-                        </tr>
-                      ))
-                    )}
-                    </Context.Consumer>
-                  </tbody>
-                </table>
+                <div class="form-group">
+                  <input className="form-control col-2" type="search" placeholder="搜索" aria-label="Search" onChange={e=> this.setState({query: e.target.value})} />
+                </div>
+                  <table className="table">
+                    <thead className="sticky-top">
+                      <tr>
+                        {payChannelTable.map((col, i) =>(
+                          <th key={i} scope="col">{col.name}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <Context.Consumer>{action=>(
+                        filtered.map((project,index)=>(
+                          <tr data-toggle="modal" data-target="#audit-banking" key={index} onClick={()=>{
+                              let id = r.view(r.lensPath(['fundChannel', 'id']), project)
+                              let status = r.view(r.lensPath(['fundChannel', 'status']), project) === "PENDING"
+                              action.next(BankingAction.Popup(id, status))
+                          }}>
+                            {payChannelTable.map((col,index)=>(
+                              <td key={index}>{col.lens(project)}</td>
+                            ))}
+                          </tr>
+                        ))
+                      )}
+                      </Context.Consumer>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
     )
   }
 }
