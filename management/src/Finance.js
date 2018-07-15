@@ -4,9 +4,6 @@ import {Observable} from 'rxjs-compat'
 import {API_URI} from './env'
 import * as r from 'ramda'
 import './Finance.css'
-import {createActionContext} from './Context'
-import * as Type from 'union-type'
-
 import fuseOptFrom from './fuseOpt'
 import Fuse from 'fuse.js'
 import datef from 'dateformat'
@@ -62,7 +59,7 @@ export default class Finance extends React.Component {
     }
   }
   componentDidMount() {
-    this.subscription = AuditContext.Var.startWith(AuditAction.Load).flatMap(action => action.case({
+    this.subscription = Var.startWith(AuditAction.Load).flatMap(action => action.case({
       Load: () => Observable
         .ajax({url: `${API_URI}/v1.0/boss/finance`,
                crossDomain:true,
@@ -78,13 +75,13 @@ export default class Finance extends React.Component {
         url: `${API_URI}/v1.0/boss/fundChannels/${id}/status`,
         body: {status: 'PASSED'},
         crossDomain:true,
-        withCredentials: true}).flatMap(()=>AuditContext.Var.next(AuditAction.Load)),
+        withCredentials: true}).flatMap(()=>Var.next(AuditAction.Load)),
       Deny: id => Observable.ajax({
         method: 'PUT',
         url: `${API_URI}/v1.0/boss/fundChannels/${id}/status`,
         body: {status: 'DENY'},
         crossDomain:true,
-        withCredentials: true}).flatMap(()=>AuditContext.Var.next(AuditAction.Load))
+        withCredentials: true}).flatMap(()=>Var.next(AuditAction.Load))
     })).subscribe()
   }
   componentWillUnmount(){
@@ -95,7 +92,7 @@ export default class Finance extends React.Component {
     let selected = filtered.find(p=> r.path(['fundChannel', 'id'])(p)=== this.state.auditId )
     return (
       <div>
-        <Context.Provider value={{actions: AuditContext.Var, table:payChannelTable, modalId }}>
+        <Context.Provider value={{actions: Var, table:payChannelTable, modalId }}>
           <Confirm enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
           <Table data={filtered} />
         </Context.Provider>
