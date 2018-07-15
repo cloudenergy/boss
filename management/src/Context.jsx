@@ -7,5 +7,8 @@ export function createActionContext() {
     next=>console.debug('new Action:', next),
     error => console.error('ERROR: ', error)
   )
-  return {Context: React.createContext(A), Val: A}
+  return {Context: React.createContext(A), Var: A}
 }
+
+
+export const AuditContext = createActionContext()
