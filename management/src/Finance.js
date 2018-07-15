@@ -1,3 +1,4 @@
+
 import React from 'react'
 import {Observable} from 'rxjs-compat'
 import {API_URI} from './env'
@@ -153,15 +154,12 @@ const Confirm = (props) => (
               <img alt="logo" src={logo} style={{width: '160px'}} />
             </div>
             <div className="col-9 border-left">
-
               {r.take(6)(payChannelTable).map((col,index)=>(
                 <dl className="row">
                   <dt className="col-4" key={index}>{col.name}:</dt>
                   <dd className="col-8" key={index}>{col.lens(props.banking[0])}</dd>
                 </dl>
               ))}
-
-
             </div>
           </div>
         </div>
