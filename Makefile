@@ -6,7 +6,7 @@ SHELL := /bin/bash
 public: public/index.js public/login/index.js assets public/management
 
 test:
-	cd management && yarn test-cov
+	cd management && yarn && yarn test-cov
 
 clean:
 	rm public/index.js
@@ -25,8 +25,8 @@ public/login/index.js: login/index.js
 login: login/*
 	watchify login/index.js -t envify -dv -o public/login/index.js
 
-public/management:
-	cd management && yarn && yarn build
+public/management: test
+	cd management && yarn build
 	cp -r management/build public/management
 
 management:
