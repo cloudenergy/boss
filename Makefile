@@ -1,9 +1,12 @@
 PATH := node_modules/.bin:$(PATH)
 SHELL := /bin/bash
 
-.PHONY: login dashboard management public clean public/management
+.PHONY: login dashboard management public clean public/management test
 
 public: public/index.js public/login/index.js assets public/management
+
+test:
+	cd management && yarn test-cov
 
 clean:
 	rm public/index.js
