@@ -1,11 +1,10 @@
 import {AuditAction} from '../Action'
 import React from 'react'
 import {AuditContext} from '../Context'
-import * as r from 'ramda'
 
 const {Context} = AuditContext
 const Table = ({data}) => (
-  <Context.Consumer>{({table, actions, modalId})=>(
+  <Context.Consumer>{({table, actions, modalId, idLens, statusLens})=>(
     <div className="accordion" id="banking-audit">
       <div className="card">
         <div className="card-header bg-warning">
@@ -32,9 +31,7 @@ const Table = ({data}) => (
                 {
                   data.map((project,index)=>(
                     <tr data-toggle="modal" data-target={'#'+modalId} key={index} onClick={()=>{
-                        let id = r.view(r.lensPath(['fundChannel', 'id']), project)
-                        let status = r.view(r.lensPath(['fundChannel', 'status']), project) === "PENDING"
-                        actions.next(AuditAction.Popup(id, status))
+                        actions.next(AuditAction.Popup(idLens(project), statusLens(project)))
                     }}>
                       {table.map((col,index)=>(
                         <td key={index}>{col.lens(project)}</td>
@@ -42,7 +39,6 @@ const Table = ({data}) => (
                     </tr>
                   ))
                 }
-
               </tbody>
             </table>
           </div>

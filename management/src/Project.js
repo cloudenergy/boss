@@ -10,7 +10,7 @@ function isProject(project) {
 }
 
 const ProjectAction = Type({Modify:[isProject], Delete:[String]})
-const {Context: ProjectContext, Val} = createActionContext()
+const {Context: ProjectContext, Var} = createActionContext()
 
 const tableColumns = [{
   name: '项目名称',
@@ -60,7 +60,7 @@ export default class Project extends React.Component {
     Observable.ajax({url: `${API_URI}/v1.0/boss/projects`,crossDomain:true, withCredentials: true})
       .subscribe(({response})=>this.setState({projects: response}))
 
-    Val.flatMap(action => action.case({
+    Var.flatMap(action => action.case({
       Modify: (project) => Observable.ajax({url: `${API_URI}/v1.0/boss/projects/${project.id}`,
                                            method: 'PUT',
                                            crossDomain:true,
@@ -77,7 +77,7 @@ export default class Project extends React.Component {
   }
   render() {
     return (
-      <ProjectContext.Provider value={Val}>
+      <ProjectContext.Provider value={Var}>
       <table className="table">
         <thead>
           <tr>

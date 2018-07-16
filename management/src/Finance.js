@@ -90,9 +90,11 @@ export default class Finance extends React.Component {
   render() {
     let filtered = this.state.query? this.state.fuse.search(this.state.query): this.state.payChannel
     let selected = filtered.find(p=> r.path(['fundChannel', 'id'])(p)=== this.state.auditId )
+    let idLens = r.view(r.lensPath(['fundChannel', 'id']))
+    let statusLens = r.compose(r.equals("PENDING"), r.view(r.lensPath(['fundChannel', 'status'])))
     return (
       <div>
-        <Context.Provider value={{actions: Var, table:payChannelTable, modalId }}>
+        <Context.Provider value={{actions: Var, table:payChannelTable, idLens, statusLens, modalId }}>
           <Confirm enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
           <Table data={filtered} />
         </Context.Provider>
