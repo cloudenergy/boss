@@ -41,7 +41,7 @@ const payChannelTable = [{
                   r.view(r.lensPath(['fundChannel', 'status'])))
 },{
   name: '申请时间',
-  lens: r.compose(x=>datef(Date.parse(x), 'yyyy年mm月dd日 HH:MM'),
+  lens: r.compose(x=>x && datef(Date.parse(x), 'yyyy年mm月dd日 HH:MM'),
                   r.view(r.lensPath(['fundChannel', 'createdAt'])))
 }]
 

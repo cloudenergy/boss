@@ -134,9 +134,7 @@ exports[`<Finance/> renders 1`] = `
                 </dt>
                 <dd
                   className="col-8"
-                >
-                  2018年07月16日 22:51
-                </dd>
+                />
               </dl>
             </div>
           </div>
