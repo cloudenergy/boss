@@ -6,6 +6,7 @@ before_script:
   - export TZ=Australia/Melbourne
 script:
   - make
+  - bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: pages
   skip-cleanup: true
