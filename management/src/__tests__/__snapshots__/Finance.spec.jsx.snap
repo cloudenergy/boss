@@ -1,297 +1,297 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Finance/> renders 1`] = `
-<div>
+Array [
   <div
     aria-hidden="true"
     className="modal"
     id="auditing"
     role="dialog"
     tabIndex="-1"
-  >
+>
     <div
-      className="modal-dialog modal-lg"
-      role="document"
+        className="modal-dialog modal-lg"
+        role="document"
     >
-      <div
-        className="modal-content"
-      >
         <div
-          className="modal-header"
+            className="modal-content"
         >
-          <button
-            aria-label="Close"
-            className="close"
-            data-dismiss="modal"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-            >
-              ×
-            </span>
-          </button>
-        </div>
-        <div
-          className="modal-body container"
-        >
-          <div
-            className="row"
-          >
             <div
-              className="col-3"
+                className="modal-header"
             >
-              <img
-                alt="logo"
-                src="logo.png"
-                style={
-                  Object {
-                    "width": "160px",
-                  }
-                }
-              />
+                <button
+                    aria-label="Close"
+                    className="close"
+                    data-dismiss="modal"
+                    type="button"
+                >
+                    <span
+                        aria-hidden="true"
+                    >
+                        ×
+                    </span>
+                </button>
             </div>
             <div
-              className="col-9 border-left"
+                className="modal-body container"
             >
-              <dl
-                className="row"
-              >
-                <dt
-                  className="col-4"
+                <div
+                    className="row"
                 >
-                  项目名称
-                  :
-                </dt>
-                <dd
-                  className="col-8"
-                />
-              </dl>
-              <dl
-                className="row"
-              >
-                <dt
-                  className="col-4"
-                >
-                  行卡号/支付宝账号
-                  :
-                </dt>
-                <dd
-                  className="col-8"
-                />
-              </dl>
-              <dl
-                className="row"
-              >
-                <dt
-                  className="col-4"
-                >
-                  支行名称
-                  :
-                </dt>
-                <dd
-                  className="col-8"
-                />
-              </dl>
-              <dl
-                className="row"
-              >
-                <dt
-                  className="col-4"
-                >
-                  账户归属区域
-                  :
-                </dt>
-                <dd
-                  className="col-8"
-                />
-              </dl>
-              <dl
-                className="row"
-              >
-                <dt
-                  className="col-4"
-                >
-                  审核
-                  :
-                </dt>
-                <dd
-                  className="col-8"
-                >
-                  <span
-                    className={undefined}
-                  />
-                </dd>
-              </dl>
-              <dl
-                className="row"
-              >
-                <dt
-                  className="col-4"
-                >
-                  申请时间
-                  :
-                </dt>
-                <dd
-                  className="col-8"
-                />
-              </dl>
+                    <div
+                        className="col-3"
+                    >
+                        <img
+                            alt="logo"
+                            src="logo.png"
+                            style={
+                                Object {
+                                    "width": "160px",
+                                  }
+                            }
+                        />
+                    </div>
+                    <div
+                        className="col-9 border-left"
+                    >
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                项目名称
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                行卡号/支付宝账号
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                支行名称
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                账户归属区域
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                审核
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            >
+                                <span
+                                    className={undefined}
+                                />
+                            </dd>
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                申请时间
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div
+                className="modal-footer"
+            >
+                <button
+                    className="btn btn-success"
+                    data-dismiss="modal"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                >
+                    确认审核
+                </button>
+                <button
+                    className="btn btn-danger"
+                    data-dismiss="modal"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                >
+                    审核失败
+                </button>
+            </div>
         </div>
-        <div
-          className="modal-footer"
-        >
-          <button
-            className="btn btn-success"
-            data-dismiss="modal"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
-          >
-            确认审核
-          </button>
-          <button
-            className="btn btn-danger"
-            data-dismiss="modal"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
-          >
-            审核失败
-          </button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>,
   <div
     className="accordion"
     id="banking-audit"
-  >
+>
     <div
-      className="card"
+        className="card"
     >
-      <div
-        className="card-header bg-warning"
-      >
-        <h5
-          className="mb-0"
-        >
-          银行卡审核
-        </h5>
-      </div>
-      <div>
         <div
-          className="card-body"
+            className="card-header bg-info"
         >
-          <div
-            className="form-group"
-          >
-            <input
-              aria-label="Search"
-              className="form-control col-2"
-              onChange={[Function]}
-              placeholder="搜索"
-              type="search"
-            />
-          </div>
-          <table
-            className="table table-hover"
-          >
-            <thead
-              className="sticky-top"
+            <h5
+                className="mb-0"
             >
-              <tr>
-                <th
-                  scope="col"
-                >
-                  项目名称
-                </th>
-                <th
-                  scope="col"
-                >
-                  行卡号/支付宝账号
-                </th>
-                <th
-                  scope="col"
-                >
-                  支行名称
-                </th>
-                <th
-                  scope="col"
-                >
-                  账户归属区域
-                </th>
-                <th
-                  scope="col"
-                >
-                  审核
-                </th>
-                <th
-                  scope="col"
-                >
-                  申请时间
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                data-target="#auditing"
-                data-toggle="modal"
-                onClick={[Function]}
-              >
-                <td>
-                  杭州海兴电力科技股份有限公司
-                </td>
-                <td>
-                  123@gmail.com
-                </td>
-                <td>
-                  
-                </td>
-                <td />
-                <td>
-                  <span
-                    className="text-success"
-                  >
-                    通过
-                  </span>
-                </td>
-                <td>
-                  2018年05月28日 15:59
-                </td>
-              </tr>
-              <tr
-                data-target="#auditing"
-                data-toggle="modal"
-                onClick={[Function]}
-              >
-                <td>
-                  测试项目
-                </td>
-                <td>
-                  000000000
-                </td>
-                <td>
-                  
-                </td>
-                <td />
-                <td>
-                  <span
-                    className="text-success"
-                  >
-                    通过
-                  </span>
-                </td>
-                <td>
-                  2018年06月07日 16:09
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                银行卡审核
+            </h5>
         </div>
-      </div>
+        <div>
+            <div
+                className="card-body"
+            >
+                <div
+                    className="form-group"
+                >
+                    <input
+                        aria-label="Search"
+                        className="form-control col-2"
+                        onChange={[Function]}
+                        placeholder="搜索"
+                        type="search"
+                    />
+                </div>
+                <table
+                    className="table table-hover"
+                >
+                    <thead
+                        className="sticky-top"
+                    >
+                        <tr>
+                            <th
+                                scope="col"
+                            >
+                                项目名称
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                行卡号/支付宝账号
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                支行名称
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                账户归属区域
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                审核
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                申请时间
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            data-target="#auditing"
+                            data-toggle="modal"
+                            onClick={[Function]}
+                        >
+                            <td>
+                                杭州海兴电力科技股份有限公司
+                            </td>
+                            <td>
+                                123@gmail.com
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td />
+                            <td>
+                                <span
+                                    className="text-success"
+                                >
+                                    通过
+                                </span>
+                            </td>
+                            <td>
+                                2018年05月28日 15:59
+                            </td>
+                        </tr>
+                        <tr
+                            data-target="#auditing"
+                            data-toggle="modal"
+                            onClick={[Function]}
+                        >
+                            <td>
+                                测试项目
+                            </td>
+                            <td>
+                                000000000
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td />
+                            <td>
+                                <span
+                                    className="text-success"
+                                >
+                                    通过
+                                </span>
+                            </td>
+                            <td>
+                                2018年06月07日 16:09
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+</div>,
+]
 `;

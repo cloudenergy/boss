@@ -9,13 +9,11 @@ exports[`Table renders a Table base on context 1`] = `
     className="card"
   >
     <div
-      className="card-header bg-warning"
+      className="card-header undefined"
     >
       <h5
         className="mb-0"
-      >
-        银行卡审核
-      </h5>
+      />
     </div>
     <div>
       <div
