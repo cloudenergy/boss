@@ -54,8 +54,15 @@ const withDrawTable =[{
                   r.view(r.lensPath(['createdAt'])))
 }]
 
-const modalId = "auditing"
-const color = "bg-info"
+const contextValue = {
+  actions: Var,
+  table:withDrawTable,
+  idLens: r.prop('id'),
+  statusLens: r.compose(r.equals("PENDING"), r.prop('status')),
+  modalId: "auditing",
+  color: "bg-info"
+}
+
 export default class WithdrawAudit extends React.Component {
   constructor(props) {
     super(props)
@@ -99,13 +106,11 @@ export default class WithdrawAudit extends React.Component {
   render() {
     let filtered = this.state.query? this.state.fuse.search(this.state.query): this.state.withDraw
     let selected = filtered.find(p=> r.prop('id')(p) === this.state.auditId )
-    let idLens = r.prop('id')
-    let statusLens = r.compose(r.equals("PENDING"), r.prop('status'))
     return (
-        <Context.Provider value={{actions: Var, table:withDrawTable, idLens, statusLens, modalId, color }}>
-          <Confirm enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
-          <Table title="提现审核" data={filtered} />
-        </Context.Provider>
+      <Context.Provider value={contextValue}>
+        <Confirm enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
+        <Table title="提现审核" data={filtered} />
+      </Context.Provider>
     )
   }
 }

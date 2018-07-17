@@ -45,7 +45,14 @@ const payChannelTable = [{
                   r.view(r.lensPath(['fundChannel', 'createdAt'])))
 }]
 
-const modalId = "auditing"
+const contextValue = {
+  actions: Var,
+  table:payChannelTable,
+  idLens: r.view(r.lensPath(['fundChannel', 'id'])),
+  statusLens: r.compose(r.equals("PENDING"), r.view(r.lensPath(['fundChannel', 'status']))),
+  modalId: "auditing",
+  color: "bg-info",
+}
 
 export default class Finance extends React.Component {
   constructor(props) {
@@ -90,15 +97,11 @@ export default class Finance extends React.Component {
   render() {
     let filtered = this.state.query? this.state.fuse.search(this.state.query): this.state.payChannel
     let selected = filtered.find(p=> r.path(['fundChannel', 'id'])(p)=== this.state.auditId )
-    let idLens = r.view(r.lensPath(['fundChannel', 'id']))
-    let statusLens = r.compose(r.equals("PENDING"), r.view(r.lensPath(['fundChannel', 'status'])))
     return (
-      <div>
-        <Context.Provider value={{actions: Var, table:payChannelTable, idLens, statusLens, modalId }}>
+        <Context.Provider value={contextValue}>
           <Confirm enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
           <Table data={filtered} title="银行卡审核" />
         </Context.Provider>
-      </div>
     )
   }
 }
