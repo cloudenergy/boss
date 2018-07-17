@@ -3,13 +3,13 @@ import React from 'react'
 import {AuditContext} from '../Context'
 
 const {Context} = AuditContext
-const Table = ({data}) => (
-  <Context.Consumer>{({table, actions, modalId, idLens, statusLens})=>(
+const Table = ({data, title}) => (
+    <Context.Consumer>{({table, actions, modalId, idLens, statusLens, color})=>(
     <div className="accordion" id="banking-audit">
       <div className="card">
-        <div className="card-header bg-warning">
+        <div className={"card-header " + color}>
           <h5 className="mb-0">
-            银行卡审核
+      {title}
           </h5>
         </div>
         <div>

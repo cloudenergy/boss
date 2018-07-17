@@ -3,7 +3,7 @@ import './App.css';
 import Nav from './Nav'
 import Project from './Project'
 import Finance from './Finance'
-import FinanceWithdraw from './FinanceWithdraw'
+import WithdrawAudit from './WithdrawAudit'
 
 function Page({route}) {
   if(!route) { return <h1>404</h1>}
@@ -11,7 +11,7 @@ function Page({route}) {
   case 'project': return <Project/>
   case 'account': return <h1>Account</h1>
   case 'banking': return <Finance/>
-  case 'cashing': return <FinanceWithdraw/>
+  case 'cashing': return <WithdrawAudit/>
   default: return <h1>404</h1>
   }}
 

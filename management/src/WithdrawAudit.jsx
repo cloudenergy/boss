@@ -1,4 +1,3 @@
-
 import React from 'react'
 import {Observable} from 'rxjs-compat'
 import {API_URI} from './env'
@@ -12,46 +11,56 @@ import {AuditContext} from './Context'
 import Confirm from './audit/Confirm'
 import Table from './audit/Table'
 const {Context, Var} = AuditContext
-const fuseOpt = fuseOptFrom(['fundChannel.project.name', 'account', 'subbranch', 'locate', 'fundChannel.status'])
+
+const fuseOpt = fuseOptFrom(['channel.project.name', 'channel.name', 'createdAt'])
 
 const statusMap = {
   'PASSED': {color: 'text-success', text: '通过'},
-  'DENY': {color: 'text-danger', text: '失败'},
-  'PENDING': {color: 'text-warning', text:'待审核'}
+  'AUDITFAILURE': {color: 'text-danger', text: '审核失败'},
+  'PROCESSFAILURE': {color: 'text-danger', text: '处理失败'},
+  'PENDING': {color: 'text-warning', text:'待审核'},
+  'PROCESSING':{color: 'text-info', text: '正在处理'},
+  'DONE': {color: 'text-success', text: '交易成功'}
 }
 const lensStatusMap = (status, val) => r.lensPath([status, val])
 
-const payChannelTable = [{
+const withDrawTable =[{
   name: '项目名称',
-  lens: r.view(r.lensPath(['fundChannel', 'project', 'name']))
+  lens: r.view(r.lensPath(['channel', 'project', 'name']))
 },{
-  name: '行卡号/支付宝账号',
-  lens: r.view(r.lensPath(['account']))
+  name: '交易账户',
+  lens: r.view(r.lensPath(['channel', 'name']))
 },{
-  name: '支行名称',
-  lens: r.view(r.lensProp('subbranch'))
+  name: '提现金额',
+  lens: r.view(r.lensProp('amount'))
 },{
-  name: '账户归属区域',
-  lens: r.view(r.lensPath(['locate']))
+  name: '提现服务费',
+  lens: r.view(r.lensPath(['']))
 },{
-  name: '审核',
+  name: '到账金额',
+  lens: r.view(r.lensProp(['meh']))
+},{
+  name: '操作后余额',
+  lens: r.view(r.lensPath(['fundChannel', 'createdAt']))
+},{
+  name: '状态',
   lens: r.compose(status=><span className={r.view(lensStatusMap(status, 'color'))(statusMap)}>
     {r.view(lensStatusMap(status, 'text'))(statusMap)}
   </span>,
-                  r.view(r.lensPath(['fundChannel', 'status'])))
+                  r.prop('status'))
 },{
-  name: '申请时间',
+  name: '提交时间',
   lens: r.compose(x=>x && datef(Date.parse(x), 'yyyy年mm月dd日 HH:MM'),
-                  r.view(r.lensPath(['fundChannel', 'createdAt'])))
+                  r.view(r.lensPath(['createdAt'])))
 }]
 
 const modalId = "auditing"
-
-export default class Finance extends React.Component {
+const color = "bg-info"
+export default class WithdrawAudit extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      payChannel: [],
+      withDraw: [],
       auditId: '',
       auditEnable: true,
       query: "",
@@ -65,21 +74,21 @@ export default class Finance extends React.Component {
                crossDomain:true,
                withCredentials: true})
         .map(({response})=>this.setState({
-          payChannel: response.payChannel,
-          fuse: new Fuse(response.payChannel, fuseOpt)
+          withDraw: response.withDraw,
+          fuse: new Fuse(response.withDraw, fuseOpt)
         })),
       Popup: (id,status) => Observable.of(this.setState({auditId: id, auditEnable: status})),
       Query: (str) => Observable.of(this.setState({query: str})),
       Approve: id => Observable.ajax({
         method: 'PUT',
-        url: `${API_URI}/v1.0/boss/fundChannels/${id}/status`,
+        url: `${API_URI}/v1.0/boss/withdraw/${id}/status`,
         body: {status: 'PASSED'},
         crossDomain:true,
         withCredentials: true}).flatMap(()=>Var.next(AuditAction.Load)),
       Deny: id => Observable.ajax({
         method: 'PUT',
-        url: `${API_URI}/v1.0/boss/fundChannels/${id}/status`,
-        body: {status: 'DENY'},
+        url: `${API_URI}/v1.0/boss/withdraw/${id}/status`,
+        body: {status: 'AUDITFAILURE'},
         crossDomain:true,
         withCredentials: true}).flatMap(()=>Var.next(AuditAction.Load))
     })).subscribe()
@@ -88,17 +97,15 @@ export default class Finance extends React.Component {
     this.subscription.unsubscribe()
   }
   render() {
-    let filtered = this.state.query? this.state.fuse.search(this.state.query): this.state.payChannel
-    let selected = filtered.find(p=> r.path(['fundChannel', 'id'])(p)=== this.state.auditId )
-    let idLens = r.view(r.lensPath(['fundChannel', 'id']))
-    let statusLens = r.compose(r.equals("PENDING"), r.view(r.lensPath(['fundChannel', 'status'])))
+    let filtered = this.state.query? this.state.fuse.search(this.state.query): this.state.withDraw
+    let selected = filtered.find(p=> r.prop('id')(p) === this.state.auditId )
+    let idLens = r.prop('id')
+    let statusLens = r.compose(r.equals("PENDING"), r.prop('status'))
     return (
-      <div>
-        <Context.Provider value={{actions: Var, table:payChannelTable, idLens, statusLens, modalId }}>
+        <Context.Provider value={{actions: Var, table:withDrawTable, idLens, statusLens, modalId, color }}>
           <Confirm enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
-          <Table data={filtered} title="银行卡审核" />
+          <Table title="提现审核" data={filtered} />
         </Context.Provider>
-      </div>
     )
   }
 }
