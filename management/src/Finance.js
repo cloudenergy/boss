@@ -1,7 +1,7 @@
 
 import React from 'react'
 import {Observable} from 'rxjs-compat'
-import {API_URI} from './env'
+import {rest} from './utils'
 import * as r from 'ramda'
 import './Finance.css'
 import fuseOptFrom from './fuseOpt'
@@ -67,28 +67,21 @@ export default class Finance extends React.Component {
   }
   componentDidMount() {
     this.subscription = Var.startWith(AuditAction.Load).flatMap(action => action.case({
-      Load: () => Observable
-        .ajax({url: `${API_URI}/v1.0/boss/finance`,
-               crossDomain:true,
-               withCredentials: true})
+      Load: () => rest('boss/finance')
         .map(({response})=>this.setState({
           payChannel: response.payChannel,
           fuse: new Fuse(response.payChannel, fuseOpt)
         })),
       Popup: (id,status) => Observable.of(this.setState({auditId: id, auditEnable: status})),
       Query: (str) => Observable.of(this.setState({query: str})),
-      Approve: id => Observable.ajax({
+      Approve: id => rest(`boss/fundChannels/${id}/status`, {
         method: 'PUT',
-        url: `${API_URI}/v1.0/boss/fundChannels/${id}/status`,
         body: {status: 'PASSED'},
-        crossDomain:true,
-        withCredentials: true}).flatMap(()=>Var.next(AuditAction.Load)),
-      Deny: id => Observable.ajax({
+      }).flatMap(()=>Var.next(AuditAction.Load)),
+      Deny: id => rest(`boss/fundChannels/${id}/status`, {
         method: 'PUT',
-        url: `${API_URI}/v1.0/boss/fundChannels/${id}/status`,
         body: {status: 'DENY'},
-        crossDomain:true,
-        withCredentials: true}).flatMap(()=>Var.next(AuditAction.Load))
+      }).flatMap(()=>Var.next(AuditAction.Load))
     })).subscribe()
   }
   componentWillUnmount(){
