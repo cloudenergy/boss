@@ -73,7 +73,20 @@ Array [
                             <dt
                                 className="col-4"
                             >
-                                行卡号/支付宝账号
+                                账户名
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                银行卡号/支付宝账号
                                 :
                             </dt>
                             <dd
@@ -210,7 +223,12 @@ Array [
                             <th
                                 scope="col"
                             >
-                                行卡号/支付宝账号
+                                账户名
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                银行卡号/支付宝账号
                             </th>
                             <th
                                 scope="col"
@@ -244,6 +262,9 @@ Array [
                                 杭州海兴电力科技股份有限公司
                             </td>
                             <td>
+                                heheda
+                            </td>
+                            <td>
                                 123@gmail.com
                             </td>
                             <td>
@@ -268,6 +289,9 @@ Array [
                         >
                             <td>
                                 测试项目
+                            </td>
+                            <td>
+                                xxxxxxx
                             </td>
                             <td>
                                 000000000

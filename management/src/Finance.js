@@ -25,7 +25,10 @@ const payChannelTable = [{
   name: '项目名称',
   lens: r.view(r.lensPath(['fundChannel', 'project', 'name']))
 },{
-  name: '行卡号/支付宝账号',
+  name: '账户名',
+  lens: r.view(r.lensPath(['fundChannel','name']))
+},{
+  name: '银行卡号/支付宝账号',
   lens: r.view(r.lensPath(['account']))
 },{
   name: '支行名称',
