@@ -51,7 +51,7 @@ const contextValue = {
   idLens: r.view(r.lensPath(['fundChannel', 'id'])),
   statusLens: r.compose(r.equals("PENDING"), r.view(r.lensPath(['fundChannel', 'status']))),
   modalId: "auditing",
-  color: "bg-info",
+  color: "bg-warning",
 }
 
 export default class Finance extends React.Component {

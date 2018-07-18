@@ -76,10 +76,7 @@ export default class WithdrawAudit extends React.Component {
   }
   componentDidMount() {
     this.subscription = Var.startWith(AuditAction.Load).flatMap(action => action.case({
-      Load: () => Observable
-        .ajax({url: `${API_URI}/v1.0/boss/finance`,
-               crossDomain:true,
-               withCredentials: true})
+      Load: () => rest('boss/finance')
         .map(({response})=>this.setState({
           withDraw: response.withDraw,
           fuse: new Fuse(response.withDraw, fuseOpt)

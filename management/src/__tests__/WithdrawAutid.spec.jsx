@@ -11,7 +11,7 @@ import WithdrawAudit from '../WithdrawAudit';
 const {Context} = AuditContext
 Enzyme.configure({ adapter: new Adapter() })
 
-const withdraw = {withdraw:[
+const withdraw = {withDraw:[
   {
     "id": 2,
     "projectId": "6367598515924897792",

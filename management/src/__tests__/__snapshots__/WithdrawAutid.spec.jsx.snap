@@ -270,7 +270,64 @@ Array [
                             </th>
                         </tr>
                     </thead>
-                    <tbody />
+                    <tbody>
+                        <tr
+                            data-target="#auditing"
+                            data-toggle="modal"
+                            onClick={[Function]}
+                        >
+                            <td>
+                                公寓
+                            </td>
+                            <td>
+                                赵
+                            </td>
+                            <td>
+                                1000
+                            </td>
+                            <td />
+                            <td />
+                            <td />
+                            <td>
+                                <span
+                                    className="text-success"
+                                >
+                                    交易成功
+                                </span>
+                            </td>
+                            <td>
+                                2018年03月19日 18:12
+                            </td>
+                        </tr>
+                        <tr
+                            data-target="#auditing"
+                            data-toggle="modal"
+                            onClick={[Function]}
+                        >
+                            <td>
+                                公寓
+                            </td>
+                            <td>
+                                赵
+                            </td>
+                            <td>
+                                1000
+                            </td>
+                            <td />
+                            <td />
+                            <td />
+                            <td>
+                                <span
+                                    className="text-info"
+                                >
+                                    正在处理
+                                </span>
+                            </td>
+                            <td>
+                                2018年03月19日 18:12
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
