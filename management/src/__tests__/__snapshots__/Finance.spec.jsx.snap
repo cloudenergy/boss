@@ -172,7 +172,7 @@ Array [
         className="card"
     >
         <div
-            className="card-header bg-warning"
+            className="card-header bg-info"
         >
             <h5
                 className="mb-0"

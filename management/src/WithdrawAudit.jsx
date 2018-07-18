@@ -60,7 +60,7 @@ const contextValue = {
   idLens: r.prop('id'),
   statusLens: r.compose(r.equals("PENDING"), r.prop('status')),
   modalId: "auditing",
-  color: "bg-info"
+  color: "bg-warning",
 }
 
 export default class WithdrawAudit extends React.Component {
