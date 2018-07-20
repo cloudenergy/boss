@@ -76,7 +76,7 @@ export default class WithdrawAudit extends React.Component {
   }
   componentDidMount() {
     this.subscription = Var.startWith(AuditAction.Load).flatMap(action => action.case({
-      Load: () => rest('boss/finance')
+      Load: () => rest('boss/withDraw')
         .map(({response})=>this.setState({
           withDraw: response.withDraw,
           fuse: new Fuse(response.withDraw, fuseOpt)

@@ -35,7 +35,8 @@ const payChannelTable = [{
   lens: r.view(r.lensProp('subbranch'))
 },{
   name: '账户归属区域',
-  lens: r.view(r.lensPath(['locate']))
+  lens: x =>
+    r.path(['locate', 'province'], x) + r.path(['locate', 'city'], x) + r.path(['locate', 'district'],x)
 },{
   name: '审核',
   lens: r.compose(status=><span className={r.view(lensStatusMap(status, 'color'))(statusMap)}>
@@ -70,7 +71,7 @@ export default class Finance extends React.Component {
   }
   componentDidMount() {
     this.subscription = Var.startWith(AuditAction.Load).flatMap(action => action.case({
-      Load: () => rest('boss/finance')
+      Load: () => rest('boss/payChannels')
         .map(({response})=>this.setState({
           payChannel: response.payChannel,
           fuse: new Fuse(response.payChannel, fuseOpt)
