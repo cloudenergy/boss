@@ -117,7 +117,9 @@ Array [
                             </dt>
                             <dd
                                 className="col-8"
-                            />
+                            >
+                                NaN
+                            </dd>
                         </dl>
                         <dl
                             className="row"
@@ -270,7 +272,9 @@ Array [
                             <td>
                                 
                             </td>
-                            <td />
+                            <td>
+                                NaN
+                            </td>
                             <td>
                                 <span
                                     className="text-success"
@@ -299,7 +303,9 @@ Array [
                             <td>
                                 
                             </td>
-                            <td />
+                            <td>
+                                NaN
+                            </td>
                             <td>
                                 <span
                                     className="text-success"
