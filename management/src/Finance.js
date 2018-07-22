@@ -10,8 +10,12 @@ import datef from 'dateformat'
 import {AuditAction} from './Action'
 import {AuditContext} from './Context'
 import Confirm from './audit/Confirm'
+import Edit from './audit/Edit'
 import Table from './audit/Table'
+import $ from 'jquery'
+
 const {Context, Var} = AuditContext
+
 const fuseOpt = fuseOptFrom(['fundChannel.project.name', 'account', 'subbranch', 'locate', 'fundChannel.status'])
 
 const statusMap = {
@@ -47,6 +51,15 @@ const payChannelTable = [{
   name: '申请时间',
   lens: r.compose(x=>x && datef(Date.parse(x), 'yyyy年mm月dd日 HH:MM'),
                   r.view(r.lensPath(['fundChannel', 'createdAt'])))
+},{
+  name: '操作',
+  lens: r.compose(id=>(
+    <button onClick={e=> {
+      e.stopPropagation();
+      $('#finance-edit').modal('show');
+      Var.next(AuditAction.Edit(id))
+    }} className="btn btn-link">编辑</button>),
+                  r.prop('fundChannelId'))
 }]
 
 const contextValue = {
@@ -58,6 +71,7 @@ const contextValue = {
   color: "bg-info",
 }
 
+const tableLens = r.lensProp('table')
 export default class Finance extends React.Component {
   constructor(props) {
     super(props)
@@ -77,6 +91,7 @@ export default class Finance extends React.Component {
           fuse: new Fuse(response.payChannel, fuseOpt)
         })),
       Popup: (id,status) => Observable.of(this.setState({auditId: id, auditEnable: status})),
+      Edit: (id) => Observable.of(this.setState({auditId: id})),
       Query: (str) => Observable.of(this.setState({query: str})),
       Approve: id => rest(`boss/fundChannels/${id}/status`, {
         method: 'PUT',
@@ -85,7 +100,8 @@ export default class Finance extends React.Component {
       Deny: id => rest(`boss/fundChannels/${id}/status`, {
         method: 'PUT',
         body: {status: 'DENY'},
-      }).flatMap(()=>Var.next(AuditAction.Load))
+      }).flatMap(()=>Var.next(AuditAction.Load)),
+      Update: (form)=> Observable.of(form),
     })).subscribe()
   }
   componentWillUnmount(){
@@ -95,10 +111,20 @@ export default class Finance extends React.Component {
     let filtered = this.state.query? this.state.fuse.search(this.state.query): this.state.payChannel
     let selected = filtered.find(p=> r.path(['fundChannel', 'id'])(p)=== this.state.auditId )
     return (
-        <Context.Provider value={contextValue}>
-          <Confirm enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
-          <Table data={filtered} title="银行卡审核" />
-        </Context.Provider>
+      <Context.Provider value={contextValue}>
+        <Confirm enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
+          <Edit modalId="finance-edit" data={selected} table={[{
+              name: '账户名',
+              lens: r.view(r.lensPath(['fundChannel','name']))
+          },{
+              name: '银行卡号/支付宝账号',
+              lens: r.view(r.lensPath(['account']))
+          },{
+              name: '支行名称',
+              lens: r.view(r.lensProp('subbranch'))
+          }]} auditId={this.state.auditId} />
+        <Table data={filtered} title="银行卡审核" />
+      </Context.Provider>
     )
   }
 }

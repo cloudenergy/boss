@@ -1,15 +1,15 @@
 import {AuditAction} from '../Action'
 import React from 'react'
 import {AuditContext} from '../Context'
-
+import $ from 'jquery'
 const {Context} = AuditContext
 const Table = ({data, title}) => (
-    <Context.Consumer>{({table, actions, modalId, idLens, statusLens, color})=>(
+  <Context.Consumer>{({table, actions, modalId, idLens, statusLens, color})=>(
     <div className="accordion" id="banking-audit">
       <div className="card">
         <div className={"card-header " + color}>
           <h5 className="mb-0">
-      {title}
+            {title}
           </h5>
         </div>
         <div>
@@ -30,7 +30,8 @@ const Table = ({data, title}) => (
               <tbody>
                 {
                   data.map((project,index)=>(
-                    <tr data-toggle="modal" data-target={'#'+modalId} key={index} onClick={()=>{
+                    <tr data-toggle="modal" key={index} onClick={()=>{
+                        $('#'+modalId).modal('show');
                         actions.next(AuditAction.Popup(idLens(project), statusLens(project)))
                     }}>
                       {table.map((col,index)=>(
