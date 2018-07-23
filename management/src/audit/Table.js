@@ -31,7 +31,6 @@ const Table = ({data, title}) => (
                 {
                   data.map((project,index)=>(
                     <tr data-toggle="modal" key={index} onClick={()=>{
-                        $('#'+modalId).modal('show');
                         actions.next(AuditAction.Popup(idLens(project), statusLens(project)))
                     }}>
                       {table.map((col,index)=>(

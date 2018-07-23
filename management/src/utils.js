@@ -17,3 +17,7 @@ export function rest(url, opts) {
       }
     })
 }
+
+export function modal(name, status) {
+  window.$ && window.$(name).modal(status)
+}

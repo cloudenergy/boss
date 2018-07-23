@@ -8,5 +8,5 @@ export const AuditAction = Type({
   Popup:[Number, Boolean],
   Query:[String],
   Edit:[Number],
-  Update:[Object],
+  Update:[Object, Object],
 })

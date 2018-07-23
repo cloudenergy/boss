@@ -151,6 +151,26 @@ Array [
                                 className="col-8"
                             />
                         </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                操作
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            >
+                                <button
+                                    className="btn btn-link"
+                                    onClick={[Function]}
+                                >
+                                    编辑
+                                </button>
+                            </dd>
+                        </dl>
                     </div>
                 </div>
             </div>
@@ -176,6 +196,210 @@ Array [
                     审核失败
                 </button>
             </div>
+        </div>
+    </div>
+</div>,
+  <div
+    aria-hidden="true"
+    className="modal"
+    id="finance-edit"
+    role="dialog"
+    tabIndex="-1"
+>
+    <div
+        className="modal-dialog modal-lg"
+        role="document"
+    >
+        <div
+            className="modal-content"
+        >
+            <div
+                className="modal-header"
+            >
+                <button
+                    aria-label="Close"
+                    className="close"
+                    data-dismiss="modal"
+                    type="button"
+                >
+                    <span
+                        aria-hidden="true"
+                    >
+                        ×
+                    </span>
+                </button>
+            </div>
+            <form
+                onSubmit={[Function]}
+            >
+                <div
+                    className="modal-body container"
+                >
+                    <div
+                        className="row"
+                    >
+                        <div
+                            className="col-3"
+                        >
+                            <img
+                                alt="logo"
+                                src="logo.png"
+                                style={
+                                    Object {
+                                        "width": "160px",
+                                      }
+                                }
+                            />
+                        </div>
+                        <div
+                            className="col-9 border-left"
+                        >
+                            <dl
+                                className="row"
+                            >
+                                <dt
+                                    className="col-4"
+                                >
+                                    账号类型
+                                    :
+                                </dt>
+                                <dd
+                                    className="col-8"
+                                >
+                                    <input
+                                        defaultValue="银行卡"
+                                        disabled={true}
+                                        name="tag"
+                                    />
+                                </dd>
+                            </dl>
+                            <dl
+                                className="row"
+                            >
+                                <dt
+                                    className="col-4"
+                                >
+                                    账户名
+                                    :
+                                </dt>
+                                <dd
+                                    className="col-8"
+                                >
+                                    <input
+                                        defaultValue={undefined}
+                                        disabled={undefined}
+                                        name="name"
+                                    />
+                                </dd>
+                            </dl>
+                            <dl
+                                className="row"
+                            >
+                                <dt
+                                    className="col-4"
+                                >
+                                    银行卡号
+                                    :
+                                </dt>
+                                <dd
+                                    className="col-8"
+                                >
+                                    <input
+                                        defaultValue={undefined}
+                                        disabled={undefined}
+                                        name="account"
+                                    />
+                                </dd>
+                            </dl>
+                            <dl
+                                className="row"
+                            >
+                                <dt
+                                    className="col-4"
+                                >
+                                    支行名称
+                                    :
+                                </dt>
+                                <dd
+                                    className="col-8"
+                                >
+                                    <input
+                                        defaultValue={undefined}
+                                        disabled={undefined}
+                                        name="subbranch"
+                                    />
+                                </dd>
+                            </dl>
+                            <dl
+                                className="row"
+                            >
+                                <dt
+                                    className="col-4"
+                                >
+                                    省
+                                    :
+                                </dt>
+                                <dd
+                                    className="col-8"
+                                >
+                                    <input
+                                        defaultValue={undefined}
+                                        disabled={undefined}
+                                        name="province"
+                                    />
+                                </dd>
+                            </dl>
+                            <dl
+                                className="row"
+                            >
+                                <dt
+                                    className="col-4"
+                                >
+                                    城市
+                                    :
+                                </dt>
+                                <dd
+                                    className="col-8"
+                                >
+                                    <input
+                                        defaultValue={undefined}
+                                        disabled={undefined}
+                                        name="city"
+                                    />
+                                </dd>
+                            </dl>
+                            <dl
+                                className="row"
+                            >
+                                <dt
+                                    className="col-4"
+                                >
+                                    地区
+                                    :
+                                </dt>
+                                <dd
+                                    className="col-8"
+                                >
+                                    <input
+                                        defaultValue={undefined}
+                                        disabled={undefined}
+                                        name="district"
+                                    />
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    className="modal-footer"
+                >
+                    <input
+                        className="btn btn-success"
+                        type="submit"
+                        value="保存"
+                    />
+                </div>
+            </form>
         </div>
     </div>
 </div>,
@@ -252,11 +476,15 @@ Array [
                             >
                                 申请时间
                             </th>
+                            <th
+                                scope="col"
+                            >
+                                操作
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr
-                            data-target="#auditing"
                             data-toggle="modal"
                             onClick={[Function]}
                         >
@@ -285,9 +513,16 @@ Array [
                             <td>
                                 2018年05月28日 15:59
                             </td>
+                            <td>
+                                <button
+                                    className="btn btn-link"
+                                    onClick={[Function]}
+                                >
+                                    编辑
+                                </button>
+                            </td>
                         </tr>
                         <tr
-                            data-target="#auditing"
                             data-toggle="modal"
                             onClick={[Function]}
                         >
@@ -315,6 +550,14 @@ Array [
                             </td>
                             <td>
                                 2018年06月07日 16:09
+                            </td>
+                            <td>
+                                <button
+                                    className="btn btn-link"
+                                    onClick={[Function]}
+                                >
+                                    编辑
+                                </button>
                             </td>
                         </tr>
                     </tbody>

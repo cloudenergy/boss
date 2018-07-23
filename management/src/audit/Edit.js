@@ -13,32 +13,31 @@ const Edit = (props) => (
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form>
+          <form onSubmit={(e)=>{
+              e.preventDefault()
+              let form = new FormData(e.target)
+              actions.next(AuditAction.Update(form, props.data))
+          }}>
             <div className="modal-body container">
               <div className="row">
                 <div className="col-3">
                   <img alt="logo" src={logo} style={{width: '160px'}} />
                 </div>
                 <div className="col-9 border-left">
-                  {props.table.map((col,index)=>(console.log(props.data),
-                     <dl key={index} className="row">
-                       <dt className="col-4">{col.name}:</dt>
-                       <dd className="col-8">
-                         <input defaultValue={col.lens(props.data)}/>
-                       </dd>
-                     </dl>
+                  {props.table.map((col,index)=>(
+                    <dl key={index} className="row">
+                      <dt className="col-4">{col.name}:</dt>
+                      <dd className="col-8">
+                        <input name={col.key} disabled={col.disabled} defaultValue={col.lens(props.data)}/>
+                      </dd>
+                    </dl>
                   ))}
                 </div>
               </div>
             </div>
 
             <div className="modal-footer">
-              <button type="button" className="btn btn-success" data-dismiss="modal" onSubmit={(e)=>{
-                  let form = new FormData(e.target)
-                  actions.next(AuditAction.Update(form))
-              }}>
-                保存
-              </button>
+              <input type="submit" className="btn btn-success" value="保存" />
             </div>
           </form>
         </div>

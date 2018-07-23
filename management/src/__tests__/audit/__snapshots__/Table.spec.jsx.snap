@@ -51,7 +51,6 @@ exports[`Table renders a Table base on context 1`] = `
           </thead>
           <tbody>
             <tr
-              data-target="#modalId"
               data-toggle="modal"
               onClick={[Function]}
             >
@@ -63,7 +62,6 @@ exports[`Table renders a Table base on context 1`] = `
               </td>
             </tr>
             <tr
-              data-target="#modalId"
               data-toggle="modal"
               onClick={[Function]}
             >

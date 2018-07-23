@@ -272,7 +272,6 @@ Array [
                     </thead>
                     <tbody>
                         <tr
-                            data-target="#auditing"
                             data-toggle="modal"
                             onClick={[Function]}
                         >
@@ -300,7 +299,6 @@ Array [
                             </td>
                         </tr>
                         <tr
-                            data-target="#auditing"
                             data-toggle="modal"
                             onClick={[Function]}
                         >

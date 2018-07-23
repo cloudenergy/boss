@@ -71,7 +71,6 @@ const contextValue = {
   color: "bg-info",
 }
 
-const tableLens = r.lensProp('table')
 export default class Finance extends React.Component {
   constructor(props) {
     super(props)
@@ -101,7 +100,32 @@ export default class Finance extends React.Component {
         method: 'PUT',
         body: {status: 'DENY'},
       }).flatMap(()=>Var.next(AuditAction.Load)),
-      Update: (form)=> Observable.of(form),
+      Update: (form, originalData)=> {
+        let payChannel = {
+          account: form.get('account'),
+          linkman: form.get('linkman')||'',
+          subbrach: form.get('subbrach'),
+          locate: {
+            province: form.get('province'),
+            city: form.get('city'),
+            district: form.get('district'),
+          }
+        }
+        let fundChannel = {
+          name: form.get('name')
+        }
+        return Observable.merge(
+          rest(`boss/fundChannels/${originalData.fundChannelId}`, {
+            method: 'PUT',
+            body: fundChannel,
+          }),
+          rest(`boss/payChannels/${originalData.id}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: payChannel,
+          })
+        )
+      },
     })).subscribe()
   }
   componentWillUnmount(){
@@ -110,19 +134,57 @@ export default class Finance extends React.Component {
   render() {
     let filtered = this.state.query? this.state.fuse.search(this.state.query): this.state.payChannel
     let selected = filtered.find(p=> r.path(['fundChannel', 'id'])(p)=== this.state.auditId )
+    let editingTable = r.equals('alipay', r.path(['fundChannel', 'tag'], selected))?[
+      {name: '账号类型',
+       lens: r.always('支付宝'),
+       disabled: true,
+       key: 'tag',
+      },
+      {
+        name: '账户名',
+        lens: r.view(r.lensPath(['fundChannel','name'])),
+        key: 'name',
+      },{
+        name: '支付宝账号',
+        lens: r.view(r.lensPath(['account'])),
+        key: 'account'
+      },{
+        name: '姓名',
+        lens: r.view(r.lensProp('linkman')),
+        key: 'linkman',
+      }
+    ]:[{
+      name: '账号类型',
+      lens: r.always('银行卡'),
+      disabled: true,
+      key: 'tag'
+    },{
+      name: '账户名',
+      lens: r.view(r.lensPath(['fundChannel','name'])),
+      key: 'name'
+    },{
+      name: '银行卡号',
+      lens: r.view(r.lensPath(['account'])),
+      key: 'account'
+    },{
+      name: '支行名称',
+      lens: r.view(r.lensProp('subbranch')),
+      key: 'subbranch'
+    },{ name: '省',
+        lens: r.path(['locate', 'province']),
+        key: 'province',
+    },
+       { name: '城市',
+         lens: r.path(['locate', 'city']),
+         key: 'city',
+       },{ name: '地区',
+           lens: r.path(['locate', 'district']),
+           key:'district'
+    }]
     return (
       <Context.Provider value={contextValue}>
         <Confirm enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
-          <Edit modalId="finance-edit" data={selected} table={[{
-              name: '账户名',
-              lens: r.view(r.lensPath(['fundChannel','name']))
-          },{
-              name: '银行卡号/支付宝账号',
-              lens: r.view(r.lensPath(['account']))
-          },{
-              name: '支行名称',
-              lens: r.view(r.lensProp('subbranch'))
-          }]} auditId={this.state.auditId} />
+        <Edit modalId="finance-edit" data={selected} table={editingTable} auditId={this.state.auditId} />
         <Table data={filtered} title="银行卡审核" />
       </Context.Provider>
     )
