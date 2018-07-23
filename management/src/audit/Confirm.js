@@ -2,7 +2,6 @@ import {AuditAction} from '../Action'
 import React from 'react'
 import logo from '../logo.png'
 import {AuditContext} from '../Context'
-import {modal} from '../utils'
 const {Context} = AuditContext
 
 const Confirm = (props) => (
