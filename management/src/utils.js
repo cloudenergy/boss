@@ -1,6 +1,7 @@
 import {API_URI} from './env'
 import * as r from 'ramda'
 import {Observable} from 'rxjs-compat'
+import $ from 'jquery'
 
 export function rest(url, opts) {
   let config = r.merge({url: `${API_URI}/v1.0/${url}`,
@@ -18,6 +19,6 @@ export function rest(url, opts) {
     })
 }
 
-export function modal(name, status) {
-  window.$ && window.$(name).modal(status)
+export function modal(id, status) {
+  $ && $('#' + id).modal(status)
 }

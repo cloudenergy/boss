@@ -12,7 +12,7 @@ import {AuditContext} from './Context'
 import Confirm from './audit/Confirm'
 import Edit from './audit/Edit'
 import Table from './audit/Table'
-import $ from 'jquery'
+import {modal} from './utils'
 
 const {Context, Var} = AuditContext
 
@@ -56,7 +56,7 @@ const payChannelTable = [{
   lens: r.compose(id=>(
     <button onClick={e=> {
       e.stopPropagation();
-      $('#finance-edit').modal('show');
+      modal('finance-edit', 'show')
       Var.next(AuditAction.Edit(id))
     }} className="btn btn-link">编辑</button>),
                   r.prop('fundChannelId'))

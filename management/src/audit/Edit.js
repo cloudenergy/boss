@@ -2,7 +2,10 @@ import {AuditAction} from '../Action'
 import React from 'react'
 import logo from '../logo.png'
 import {AuditContext} from '../Context'
+import {modal} from '../utils'
+
 const {Context} = AuditContext
+
 const Edit = (props) => (
   <Context.Consumer>{({table, actions, modalId})=>(
     <div className="modal" id={props.modalId} tabIndex="-1" role="dialog" aria-hidden="true">
@@ -15,6 +18,7 @@ const Edit = (props) => (
           </div>
           <form onSubmit={(e)=>{
               e.preventDefault()
+              modal(props.modalId, 'hide')
               let form = new FormData(e.target)
               actions.next(AuditAction.Update(form, props.data))
           }}>

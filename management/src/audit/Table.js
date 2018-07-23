@@ -1,7 +1,8 @@
 import {AuditAction} from '../Action'
 import React from 'react'
 import {AuditContext} from '../Context'
-import $ from 'jquery'
+import {modal} from '../utils'
+
 const {Context} = AuditContext
 const Table = ({data, title}) => (
   <Context.Consumer>{({table, actions, modalId, idLens, statusLens, color})=>(
@@ -31,6 +32,7 @@ const Table = ({data, title}) => (
                 {
                   data.map((project,index)=>(
                     <tr data-toggle="modal" key={index} onClick={()=>{
+                      modal(modalId, 'show')
                         actions.next(AuditAction.Popup(idLens(project), statusLens(project)))
                     }}>
                       {table.map((col,index)=>(

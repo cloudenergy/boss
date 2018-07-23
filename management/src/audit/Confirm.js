@@ -2,7 +2,9 @@ import {AuditAction} from '../Action'
 import React from 'react'
 import logo from '../logo.png'
 import {AuditContext} from '../Context'
+import {modal} from '../utils'
 const {Context} = AuditContext
+
 const Confirm = (props) => (
   <Context.Consumer>{({table, actions, modalId})=>(
     <div className="modal" id={modalId} tabIndex="-1" role="dialog" aria-hidden="true">

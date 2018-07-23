@@ -6,7 +6,8 @@ import Enzyme, {mount} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import {AuditContext,createActionContext} from '../../Context'
 const {Context} = AuditContext
-
+jest.mock('../../utils')
+import {modal} from '../../utils'
 Enzyme.configure({ adapter: new Adapter() })
 
 describe('Table', ()=>{
