@@ -40,7 +40,7 @@ const payChannelTable = [{
 },{
   name: '账户归属区域',
   lens: x =>
-    r.path(['locate', 'province'], x) + r.path(['locate', 'city'], x) + r.path(['locate', 'district'],x)
+    r.pathOr('',['locate', 'province'], x) + r.pathOr('',['locate', 'city'], x) + r.pathOr('',['locate', 'district'],x)
 },{
   name: '审核',
   lens: r.compose(status=><span className={r.view(lensStatusMap(status, 'color'))(statusMap)}>
