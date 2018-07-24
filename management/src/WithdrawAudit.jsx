@@ -34,15 +34,6 @@ const withDrawTable =[{
   name: '提现金额',
   lens: r.view(r.lensProp('amount'))
 },{
-  name: '提现服务费',
-  lens: r.view(r.lensPath(['']))
-},{
-  name: '到账金额',
-  lens: r.view(r.lensProp(['meh']))
-},{
-  name: '操作后余额',
-  lens: r.view(r.lensPath(['fundChannel', 'createdAt']))
-},{
   name: '状态',
   lens: r.compose(status=><span className={r.view(lensStatusMap(status, 'color'))(statusMap)}>
     {r.view(lensStatusMap(status, 'text'))(statusMap)}
@@ -54,14 +45,6 @@ const withDrawTable =[{
                   r.view(r.lensPath(['createdAt'])))
 }]
 
-const contextValue = {
-  actions: Var,
-  table:withDrawTable,
-  idLens: r.prop('id'),
-  statusLens: r.compose(r.equals("PENDING"), r.prop('status')),
-  modalId: "auditing",
-  color: "bg-warning",
-}
 
 export default class WithdrawAudit extends React.Component {
   constructor(props) {
@@ -69,6 +52,7 @@ export default class WithdrawAudit extends React.Component {
     this.state = {
       withDraw: [],
       auditId: '',
+      fund: {},
       auditEnable: true,
       query: "",
       fuse: new Fuse([], fuseOpt)
@@ -81,7 +65,12 @@ export default class WithdrawAudit extends React.Component {
           withDraw: response.withDraw,
           fuse: new Fuse(response.withDraw, fuseOpt)
         })),
-      Popup: (id,status) => Observable.of(this.setState({auditId: id, auditEnable: status})),
+      Popup: (id,status) => {
+        let projectid = r.path(['channel', 'project', 'id'])(this.state.withDraw.find(p=> r.prop('id')(p) === id ))
+        return rest(`projects/${projectid}/balance`)
+        .map(({response})=>this.setState({fund:response}))
+          .map(()=>this.setState({auditId: id, auditEnable: status}))
+      },
       Query: (str) => Observable.of(this.setState({query: str})),
       Approve: id => rest(`boss/withdraw/${id}/status`, {
         method: 'PUT',
@@ -99,9 +88,24 @@ export default class WithdrawAudit extends React.Component {
   render() {
     let filtered = this.state.query? this.state.fuse.search(this.state.query): this.state.withDraw
     let selected = filtered.find(p=> r.prop('id')(p) === this.state.auditId )
+    let contextValue = {
+      actions: Var,
+      table: withDrawTable,
+      idLens: r.prop('id'),
+      statusLens: r.compose(r.equals("PENDING"), r.prop('status')),
+      modalId: "auditing",
+      color: "bg-warning",
+    }
+
     return (
       <Context.Provider value={contextValue}>
-        <Confirm enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
+        <Confirm table={r.concat(withDrawTable, [{
+            name: '平台剩余金额',
+            lens: r.always(this.state.fund.balance+this.state.fund.frozen)
+        },{
+            name: '账户余额',
+            lens: r.always(this.state.fund.balance)
+        }])} enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
         <Table title="提现审核" data={filtered} />
       </Context.Provider>
     )

@@ -99,45 +99,6 @@ Array [
                             <dt
                                 className="col-4"
                             >
-                                提现服务费
-                                :
-                            </dt>
-                            <dd
-                                className="col-8"
-                            />
-                        </dl>
-                        <dl
-                            className="row"
-                        >
-                            <dt
-                                className="col-4"
-                            >
-                                到账金额
-                                :
-                            </dt>
-                            <dd
-                                className="col-8"
-                            />
-                        </dl>
-                        <dl
-                            className="row"
-                        >
-                            <dt
-                                className="col-4"
-                            >
-                                操作后余额
-                                :
-                            </dt>
-                            <dd
-                                className="col-8"
-                            />
-                        </dl>
-                        <dl
-                            className="row"
-                        >
-                            <dt
-                                className="col-4"
-                            >
                                 状态
                                 :
                             </dt>
@@ -156,6 +117,34 @@ Array [
                                 className="col-4"
                             >
                                 提交时间
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                平台剩余金额
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            >
+                                NaN
+                            </dd>
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                账户余额
                                 :
                             </dt>
                             <dd
@@ -246,21 +235,6 @@ Array [
                             <th
                                 scope="col"
                             >
-                                提现服务费
-                            </th>
-                            <th
-                                scope="col"
-                            >
-                                到账金额
-                            </th>
-                            <th
-                                scope="col"
-                            >
-                                操作后余额
-                            </th>
-                            <th
-                                scope="col"
-                            >
                                 状态
                             </th>
                             <th
@@ -284,9 +258,6 @@ Array [
                             <td>
                                 1000
                             </td>
-                            <td />
-                            <td />
-                            <td />
                             <td>
                                 <span
                                     className="text-success"
@@ -311,9 +282,6 @@ Array [
                             <td>
                                 1000
                             </td>
-                            <td />
-                            <td />
-                            <td />
                             <td>
                                 <span
                                     className="text-info"

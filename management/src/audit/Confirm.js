@@ -20,7 +20,7 @@ const Confirm = (props) => (
                 <img alt="logo" src={logo} style={{width: '160px'}} />
               </div>
               <div className="col-9 border-left">
-                {table.map((col,index)=>(
+                {(props.table?props.table:table).map((col,index)=>(
                   <dl key={index} className="row">
                     <dt className="col-4">{col.name}:</dt>
                     <dd className="col-8">{col.lens(props.data)}</dd>
