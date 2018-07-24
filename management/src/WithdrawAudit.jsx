@@ -72,11 +72,11 @@ export default class WithdrawAudit extends React.Component {
           .map(()=>this.setState({auditId: id, auditEnable: status}))
       },
       Query: (str) => Observable.of(this.setState({query: str})),
-      Approve: id => rest(`boss/withdraw/${id}/status`, {
+      Approve: id => rest(`boss/withDraw/${id}`, {
         method: 'PUT',
         body: {status: 'PASSED'},
       }).flatMap(()=>Var.next(AuditAction.Load)),
-      Deny: id => rest(`boss/withdraw/${id}/status`, {
+      Deny: id => rest(`boss/withDraw/${id}`, {
         method: 'PUT',
         body: {status: 'AUDITFAILURE'},
       }).flatMap(()=>Var.next(AuditAction.Load))
