@@ -10,6 +10,8 @@ import {AuditAction} from './Action'
 import {AuditContext} from './Context'
 import Confirm from './audit/Confirm'
 import Table from './audit/Table'
+import Filter from './audit/Filter'
+
 const {Context, Var} = AuditContext
 
 const fuseOpt = fuseOptFrom(['channel.project.name', 'channel.name', 'createdAt'])
@@ -48,7 +50,7 @@ const withDrawTable =[{
   lens: r.path(['auth', 'username'])
 }]
 
-
+const aDay = 86400000
 export default class WithdrawAudit extends React.Component {
   constructor(props) {
     super(props)
@@ -57,6 +59,10 @@ export default class WithdrawAudit extends React.Component {
       auditId: '',
       fund: {},
       user: {},
+      filters:{
+        from: datef(new Date(), 'yyyy-mm-') + '01',
+        to: datef((new Date() - 0 + aDay), 'yyyy-mm-dd'),
+      },
       summary: {},
       auditEnable: true,
       query: "",
@@ -93,14 +99,23 @@ export default class WithdrawAudit extends React.Component {
       Deny: id => rest(`boss/withDraw/${id}`, {
         method: 'PUT',
         body: {status: 'PROCESSFAILURE', auditor: r.path(['user','id'])(this.state)},
-      }).flatMap(()=>Var.next(AuditAction.Load))
+      }).flatMap(()=>Var.next(AuditAction.Load)),
+      Filters: filters => {
+        return Observable.of(this.setState(r.over(r.lensProp('filters'), r.flip(r.merge)(filters))))
+      }
     })).subscribe()
   }
   componentWillUnmount(){
     this.subscription.unsubscribe()
   }
   render() {
-    let filtered = this.state.query? this.state.fuse.search(this.state.query): this.state.withDraw
+
+    let searched = this.state.query? this.state.fuse.search(this.state.query): this.state.withDraw
+    let filtered = searched.filter(data =>{
+      let createdAt = Date.parse(r.prop('createdAt')(data))
+      return createdAt > Date.parse(r.path(['filters', 'from'], this.state)) &&
+             createdAt < Date.parse(r.path(['filters', 'to'], this.state))
+    })
     let selected = filtered.find(p=> r.prop('id')(p) === this.state.auditId )
     let contextValue = {
       actions: Var,
@@ -120,6 +135,7 @@ export default class WithdrawAudit extends React.Component {
             name: '账户余额',
             lens: r.always(this.state.fund.balance)
         }])} enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
+        <Filter from={this.state.filters.from} to={this.state.filters.to} />
         <Table title="提现审核" data={filtered} />
       </Context.Provider>
     )

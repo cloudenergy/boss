@@ -192,6 +192,20 @@ Array [
         </div>
     </div>
 </div>,
+  <div>
+    <input
+        defaultValue="2018-07-01"
+        name="from"
+        onChange={[Function]}
+        type="date"
+    />
+    <input
+        defaultValue="2018-07-26"
+        name="to"
+        onChange={[Function]}
+        type="date"
+    />
+</div>,
   <div
     className="accordion"
     id="banking-audit"
@@ -262,58 +276,7 @@ Array [
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr
-                            data-toggle="modal"
-                            onClick={[Function]}
-                        >
-                            <td>
-                                公寓
-                            </td>
-                            <td>
-                                赵
-                            </td>
-                            <td>
-                                1000
-                            </td>
-                            <td>
-                                2018年03月19日 18:12
-                            </td>
-                            <td>
-                                <span
-                                    className="text-success"
-                                >
-                                    交易成功
-                                </span>
-                            </td>
-                            <td />
-                        </tr>
-                        <tr
-                            data-toggle="modal"
-                            onClick={[Function]}
-                        >
-                            <td>
-                                公寓
-                            </td>
-                            <td>
-                                赵
-                            </td>
-                            <td>
-                                1000
-                            </td>
-                            <td>
-                                2018年03月19日 18:12
-                            </td>
-                            <td>
-                                <span
-                                    className="text-info"
-                                >
-                                    正在处理
-                                </span>
-                            </td>
-                            <td />
-                        </tr>
-                    </tbody>
+                    <tbody />
                 </table>
             </div>
         </div>
