@@ -34,15 +34,18 @@ const withDrawTable =[{
   name: '提现金额',
   lens: r.view(r.lensProp('amount'))
 },{
-  name: '状态',
+  name: '提交时间',
+  lens: r.compose(x=>x && datef(Date.parse(x), 'yyyy年mm月dd日 HH:MM'),
+                  r.view(r.lensPath(['createdAt'])))
+},{
+  name: '交易状态',
   lens: r.compose(status=><span className={r.view(lensStatusMap(status, 'color'))(statusMap)}>
     {r.view(lensStatusMap(status, 'text'))(statusMap)}
   </span>,
                   r.prop('status'))
 },{
-  name: '提交时间',
-  lens: r.compose(x=>x && datef(Date.parse(x), 'yyyy年mm月dd日 HH:MM'),
-                  r.view(r.lensPath(['createdAt'])))
+  name: '审核人',
+  lens: r.path(['auth', 'username'])
 }]
 
 
@@ -53,6 +56,8 @@ export default class WithdrawAudit extends React.Component {
       withDraw: [],
       auditId: '',
       fund: {},
+      user: {},
+      summary: {},
       auditEnable: true,
       query: "",
       fuse: new Fuse([], fuseOpt)
@@ -60,11 +65,20 @@ export default class WithdrawAudit extends React.Component {
   }
   componentDidMount() {
     this.subscription = Var.startWith(AuditAction.Load).flatMap(action => action.case({
-      Load: () => rest('boss/withDraw')
+      Load: () => {
+        let user = rest(`projects/100/credentials`).map(({response}) => this.setState({
+          user: r.last(response)
+        }))
+        let summary = rest(`boss/incomeSummary`).map(({response})=>this.setState({
+          summary: response
+        }))
+        let withDraw = rest('boss/withDraw')
         .map(({response})=>this.setState({
           withDraw: response.withDraw,
           fuse: new Fuse(response.withDraw, fuseOpt)
-        })),
+        }))
+        return Observable.merge(user, summary, withDraw)
+      },
       Popup: (id,status) => {
         let projectid = r.path(['channel', 'project', 'id'])(this.state.withDraw.find(p=> r.prop('id')(p) === id ))
         return rest(`projects/${projectid}/balance`)
@@ -74,11 +88,11 @@ export default class WithdrawAudit extends React.Component {
       Query: (str) => Observable.of(this.setState({query: str})),
       Approve: id => rest(`boss/withDraw/${id}`, {
         method: 'PUT',
-        body: {status: 'PASSED'},
+        body: {status: 'PASSED', auditor: r.path(['user', 'id'])(this.state)},
       }).flatMap(()=>Var.next(AuditAction.Load)),
       Deny: id => rest(`boss/withDraw/${id}`, {
         method: 'PUT',
-        body: {status: 'AUDITFAILURE'},
+        body: {status: 'PROCESSFAILURE', auditor: r.path(['user','id'])(this.state)},
       }).flatMap(()=>Var.next(AuditAction.Load))
     })).subscribe()
   }

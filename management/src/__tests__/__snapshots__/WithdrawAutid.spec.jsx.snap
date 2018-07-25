@@ -99,7 +99,20 @@ Array [
                             <dt
                                 className="col-4"
                             >
-                                状态
+                                提交时间
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                交易状态
                                 :
                             </dt>
                             <dd
@@ -116,7 +129,7 @@ Array [
                             <dt
                                 className="col-4"
                             >
-                                提交时间
+                                审核人
                                 :
                             </dt>
                             <dd
@@ -235,12 +248,17 @@ Array [
                             <th
                                 scope="col"
                             >
-                                状态
+                                提交时间
                             </th>
                             <th
                                 scope="col"
                             >
-                                提交时间
+                                交易状态
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                审核人
                             </th>
                         </tr>
                     </thead>
@@ -259,15 +277,16 @@ Array [
                                 1000
                             </td>
                             <td>
+                                2018年03月19日 18:12
+                            </td>
+                            <td>
                                 <span
                                     className="text-success"
                                 >
                                     交易成功
                                 </span>
                             </td>
-                            <td>
-                                2018年03月19日 18:12
-                            </td>
+                            <td />
                         </tr>
                         <tr
                             data-toggle="modal"
@@ -283,15 +302,16 @@ Array [
                                 1000
                             </td>
                             <td>
+                                2018年03月19日 18:12
+                            </td>
+                            <td>
                                 <span
                                     className="text-info"
                                 >
                                     正在处理
                                 </span>
                             </td>
-                            <td>
-                                2018年03月19日 18:12
-                            </td>
+                            <td />
                         </tr>
                     </tbody>
                 </table>
