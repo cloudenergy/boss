@@ -22,3 +22,7 @@ export function rest(url, opts) {
 export function modal(id, status) {
   $ && $('#' + id).modal(status)
 }
+
+export function $$(cent) {
+  return (cent/100).toFixed(2)
+}

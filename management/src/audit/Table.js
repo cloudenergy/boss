@@ -4,20 +4,8 @@ import {AuditContext} from '../Context'
 import {modal} from '../utils'
 
 const {Context} = AuditContext
-const Table = ({data, title}) => (
-  <Context.Consumer>{({table, actions, modalId, idLens, statusLens, color})=>(
-    <div className="accordion" id="banking-audit">
-      <div className="card">
-        <div className={"card-header " + color}>
-          <h5 className="mb-0">
-            {title}
-          </h5>
-        </div>
-        <div>
-          <div className="card-body">
-            <div className="form-group">
-              <input className="form-control col-2" type="search" placeholder="搜索" aria-label="Search" onChange={e=> actions.next(AuditAction.Query(e.target.value))} />
-            </div>
+const Table = ({data}) => (
+  <Context.Consumer>{({table, actions, modalId, idLens, statusLens})=>(
             <table className="table table-hover">
               <thead className="sticky-top">
                 <tr>
@@ -43,10 +31,6 @@ const Table = ({data, title}) => (
                 }
               </tbody>
             </table>
-          </div>
-        </div>
-      </div>
-    </div>
   )}
   </Context.Consumer>
 )

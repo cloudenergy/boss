@@ -8,7 +8,7 @@ import {Observable} from 'rxjs-compat'
 jest.mock('rxjs/ajax')
 
 import WithdrawAudit from '../WithdrawAudit';
-const {Context} = AuditContext
+const {Context, Var} = AuditContext
 Enzyme.configure({ adapter: new Adapter() })
 
 const withdraw = {withDraw:[
@@ -93,4 +93,18 @@ describe('<WithdrawAudit/>', ()=>{
     Observable.ajax.mockReturnValue(Observable.of({response: withdraw}))
     expect(renderer.create(subject).toJSON()).toMatchSnapshot()
   })
+
+
+  it('trigger search', (done) => {
+    let wrapper = mount(subject)
+    Var.subscribe(actions => actions.case({
+      Query: (str) => {
+        expect(str).toBe('1.2')
+        done()
+      },
+      _: done.fail
+    }))
+    wrapper.find('input[type="search"]').first().simulate('change', {target:{value:'1.2'}})
+  })
+
 })

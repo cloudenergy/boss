@@ -68,7 +68,6 @@ const contextValue = {
   idLens: r.view(r.lensPath(['fundChannel', 'id'])),
   statusLens: r.compose(r.equals("PENDING"), r.view(r.lensPath(['fundChannel', 'status']))),
   modalId: "auditing",
-  color: "bg-info",
 }
 
 export default class Finance extends React.Component {
@@ -185,7 +184,23 @@ export default class Finance extends React.Component {
       <Context.Provider value={contextValue}>
         <Confirm enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
         <Edit modalId="finance-edit" data={selected} table={editingTable} auditId={this.state.auditId} />
-        <Table data={filtered} title="银行卡审核" />
+        <div className="accordion" id="banking-audit">
+          <div className="card">
+            <div className="card-header bg-info">
+              <h5 className="mb-0">
+                银行卡审核
+              </h5>
+            </div>
+            <div>
+              <div className="card-body">
+                <div className="form-group">
+                  <input className="form-control col-2" type="search" placeholder="搜索" aria-label="Search" onChange={e=> Var.next(AuditAction.Query(e.target.value))} />
+                </div>
+                <Table data={filtered} />
+              </div>
+            </div>
+          </div>
+        </div>
       </Context.Provider>
     )
   }

@@ -55,17 +55,4 @@ describe('Table', ()=>{
     }))
     wrapper.find('tbody tr').first().simulate('click')
   })
-
-  it('trigger search', (done) => {
-    let wrapper = mount(subject)
-    Var.subscribe(actions => actions.case({
-      Query: (str) => {
-        expect(str).toBe('1.2')
-        done()
-      },
-      _: done.fail
-    }))
-    wrapper.find('input[type="search"]').first().simulate('change', {target:{value:'1.2'}})
-  })
-
 })
