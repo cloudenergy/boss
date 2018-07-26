@@ -74,8 +74,8 @@ export default class WithdrawAudit extends React.Component {
   componentDidMount() {
     this.subscription = Var.startWith(AuditAction.Load).flatMap(action => action.case({
       Load: () => {
-        let user = rest(`projects/100/credentials`).map(({response}) => this.setState({
-          user: r.last(response)
+        let user = rest(`environments`).map(({response}) => this.setState({
+          user: r.find(r.propEq('key','user'))(response)
         }))
         let summary = rest(`boss/incomeSummary`).map(({response})=>this.setState({
           summary: response
@@ -96,11 +96,11 @@ export default class WithdrawAudit extends React.Component {
       Query: (str) => Observable.of(this.setState({query: str})),
       Approve: id => rest(`boss/withDraw/${id}`, {
         method: 'PUT',
-        body: {status: 'DONE', auditor: r.path(['user', 'id'])(this.state)},
+        body: {status: 'DONE', auditor: r.path(['user', 'value', 'id'])(this.state)},
       }).flatMap(()=>Var.next(AuditAction.Load)),
       Deny: id => rest(`boss/withDraw/${id}`, {
         method: 'PUT',
-        body: {status: 'PROCESSFAILURE', auditor: r.path(['user','id'])(this.state)},
+        body: {status: 'PROCESSFAILURE', auditor: r.path(['user','value','id'])(this.state)},
       }).flatMap(()=>Var.next(AuditAction.Load)),
       Filters: filters => {
         return Observable.of(this.setState(r.over(r.lensProp('filters'), r.flip(r.merge)(filters))))
@@ -134,36 +134,36 @@ export default class WithdrawAudit extends React.Component {
             name: '平台剩余金额',
             lens: r.compose($$, r.always(this.state.fund.balance+this.state.fund.frozen))
         },{
-          name: '账户余额',
-          lens: r.compose($$, r.always(this.state.fund.balance))
+            name: '账户余额',
+            lens: r.compose($$, r.always(this.state.fund.balance))
         }])} enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
 
-      <div className="accordion" id="banking-audit">
-        <div className="card">
-          <div className="card-header bg-warning">
-            <h5 className="mb-0">
-              提现审核
-            </h5>
-          </div>
-          <div>
-            <div className="card-body">
-              <div className="form-group row">
-                <input className="form-control col-2" type="search" placeholder="搜索" aria-label="Search" onChange={e=> Var.next(AuditAction.Query(e.target.value))} />
-                <Filter from={this.state.filters.from} to={this.state.filters.to} statusMap={statusMap} />
-                <div className="col-2">
-                  平台总金额: <span className="text-warning">{$$(this.state.summary.sum)}</span>元
-                </div>
-                <div className="col-2">
-                  可提现总金额: <span className="text-success">{$$(this.state.summary.sum - this.state.summary.withdraw - this.state.summary.fee)}</span>元
-                </div>
+        <div className="accordion" id="banking-audit">
+          <div className="card">
+            <div className="card-header bg-warning">
+              <h5 className="mb-0">
+                提现审核
+              </h5>
+            </div>
+            <div>
+              <div className="card-body">
+                <div className="form-group row">
+                  <input className="form-control col-2" type="search" placeholder="搜索" aria-label="Search" onChange={e=> Var.next(AuditAction.Query(e.target.value))} />
+                  <Filter from={this.state.filters.from} to={this.state.filters.to} statusMap={statusMap} />
+                  <div className="col-2">
+                    平台总金额: <span className="text-warning">{$$(this.state.summary.sum)}</span>元
+                  </div>
+                  <div className="col-2">
+                    可提现总金额: <span className="text-success">{$$(this.state.summary.sum - this.state.summary.withdraw - this.state.summary.fee)}</span>元
+                  </div>
 
 
+                </div>
+                <Table data={filtered} />
               </div>
-              <Table data={filtered} />
             </div>
           </div>
         </div>
-      </div>
       </Context.Provider>
     )
   }
