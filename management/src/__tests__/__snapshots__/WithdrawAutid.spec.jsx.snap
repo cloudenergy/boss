@@ -234,6 +234,7 @@ Array [
                             defaultValue="2018-07-01"
                             name="from"
                             onChange={[Function]}
+                            required={true}
                             type="date"
                         />
                         <input
@@ -241,6 +242,7 @@ Array [
                             defaultValue="2018-07-27"
                             name="to"
                             onChange={[Function]}
+                            required={true}
                             type="date"
                         />
                         <select
