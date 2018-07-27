@@ -140,7 +140,7 @@ export default class WithdrawAudit extends React.Component {
 
         <div className="accordion" id="banking-audit">
           <div className="card">
-            <div className="card-header bg-warning">
+            <div className="card-header bg-info">
               <h5 className="mb-0">
                 提现审核
               </h5>
