@@ -65,6 +65,7 @@ export default class WithdrawAudit extends React.Component {
         sum: 0,
         withdraw: 0,
         fee:0,
+        balance:0,
       },
       auditEnable: true,
       query: "",
@@ -154,7 +155,7 @@ export default class WithdrawAudit extends React.Component {
                     平台总金额: <span className="text-warning">{$$(this.state.summary.sum)}</span>元
                   </div>
                   <div className="col-2">
-                    可提现总金额: <span className="text-success">{$$(this.state.summary.sum - this.state.summary.withdraw - this.state.summary.fee)}</span>元
+                    可提现总金额: <span className="text-success">{$$(this.state.summary.balance)}</span>元
                   </div>
 
 

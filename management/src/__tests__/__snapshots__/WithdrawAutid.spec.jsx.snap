@@ -204,7 +204,7 @@ Array [
         className="card"
     >
         <div
-            className="card-header bg-warning"
+            className="card-header bg-info"
         >
             <h5
                 className="mb-0"
@@ -239,7 +239,7 @@ Array [
                         />
                         <input
                             className="col-3"
-                            defaultValue="2018-07-27"
+                            defaultValue="2018-07-28"
                             name="to"
                             onChange={[Function]}
                             required={true}
