@@ -5,7 +5,7 @@ import * as r from 'ramda'
 import './Finance.css'
 import fuseOptFrom from './fuseOpt'
 import Fuse from 'fuse.js'
-import datef from 'dateformat'
+import dateformat from 'dateformat'
 import {AuditAction} from './Action'
 import {AuditContext} from './Context'
 import Confirm from './audit/Confirm'
@@ -15,7 +15,7 @@ import {$$} from './utils'
 const {Context, Var} = AuditContext
 
 const fuseOpt = fuseOptFrom(['channel.project.name', 'channel.name', 'createdAt'])
-
+const datef =x=>x && dateformat(Date.parse(x), 'yyyy年mm月dd日 HH:MM')
 const statusMap = {
   'PENDING': {color: 'text-warning', text:'待审核'},
   'PROCESSFAILURE': {color: 'text-danger', text: '处理失败'},
@@ -34,7 +34,7 @@ const withDrawTable =[{
   lens: r.compose($$, r.prop('amount'))
 },{
   name: '提交时间',
-  lens: r.compose(x=>x && datef(Date.parse(x), 'yyyy年mm月dd日 HH:MM'),
+  lens: r.compose(datef,
                   r.view(r.lensPath(['createdAt'])))
 },{
   name: '交易状态',
@@ -57,8 +57,8 @@ export default class WithdrawAudit extends React.Component {
       fund: {},
       user: {},
       filters:{
-        from: datef(new Date(), 'yyyy-mm-') + '01',
-        to: datef((new Date() - 0 + aDay), 'yyyy-mm-dd'),
+        from: dateformat(new Date(), 'yyyy-mm-') + '01',
+        to: dateformat((new Date() - 0 + aDay), 'yyyy-mm-dd'),
         status: ''
       },
       summary: {
@@ -129,15 +129,22 @@ export default class WithdrawAudit extends React.Component {
       modalId: "auditing",
     }
 
+    let extraFieldForPopup = r.concat(withDrawTable, [{
+      name: '平台剩余金额',
+      lens: r.compose($$, r.always(this.state.fund.balance+this.state.fund.frozen))
+    },{
+      name: '账户余额',
+      lens: r.compose($$, r.always(this.state.fund.balance))
+    }])
+    let fieldsWithOpsTimestamp = r.compose(r.equals('DONE'), r.prop('status'))(selected) ?
+      r.concat(extraFieldForPopup, [{
+        name:'操作时间',
+        lens: r.compose(datef,r.prop('updatedAt')),
+      }]):extraFieldForPopup
+
     return (
       <Context.Provider value={contextValue}>
-        <Confirm table={r.concat(withDrawTable, [{
-            name: '平台剩余金额',
-            lens: r.compose($$, r.always(this.state.fund.balance+this.state.fund.frozen))
-        },{
-            name: '账户余额',
-            lens: r.compose($$, r.always(this.state.fund.balance))
-        }])} enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
+        <Confirm table={fieldsWithOpsTimestamp} enable={this.state.auditEnable} data={selected} auditId={this.state.auditId} />
 
         <div className="accordion" id="banking-audit">
           <div className="card">
