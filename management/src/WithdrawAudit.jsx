@@ -58,7 +58,7 @@ export default class WithdrawAudit extends React.Component {
       user: {},
       filters:{
         from: dateformat(new Date(), 'yyyy-mm-') + '01',
-        to: dateformat((new Date() - 0 + aDay), 'yyyy-mm-dd'),
+        to: dateformat(new Date(), 'yyyy-mm-dd'),
         status: ''
       },
       summary: {
@@ -117,7 +117,7 @@ export default class WithdrawAudit extends React.Component {
       let createdAt = Date.parse(r.prop('createdAt')(data))
       let status = r.path(['filters', 'status'], this.state)
       return createdAt > Date.parse(r.path(['filters', 'from'], this.state)) &&
-             createdAt < Date.parse(r.path(['filters', 'to'], this.state)) &&
+             (createdAt - 0) < (Date.parse(r.path(['filters', 'to'], this.state)) - 0 + aDay) &&
              (status=== '' || status === r.prop('status', data))
     })
     let selected = filtered.find(p=> r.prop('id')(p) === this.state.auditId )
