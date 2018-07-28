@@ -140,7 +140,7 @@ const anchor = $('#project-topup')
 const {currency} = require('./utils')
 
 const view = r.addIndex(r.map)((val, index) => ({
-  index,
+  index: index +1,
   name: val.name,
   value: currency(val.value) + '元'
 }))
