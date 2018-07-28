@@ -15,7 +15,7 @@ import {$$} from './utils'
 const {Context, Var} = AuditContext
 
 const fuseOpt = fuseOptFrom(['channel.project.name', 'channel.name', 'createdAt'])
-const datef =x=>x && dateformat(Date.parse(x), 'yyyy年mm月dd日 HH:MM')
+const datef = x => x && dateformat(Date.parse(x), 'yyyy年mm月dd日 HH:MM')
 const statusMap = {
   'PENDING': {color: 'text-warning', text:'待审核'},
   'PROCESSFAILURE': {color: 'text-danger', text: '处理失败'},
