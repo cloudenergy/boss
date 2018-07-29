@@ -14,7 +14,7 @@ const view = r.compose(
   r.map(
     r.compose(
       r.over(amountLens, currency),
-      r.over(timeLens, t=>moment(t).format('YYYY-MM-DD hh:mm:ss'))
+      r.over(timeLens, t=>moment(t).format('YYYY-MM-DD HH:mm:ss'))
     )))
 
 function drawTopupEvents(api) {
