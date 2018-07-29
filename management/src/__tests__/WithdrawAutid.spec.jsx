@@ -6,6 +6,10 @@ import Adapter from 'enzyme-adapter-react-16'
 import {AuditContext,createActionContext} from '../Context'
 import {Observable} from 'rxjs-compat'
 jest.mock('rxjs/ajax')
+jest.mock('../utils')
+import {now} from '../utils'
+
+now.mockReturnValue(new Date('2018-07-28'))
 
 import WithdrawAudit from '../WithdrawAudit';
 const {Context, Var} = AuditContext

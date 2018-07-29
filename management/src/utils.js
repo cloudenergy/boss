@@ -26,3 +26,7 @@ export function modal(id, status) {
 export function $$(cent) {
   return (cent/100).toFixed(2)
 }
+
+export function now() {
+  return new Date()
+}

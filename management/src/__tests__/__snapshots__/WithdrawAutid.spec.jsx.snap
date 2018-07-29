@@ -91,9 +91,7 @@ Array [
                             </dt>
                             <dd
                                 className="col-8"
-                            >
-                                NaN
-                            </dd>
+                            />
                         </dl>
                         <dl
                             className="row"
@@ -149,9 +147,7 @@ Array [
                             </dt>
                             <dd
                                 className="col-8"
-                            >
-                                NaN
-                            </dd>
+                            />
                         </dl>
                         <dl
                             className="row"
@@ -164,9 +160,7 @@ Array [
                             </dt>
                             <dd
                                 className="col-8"
-                            >
-                                NaN
-                            </dd>
+                            />
                         </dl>
                     </div>
                 </div>
@@ -277,9 +271,7 @@ Array [
                         平台总金额: 
                         <span
                             className="text-warning"
-                        >
-                            NaN
-                        </span>
+                        />
                         元
                     </div>
                     <div
@@ -288,9 +280,7 @@ Array [
                         可提现总金额: 
                         <span
                             className="text-success"
-                        >
-                            NaN
-                        </span>
+                        />
                         元
                     </div>
                 </div>

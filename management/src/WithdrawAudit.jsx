@@ -11,7 +11,8 @@ import {AuditContext} from './Context'
 import Confirm from './audit/Confirm'
 import Table from './audit/Table'
 import Filter from './audit/Filter'
-import {$$} from './utils'
+import {$$, now} from './utils'
+
 const {Context, Var} = AuditContext
 
 const fuseOpt = fuseOptFrom(['channel.project.name', 'channel.name', 'createdAt'])
@@ -57,8 +58,8 @@ export default class WithdrawAudit extends React.Component {
       fund: {},
       user: {},
       filters:{
-        from: dateformat(new Date(), 'yyyy-mm-') + '01',
-        to: dateformat(new Date(), 'yyyy-mm-dd'),
+        from: dateformat(now(), 'yyyy-mm-') + '01',
+        to: dateformat(now(), 'yyyy-mm-dd'),
         status: ''
       },
       summary: {
