@@ -94,11 +94,11 @@ export default class Finance extends React.Component {
       Approve: id => rest(`boss/fundChannels/${id}/status`, {
         method: 'PUT',
         body: {status: 'PASSED'},
-      }).flatMap(()=>Var.next(AuditAction.Load)),
+      }).do(()=>Var.next(AuditAction.Load)),
       Deny: id => rest(`boss/fundChannels/${id}/status`, {
         method: 'PUT',
         body: {status: 'DENY'},
-      }).flatMap(()=>Var.next(AuditAction.Load)),
+      }).do(()=>Var.next(AuditAction.Load)),
       Update: (form, originalData)=> {
         let payChannel = {
           account: form.get('account'),
@@ -113,7 +113,7 @@ export default class Finance extends React.Component {
         let fundChannel = {
           name: form.get('name')
         }
-        return Observable.merge(
+        return Observable.zip(
           rest(`boss/fundChannels/${originalData.fundChannelId}`, {
             method: 'PUT',
             body: fundChannel,
@@ -123,7 +123,7 @@ export default class Finance extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: payChannel,
           })
-        )
+        ).do(()=>Var.next(AuditAction.Load))
       },
     })).subscribe()
   }
