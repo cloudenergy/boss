@@ -13,6 +13,7 @@ Observable.fromEvent(loginForm, 'submit')
     let form = e.target
     let username = form.querySelector('#inputUserName').value
     let password = form.querySelector('#inputPassword').value
+    let remember = form.querySelector('#remember-me').checked
     return Observable.ajax({
       url: `${API}/v1.0/login`,
       crossDomain: true,
@@ -22,6 +23,7 @@ Observable.fromEvent(loginForm, 'submit')
       body: {
         username,
         password: md5(password),
+        keepAlive: remember?30:2
       }
     })
   })
