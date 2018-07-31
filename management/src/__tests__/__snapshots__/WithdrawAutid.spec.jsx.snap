@@ -323,7 +323,29 @@ Array [
                             </th>
                         </tr>
                     </thead>
-                    <tbody />
+                    <tbody>
+                        <tr
+                            data-toggle="modal"
+                            onClick={[Function]}
+                        >
+                            <td>
+                                公寓
+                            </td>
+                            <td>
+                                赵
+                            </td>
+                            <td />
+                            <td>
+                                2018年07月19日 17:12
+                            </td>
+                            <td>
+                                <span
+                                    className={undefined}
+                                />
+                            </td>
+                            <td />
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
