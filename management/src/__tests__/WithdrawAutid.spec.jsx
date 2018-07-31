@@ -5,7 +5,7 @@ import Enzyme, {mount} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import {AuditContext,createActionContext} from '../Context'
 import {Observable} from 'rxjs-compat'
-jest.mock('rxjs/ajax')
+import {rest} from '../utils.js'
 jest.mock('../utils')
 import Fuse from 'fuse.js'
 import WithdrawAudit from '../WithdrawAudit';
@@ -85,10 +85,10 @@ const data = {withDraw:[
       }
     }
   }]}
-
+rest.mockReturnValue(Observable.of({response:data}))
 describe('<WithdrawAudit/>', ()=>{
   let subject, state= {
-    withDraw: [],
+    withDraw: data.withDraw,
     auditId: '',
     fund: {},
     user: {},
@@ -109,21 +109,24 @@ describe('<WithdrawAudit/>', ()=>{
   }
 
   beforeEach(()=>{
-    subject = (<View {...state} withDraw={data.withDraw} />)
+
   })
 
-  it('renders', () => {
+  it('renders <View />', () => {
+    subject = (<View {...state} />)
     expect(renderer.create(subject).toJSON()).toMatchSnapshot()
   })
 
+  it('renders <WithDrawAudit />', ()=> {
+    subject = (<WithdrawAudit/>)
+    expect(renderer.create(subject).toJSON()).toMatchSnapshot()
+  })
 
-  /* it('trigger search', () => {
-   *   let wrapper = mount(subject)
-
-   *   jest.runAllTimers();
-   *   console.log(wrapper.find('table tr').text())
-   *   expect(wrapper.find('table tbody tr').length).toBe(2)
-   *   wrapper.find('input[type="search"]').first().simulate('change', {target:{value:'赵'}})
-   *   expect(wrapper.find('table tbody tr').length).toBe(1)
-   * }) */
+  it('trigger search', (done) => {
+    let setState = jest.fn()
+    reducer(setState, state).subscribe(x=>{
+      console.log(x)
+      done()
+    },err=>console.log(err))
+  })
 })

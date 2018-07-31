@@ -5,7 +5,6 @@ import {Observable} from 'rxjs-compat'
 import * as r from 'ramda'
 import Fuse from 'fuse.js'
 import fuseOptFrom from './fuseOpt'
-
 const fuseOpt = fuseOptFrom(['channel.project.name', 'channel.name', 'createdAt'])
 const {Var} = AuditContext
 
