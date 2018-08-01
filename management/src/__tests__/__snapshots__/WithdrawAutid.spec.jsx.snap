@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<WithdrawAudit/> renders 1`] = `
+exports[`<WithdrawAudit/> renders <View /> 1`] = `
 Array [
   <div
     aria-hidden="true"
@@ -323,7 +323,435 @@ Array [
                             </th>
                         </tr>
                     </thead>
-                    <tbody />
+                    <tbody>
+                        <tr
+                            data-toggle="modal"
+                            onClick={[Function]}
+                        >
+                            <td>
+                                公寓
+                            </td>
+                            <td>
+                                赵
+                            </td>
+                            <td />
+                            <td>
+                                2018年07月19日 17:12
+                            </td>
+                            <td>
+                                <span
+                                    className={undefined}
+                                />
+                            </td>
+                            <td />
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>,
+]
+`;
+
+exports[`<WithdrawAudit/> renders <WithDrawAudit /> 1`] = `
+Array [
+  <div
+    aria-hidden="true"
+    className="modal"
+    id="auditing"
+    role="dialog"
+    tabIndex="-1"
+>
+    <div
+        className="modal-dialog modal-lg"
+        role="document"
+    >
+        <div
+            className="modal-content"
+        >
+            <div
+                className="modal-header"
+            >
+                <button
+                    aria-label="Close"
+                    className="close"
+                    data-dismiss="modal"
+                    type="button"
+                >
+                    <span
+                        aria-hidden="true"
+                    >
+                        ×
+                    </span>
+                </button>
+            </div>
+            <div
+                className="modal-body container"
+            >
+                <div
+                    className="row"
+                >
+                    <div
+                        className="col-3"
+                    >
+                        <img
+                            alt="logo"
+                            src="logo.png"
+                            style={
+                                Object {
+                                    "width": "160px",
+                                  }
+                            }
+                        />
+                    </div>
+                    <div
+                        className="col-9 border-left"
+                    >
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                项目名称
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                交易账户
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                提现金额
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                提交时间
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                交易状态
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            >
+                                <span
+                                    className={undefined}
+                                />
+                            </dd>
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                审核人
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                平台剩余金额
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                账户余额
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div
+                className="modal-footer"
+            >
+                <button
+                    className="btn btn-success"
+                    data-dismiss="modal"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                >
+                    确认审核
+                </button>
+                <button
+                    className="btn btn-danger"
+                    data-dismiss="modal"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                >
+                    审核失败
+                </button>
+            </div>
+        </div>
+    </div>
+</div>,
+  <div
+    className="accordion"
+    id="banking-audit"
+>
+    <div
+        className="card"
+    >
+        <div
+            className="card-header bg-info"
+        >
+            <h5
+                className="mb-0"
+            >
+                提现审核
+            </h5>
+        </div>
+        <div>
+            <div
+                className="card-body"
+            >
+                <div
+                    className="form-group row"
+                >
+                    <input
+                        aria-label="Search"
+                        className="form-control col-2"
+                        onChange={[Function]}
+                        placeholder="搜索"
+                        type="search"
+                    />
+                    <div
+                        className="col-6"
+                    >
+                        <input
+                            className="col-3"
+                            defaultValue="2018-07-01"
+                            name="from"
+                            onChange={[Function]}
+                            required={true}
+                            type="date"
+                        />
+                        <input
+                            className="col-3"
+                            defaultValue="2018-07-28"
+                            name="to"
+                            onChange={[Function]}
+                            required={true}
+                            type="date"
+                        />
+                        <select
+                            className="col-3"
+                            onChange={[Function]}
+                        >
+                            <option
+                                value=""
+                            >
+                                全部状态
+                            </option>
+                            <option
+                                value="PENDING"
+                            >
+                                待审核
+                            </option>
+                            <option
+                                value="PROCESSFAILURE"
+                            >
+                                处理失败
+                            </option>
+                            <option
+                                value="DONE"
+                            >
+                                交易成功
+                            </option>
+                        </select>
+                    </div>
+                    <div
+                        className="col-2"
+                    >
+                        平台总金额: 
+                        <span
+                            className="text-warning"
+                        />
+                        元
+                    </div>
+                    <div
+                        className="col-2"
+                    >
+                        可提现总金额: 
+                        <span
+                            className="text-success"
+                        />
+                        元
+                    </div>
+                </div>
+                <table
+                    className="table table-hover"
+                >
+                    <thead
+                        className="sticky-top"
+                    >
+                        <tr>
+                            <th
+                                scope="col"
+                            >
+                                项目名称
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                交易账户
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                提现金额
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                提交时间
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                交易状态
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                审核人
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            data-toggle="modal"
+                            onClick={[Function]}
+                        >
+                            <td>
+                                测试项目
+                            </td>
+                            <td>
+                                丁新城
+                            </td>
+                            <td />
+                            <td>
+                                2018年07月26日 23:24
+                            </td>
+                            <td>
+                                <span
+                                    className="text-warning"
+                                >
+                                    待审核
+                                </span>
+                            </td>
+                            <td />
+                        </tr>
+                        <tr
+                            data-toggle="modal"
+                            onClick={[Function]}
+                        >
+                            <td>
+                                测试项目
+                            </td>
+                            <td>
+                                丁新城
+                            </td>
+                            <td />
+                            <td>
+                                2018年07月26日 23:05
+                            </td>
+                            <td>
+                                <span
+                                    className="text-danger"
+                                >
+                                    处理失败
+                                </span>
+                            </td>
+                            <td>
+                                dxcpuls
+                            </td>
+                        </tr>
+                        <tr
+                            data-toggle="modal"
+                            onClick={[Function]}
+                        >
+                            <td>
+                                测试项目
+                            </td>
+                            <td>
+                                丁新城
+                            </td>
+                            <td />
+                            <td>
+                                2018年07月26日 23:03
+                            </td>
+                            <td>
+                                <span
+                                    className="text-danger"
+                                >
+                                    处理失败
+                                </span>
+                            </td>
+                            <td>
+                                dxcpuls
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
