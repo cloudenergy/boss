@@ -35,6 +35,6 @@ Observable.fromEvent(loginForm, 'submit')
       window.alert(r.view(lensMessage, result))
     }
   },(error) =>{
-    window.alert('哪里不太对？')
+    window.alert('登陆失败!')
     console.error(error)
   })
