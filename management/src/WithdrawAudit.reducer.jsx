@@ -5,9 +5,10 @@ import {Observable} from 'rxjs-compat'
 import * as r from 'ramda'
 import Fuse from 'fuse.js'
 import fuseOptFrom from './fuseOpt'
-const fuseOpt = fuseOptFrom(['channel.project.name', 'channel.name', 'createdAt'])
-const {Var} = AuditContext
 
+const {Var} = AuditContext
+const withDrawfuseOpt = fuseOptFrom(['channel.project.name', 'channel.name', 'createdAt'])
+const topupFuseOpt = fuseOptFrom(['name'])
 const reducer = (setState, state) => Var.startWith(AuditAction.Load).flatMap(action => action.case({
   Load: () => {
     let user = rest(`environments`).map(({response}) => setState({
@@ -19,9 +20,14 @@ const reducer = (setState, state) => Var.startWith(AuditAction.Load).flatMap(act
     let withDraw = rest('boss/withDraw')
       .map(({response})=>setState({
         withDraw: response.withDraw,
-        fuse: new Fuse(response.withDraw, fuseOpt)
+        fuse: new Fuse(response.withDraw, withDrawFuseOpt)
       }))
-    return Observable.merge(user, summary, withDraw)
+    let topup = rest('boss/topup')
+      .map(({response}) => setState({
+        topup: response,
+        fuse: new Fuse(response, topupFuseOpt)
+      }))
+    return Observable.merge(user, summary, withDraw, topup)
   },
   Popup: (id,status) => {
     let projectid = r.path(['channel', 'project', 'id'])(state.withDraw.find(p=> r.prop('id')(p) === id ))
