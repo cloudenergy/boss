@@ -7,7 +7,7 @@ import Fuse from 'fuse.js'
 import fuseOptFrom from './fuseOpt'
 
 const {Var} = AuditContext
-const withDrawfuseOpt = fuseOptFrom(['channel.project.name', 'channel.name', 'createdAt'])
+const withDrawFuseOpt = fuseOptFrom(['channel.project.name', 'channel.name', 'createdAt'])
 const topupFuseOpt = fuseOptFrom(['name'])
 const reducer = (setState, state) => Var.startWith(AuditAction.Load).flatMap(action => action.case({
   Load: () => {
@@ -28,6 +28,9 @@ const reducer = (setState, state) => Var.startWith(AuditAction.Load).flatMap(act
         fuse: new Fuse(response, topupFuseOpt)
       }))
     return Observable.merge(user, summary, withDraw, topup)
+  },
+  Switch: (channel) => {
+    return Observable.of(setState({channel}))
   },
   Popup: (id,status) => {
     let projectid = r.path(['channel', 'project', 'id'])(state.withDraw.find(p=> r.prop('id')(p) === id ))

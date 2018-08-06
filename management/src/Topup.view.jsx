@@ -64,30 +64,19 @@ export default function View(props){
   })
 
   let selected = filtered.find(p=> r.prop('id')(p) === props.auditId )
+
   let contextValue = {
     actions: Var,
-    table: withDrawTable,
+    table: TopupTable,
     idLens: r.prop('id'),
     statusLens: r.compose(r.equals("PENDING"), r.prop('status')),
     modalId: "auditing",
+    channel: props.channel,
   }
-
-  let extraFieldForPopup = r.concat(withDrawTable, [{
-    name: '平台剩余金额',
-    lens: r.compose($$, r.always(props.fund.balance+props.fund.frozen))
-  },{
-    name: '账户余额',
-    lens: r.compose($$, r.always(props.fund.balance))
-  }])
-  let fieldsWithOpsTimestamp = r.compose(r.equals('DONE'), r.prop('status'))(selected) ?
-                               r.concat(extraFieldForPopup, [{
-                                 name:'操作时间',
-                                 lens: r.compose(datef,r.prop('updatedAt')),
-                               }]):extraFieldForPopup
 
   return (
     <Context.Provider value={contextValue}>
-      <Confirm table={fieldsWithOpsTimestamp} enable={props.auditEnable} data={selected} auditId={props.auditId} />
+      <Confirm table={TopupTable} enable={props.auditEnable} data={selected} auditId={props.auditId} />
 
       <div className="accordion" id="banking-audit">
         <div className="card">
@@ -107,8 +96,6 @@ export default function View(props){
                 <div className="col-2">
                   可提现总金额: <span className="text-success">{$$(props.summary.balance)}</span>元
                 </div>
-
-
               </div>
               <Table data={filtered} />
             </div>

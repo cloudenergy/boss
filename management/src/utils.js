@@ -10,6 +10,7 @@ export function rest(url, opts) {
   return Observable
     .ajax(config)
     .catch(err => {
+      console.error(err)
       switch (err.status) {
       case 401:
         window.location = "/login"

@@ -58,6 +58,7 @@ export default function View(props){
     idLens: r.prop('id'),
     statusLens: r.compose(r.equals("PENDING"), r.prop('status')),
     modalId: "auditing",
+    channel: props.channel,
   }
 
   let extraFieldForPopup = r.concat(withDrawTable, [{
