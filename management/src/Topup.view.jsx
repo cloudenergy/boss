@@ -12,39 +12,30 @@ const {Context, Var} = AuditContext
 const aDay = 86400000
 const datef = x => x && dateformat(Date.parse(x), 'yyyy年mm月dd日 HH:MM')
 const TopupTable =[{
-  name: '序号',
-  lens: r.view(r.lensPath(['channel', 'project', 'name']))
-},{
   name: '金额',
-  lens: r.view(r.lensPath(['channel', 'name']))
+  lens: r.compose($$,r.prop('amount'))
 },{
   name: '手续费',
-  lens: r.compose($$, r.prop('amount'))
+  lens: r.compose($$, r.prop('fee'))
 },{
   name: '操作后余额',
-  lens: r.compose(datef,
-                  r.view(r.lensPath(['createdAt'])))
+  lens: r.compose($$,
+                  r.prop('balance'))
 },{
   name: '充值类型',
-  lens: r.compose(status=><span className={r.view(lensStatusMap(status, 'color'))(statusMap)}>
-    {r.view(lensStatusMap(status, 'text'))(statusMap)}
-  </span>,
-                  r.prop('status'))
+  lens: r.prop('channel')
 },{
   name: '对方',
-  lens: r.path(['auth', 'username'])
+  lens: r.prop('name')
 },{
   name: '订单号',
-  lens: r.always('heheh')
+  lens: r.prop('orderNo')
 },{
   name: '备注',
-  lens: r.always('-')
-},{
-  name: '状态',
-  lens: r.always('good')
+  lens: r.prop('remark')
 },{
   name: '充值时间',
-  lens: r.always('0')
+  lens: r.compose(datef, r.prop('createdAt'))
 }]
 const statusMap = {
   'PENDING': {color: 'text-warning', text:'待审核'},
