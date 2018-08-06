@@ -264,6 +264,35 @@ Array [
                                 交易成功
                             </option>
                         </select>
+                        <div
+                            className="btn-group btn-group-toggle"
+                            data-toggle="buttons"
+                        >
+                            <label
+                                className="btn btn-primary"
+                                onClick={[Function]}
+                            >
+                                <input
+                                    autocomplete="off"
+                                    defaultChecked={false}
+                                    name="withdraw"
+                                    type="radio"
+                                />
+                                 支出
+                            </label>
+                            <label
+                                className="btn btn-primary"
+                                onClick={[Function]}
+                            >
+                                <input
+                                    autocomplete="off"
+                                    defaultChecked={false}
+                                    name="topup"
+                                    type="radio"
+                                />
+                                 收入
+                            </label>
+                        </div>
                     </div>
                     <div
                         className="col-2"
@@ -618,6 +647,35 @@ Array [
                                 交易成功
                             </option>
                         </select>
+                        <div
+                            className="btn-group btn-group-toggle"
+                            data-toggle="buttons"
+                        >
+                            <label
+                                className="btn btn-primary active"
+                                onClick={[Function]}
+                            >
+                                <input
+                                    autocomplete="off"
+                                    defaultChecked={true}
+                                    name="withdraw"
+                                    type="radio"
+                                />
+                                 支出
+                            </label>
+                            <label
+                                className="btn btn-primary"
+                                onClick={[Function]}
+                            >
+                                <input
+                                    autocomplete="off"
+                                    defaultChecked={false}
+                                    name="topup"
+                                    type="radio"
+                                />
+                                 收入
+                            </label>
+                        </div>
                     </div>
                     <div
                         className="col-2"
