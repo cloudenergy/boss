@@ -588,7 +588,7 @@ Array [
                     >
                         <input
                             className="col-3"
-                            defaultValue="2018-07-01"
+                            defaultValue="2018-03-02"
                             name="from"
                             onChange={[Function]}
                             required={true}
@@ -596,7 +596,7 @@ Array [
                         />
                         <input
                             className="col-3"
-                            defaultValue="2018-07-28"
+                            defaultValue="2018-03-05"
                             name="to"
                             onChange={[Function]}
                             required={true}
@@ -725,7 +725,31 @@ Array [
                             </th>
                         </tr>
                     </thead>
-                    <tbody />
+                    <tbody>
+                        <tr
+                            data-toggle="modal"
+                            onClick={[Function]}
+                        >
+                            <td />
+                            <td />
+                            <td />
+                            <td>
+                                支付宝
+                            </td>
+                            <td>
+                                hehe
+                            </td>
+                            <td>
+                                123123
+                            </td>
+                            <td>
+                                备注
+                            </td>
+                            <td>
+                                2018年03月05日 17:00
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>

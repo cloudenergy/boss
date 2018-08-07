@@ -156,7 +156,7 @@ describe('<WithdrawAudit/>', ()=>{
   })
 
   it('render <TopupView/>', () => {
-    subject = (<TopupView {...state} channel="topup" from="2018-03-02" to="2018-03-03" />)
+    subject = (<TopupView {...state} channel="topup" filters={{from:"2018-03-02", to:"2018-03-05"}} />)
     expect(renderer.create(subject).toJSON()).toMatchSnapshot()
   })
 
