@@ -6,6 +6,7 @@ export const AuditAction = Type({
   Approve:[Number],
   Deny:[Number],
   Popup:[Number, Boolean],
+  Switch: [String],
   Query:[String],
   Edit:[Number],
   Filters: [Object],

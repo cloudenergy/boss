@@ -5,7 +5,8 @@ import Fuse from 'fuse.js'
 import dateformat from 'dateformat'
 import {now} from './utils'
 import reducer from './WithdrawAudit.reducer'
-import View from './WithdrawAudit.view'
+import WithdrawView from './WithdrawAudit.view'
+import TopupView from './Topup.view'
 
 const fuseOpt = fuseOptFrom(['channel.project.name', 'channel.name', 'createdAt'])
 
@@ -16,6 +17,7 @@ export default class WithdrawAudit extends React.Component {
       withDraw: [],
       auditId: '',
       fund: {},
+      channel: 'withdraw',
       user: {},
       filters:{
         from: dateformat(now(), 'yyyy-mm-') + '01',
@@ -40,6 +42,7 @@ export default class WithdrawAudit extends React.Component {
     this.subscription.unsubscribe()
   }
   render() {
-    return <View {...this.state} />
+    return this.state.channel==='withdraw'?<WithdrawView {...this.state} />:
+           <TopupView {...this.state} />
   }
 }
