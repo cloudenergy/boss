@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<WithdrawAudit/> renders <View /> 1`] = `
+exports[`<WithdrawAudit/> render <TopupView/> 1`] = `
 Array [
   <div
     aria-hidden="true"
@@ -60,7 +60,7 @@ Array [
                             <dt
                                 className="col-4"
                             >
-                                项目名称
+                                金额
                                 :
                             </dt>
                             <dd
@@ -73,7 +73,7 @@ Array [
                             <dt
                                 className="col-4"
                             >
-                                交易账户
+                                手续费
                                 :
                             </dt>
                             <dd
@@ -86,7 +86,7 @@ Array [
                             <dt
                                 className="col-4"
                             >
-                                提现金额
+                                操作后余额
                                 :
                             </dt>
                             <dd
@@ -99,7 +99,7 @@ Array [
                             <dt
                                 className="col-4"
                             >
-                                提交时间
+                                充值类型
                                 :
                             </dt>
                             <dd
@@ -112,24 +112,7 @@ Array [
                             <dt
                                 className="col-4"
                             >
-                                交易状态
-                                :
-                            </dt>
-                            <dd
-                                className="col-8"
-                            >
-                                <span
-                                    className={undefined}
-                                />
-                            </dd>
-                        </dl>
-                        <dl
-                            className="row"
-                        >
-                            <dt
-                                className="col-4"
-                            >
-                                审核人
+                                对方
                                 :
                             </dt>
                             <dd
@@ -142,7 +125,7 @@ Array [
                             <dt
                                 className="col-4"
                             >
-                                平台剩余金额
+                                订单号
                                 :
                             </dt>
                             <dd
@@ -155,7 +138,20 @@ Array [
                             <dt
                                 className="col-4"
                             >
-                                账户余额
+                                备注
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                充值时间
                                 :
                             </dt>
                             <dd
@@ -273,7 +269,7 @@ Array [
                                 onClick={[Function]}
                             >
                                 <input
-                                    autocomplete="off"
+                                    autoComplete="off"
                                     defaultChecked={false}
                                     name="withdraw"
                                     type="radio"
@@ -281,12 +277,12 @@ Array [
                                  支出
                             </label>
                             <label
-                                className="btn btn-primary"
+                                className="btn btn-primary active"
                                 onClick={[Function]}
                             >
                                 <input
-                                    autocomplete="off"
-                                    defaultChecked={false}
+                                    autoComplete="off"
+                                    defaultChecked={true}
                                     name="topup"
                                     type="radio"
                                 />
@@ -323,58 +319,413 @@ Array [
                             <th
                                 scope="col"
                             >
-                                项目名称
+                                金额
                             </th>
                             <th
                                 scope="col"
                             >
-                                交易账户
+                                手续费
                             </th>
                             <th
                                 scope="col"
                             >
-                                提现金额
+                                操作后余额
                             </th>
                             <th
                                 scope="col"
                             >
-                                提交时间
+                                充值类型
                             </th>
                             <th
                                 scope="col"
                             >
-                                交易状态
+                                对方
                             </th>
                             <th
                                 scope="col"
                             >
-                                审核人
+                                订单号
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                备注
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                充值时间
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr
-                            data-toggle="modal"
-                            onClick={[Function]}
+                    <tbody />
+                </table>
+            </div>
+        </div>
+    </div>
+</div>,
+]
+`;
+
+exports[`<WithdrawAudit/> render <TopupView/> 2`] = `
+Array [
+  <div
+    aria-hidden="true"
+    className="modal"
+    id="auditing"
+    role="dialog"
+    tabIndex="-1"
+>
+    <div
+        className="modal-dialog modal-lg"
+        role="document"
+    >
+        <div
+            className="modal-content"
+        >
+            <div
+                className="modal-header"
+            >
+                <button
+                    aria-label="Close"
+                    className="close"
+                    data-dismiss="modal"
+                    type="button"
+                >
+                    <span
+                        aria-hidden="true"
+                    >
+                        ×
+                    </span>
+                </button>
+            </div>
+            <div
+                className="modal-body container"
+            >
+                <div
+                    className="row"
+                >
+                    <div
+                        className="col-3"
+                    >
+                        <img
+                            alt="logo"
+                            src="logo.png"
+                            style={
+                                Object {
+                                    "width": "160px",
+                                  }
+                            }
+                        />
+                    </div>
+                    <div
+                        className="col-9 border-left"
+                    >
+                        <dl
+                            className="row"
                         >
-                            <td>
-                                公寓
-                            </td>
-                            <td>
-                                赵
-                            </td>
-                            <td />
-                            <td>
-                                2018年07月19日 17:12
-                            </td>
-                            <td>
-                                <span
-                                    className={undefined}
+                            <dt
+                                className="col-4"
+                            >
+                                金额
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                手续费
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                操作后余额
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                充值类型
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                对方
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                订单号
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                备注
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                充值时间
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div
+                className="modal-footer"
+            >
+                <button
+                    className="btn btn-success"
+                    data-dismiss="modal"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                >
+                    确认审核
+                </button>
+                <button
+                    className="btn btn-danger"
+                    data-dismiss="modal"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                >
+                    审核失败
+                </button>
+            </div>
+        </div>
+    </div>
+</div>,
+  <div
+    className="accordion"
+    id="banking-audit"
+>
+    <div
+        className="card"
+    >
+        <div
+            className="card-header bg-info"
+        >
+            <h5
+                className="mb-0"
+            >
+                提现审核
+            </h5>
+        </div>
+        <div>
+            <div
+                className="card-body"
+            >
+                <div
+                    className="form-group row"
+                >
+                    <input
+                        aria-label="Search"
+                        className="form-control col-2"
+                        onChange={[Function]}
+                        placeholder="搜索"
+                        type="search"
+                    />
+                    <div
+                        className="col-6"
+                    >
+                        <input
+                            className="col-3"
+                            defaultValue="2018-07-01"
+                            name="from"
+                            onChange={[Function]}
+                            required={true}
+                            type="date"
+                        />
+                        <input
+                            className="col-3"
+                            defaultValue="2018-07-28"
+                            name="to"
+                            onChange={[Function]}
+                            required={true}
+                            type="date"
+                        />
+                        <select
+                            className="col-3"
+                            onChange={[Function]}
+                        >
+                            <option
+                                value=""
+                            >
+                                全部状态
+                            </option>
+                            <option
+                                value="PENDING"
+                            >
+                                待审核
+                            </option>
+                            <option
+                                value="PROCESSFAILURE"
+                            >
+                                处理失败
+                            </option>
+                            <option
+                                value="DONE"
+                            >
+                                交易成功
+                            </option>
+                        </select>
+                        <div
+                            className="btn-group btn-group-toggle"
+                            data-toggle="buttons"
+                        >
+                            <label
+                                className="btn btn-primary"
+                                onClick={[Function]}
+                            >
+                                <input
+                                    autoComplete="off"
+                                    defaultChecked={false}
+                                    name="withdraw"
+                                    type="radio"
                                 />
-                            </td>
-                            <td />
+                                 支出
+                            </label>
+                            <label
+                                className="btn btn-primary active"
+                                onClick={[Function]}
+                            >
+                                <input
+                                    autoComplete="off"
+                                    defaultChecked={true}
+                                    name="topup"
+                                    type="radio"
+                                />
+                                 收入
+                            </label>
+                        </div>
+                    </div>
+                    <div
+                        className="col-2"
+                    >
+                        平台总金额: 
+                        <span
+                            className="text-warning"
+                        />
+                        元
+                    </div>
+                    <div
+                        className="col-2"
+                    >
+                        可提现总金额: 
+                        <span
+                            className="text-success"
+                        />
+                        元
+                    </div>
+                </div>
+                <table
+                    className="table table-hover"
+                >
+                    <thead
+                        className="sticky-top"
+                    >
+                        <tr>
+                            <th
+                                scope="col"
+                            >
+                                金额
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                手续费
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                操作后余额
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                充值类型
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                对方
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                订单号
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                备注
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                充值时间
+                            </th>
                         </tr>
-                    </tbody>
+                    </thead>
+                    <tbody />
                 </table>
             </div>
         </div>
@@ -656,7 +1007,7 @@ Array [
                                 onClick={[Function]}
                             >
                                 <input
-                                    autocomplete="off"
+                                    autoComplete="off"
                                     defaultChecked={true}
                                     name="withdraw"
                                     type="radio"
@@ -668,7 +1019,7 @@ Array [
                                 onClick={[Function]}
                             >
                                 <input
-                                    autocomplete="off"
+                                    autoComplete="off"
                                     defaultChecked={false}
                                     name="topup"
                                     type="radio"
@@ -808,6 +1159,389 @@ Array [
                             <td>
                                 dxcpuls
                             </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>,
+]
+`;
+
+exports[`<WithdrawAudit/> renders <WithdrawView /> 1`] = `
+Array [
+  <div
+    aria-hidden="true"
+    className="modal"
+    id="auditing"
+    role="dialog"
+    tabIndex="-1"
+>
+    <div
+        className="modal-dialog modal-lg"
+        role="document"
+    >
+        <div
+            className="modal-content"
+        >
+            <div
+                className="modal-header"
+            >
+                <button
+                    aria-label="Close"
+                    className="close"
+                    data-dismiss="modal"
+                    type="button"
+                >
+                    <span
+                        aria-hidden="true"
+                    >
+                        ×
+                    </span>
+                </button>
+            </div>
+            <div
+                className="modal-body container"
+            >
+                <div
+                    className="row"
+                >
+                    <div
+                        className="col-3"
+                    >
+                        <img
+                            alt="logo"
+                            src="logo.png"
+                            style={
+                                Object {
+                                    "width": "160px",
+                                  }
+                            }
+                        />
+                    </div>
+                    <div
+                        className="col-9 border-left"
+                    >
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                项目名称
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                交易账户
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                提现金额
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                提交时间
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                交易状态
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            >
+                                <span
+                                    className={undefined}
+                                />
+                            </dd>
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                审核人
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                平台剩余金额
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
+                                账户余额
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            />
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div
+                className="modal-footer"
+            >
+                <button
+                    className="btn btn-success"
+                    data-dismiss="modal"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                >
+                    确认审核
+                </button>
+                <button
+                    className="btn btn-danger"
+                    data-dismiss="modal"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                >
+                    审核失败
+                </button>
+            </div>
+        </div>
+    </div>
+</div>,
+  <div
+    className="accordion"
+    id="banking-audit"
+>
+    <div
+        className="card"
+    >
+        <div
+            className="card-header bg-info"
+        >
+            <h5
+                className="mb-0"
+            >
+                提现审核
+            </h5>
+        </div>
+        <div>
+            <div
+                className="card-body"
+            >
+                <div
+                    className="form-group row"
+                >
+                    <input
+                        aria-label="Search"
+                        className="form-control col-2"
+                        onChange={[Function]}
+                        placeholder="搜索"
+                        type="search"
+                    />
+                    <div
+                        className="col-6"
+                    >
+                        <input
+                            className="col-3"
+                            defaultValue="2018-07-01"
+                            name="from"
+                            onChange={[Function]}
+                            required={true}
+                            type="date"
+                        />
+                        <input
+                            className="col-3"
+                            defaultValue="2018-07-28"
+                            name="to"
+                            onChange={[Function]}
+                            required={true}
+                            type="date"
+                        />
+                        <select
+                            className="col-3"
+                            onChange={[Function]}
+                        >
+                            <option
+                                value=""
+                            >
+                                全部状态
+                            </option>
+                            <option
+                                value="PENDING"
+                            >
+                                待审核
+                            </option>
+                            <option
+                                value="PROCESSFAILURE"
+                            >
+                                处理失败
+                            </option>
+                            <option
+                                value="DONE"
+                            >
+                                交易成功
+                            </option>
+                        </select>
+                        <div
+                            className="btn-group btn-group-toggle"
+                            data-toggle="buttons"
+                        >
+                            <label
+                                className="btn btn-primary"
+                                onClick={[Function]}
+                            >
+                                <input
+                                    autoComplete="off"
+                                    defaultChecked={false}
+                                    name="withdraw"
+                                    type="radio"
+                                />
+                                 支出
+                            </label>
+                            <label
+                                className="btn btn-primary"
+                                onClick={[Function]}
+                            >
+                                <input
+                                    autoComplete="off"
+                                    defaultChecked={false}
+                                    name="topup"
+                                    type="radio"
+                                />
+                                 收入
+                            </label>
+                        </div>
+                    </div>
+                    <div
+                        className="col-2"
+                    >
+                        平台总金额: 
+                        <span
+                            className="text-warning"
+                        />
+                        元
+                    </div>
+                    <div
+                        className="col-2"
+                    >
+                        可提现总金额: 
+                        <span
+                            className="text-success"
+                        />
+                        元
+                    </div>
+                </div>
+                <table
+                    className="table table-hover"
+                >
+                    <thead
+                        className="sticky-top"
+                    >
+                        <tr>
+                            <th
+                                scope="col"
+                            >
+                                项目名称
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                交易账户
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                提现金额
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                提交时间
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                交易状态
+                            </th>
+                            <th
+                                scope="col"
+                            >
+                                审核人
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            data-toggle="modal"
+                            onClick={[Function]}
+                        >
+                            <td>
+                                公寓
+                            </td>
+                            <td>
+                                赵
+                            </td>
+                            <td />
+                            <td>
+                                2018年07月19日 17:12
+                            </td>
+                            <td>
+                                <span
+                                    className={undefined}
+                                />
+                            </td>
+                            <td />
                         </tr>
                     </tbody>
                 </table>

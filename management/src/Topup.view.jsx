@@ -44,7 +44,7 @@ const statusMap = {
 }
 
 export default function View(props){
-  let searched = props.query? props.fuse.search(props.query): props.withDraw
+  let searched = props.query? props.fuse.search(props.query): props.topup
   let filtered = searched.filter(data =>{
     let createdAt = Date.parse(r.prop('createdAt')(data))
     let status = r.path(['filters', 'status'], props)

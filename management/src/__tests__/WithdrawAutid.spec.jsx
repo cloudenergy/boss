@@ -9,7 +9,8 @@ import {rest, now} from '../utils.js'
 jest.mock('../utils')
 import Fuse from 'fuse.js'
 import WithdrawAudit from '../WithdrawAudit';
-import View from '../WithdrawAudit.view.jsx'
+import WithdrawView from '../WithdrawAudit.view.jsx'
+import TopupView from '../Topup.view.jsx'
 import reducer from '../WithdrawAudit.reducer.jsx'
 const {Context, Var} = AuditContext
 Enzyme.configure({ adapter: new Adapter() })
@@ -106,6 +107,16 @@ rest.mockImplementation(url=>{
 describe('<WithdrawAudit/>', ()=>{
   let subject, state= {
     withDraw: data.withDraw,
+    topup:[{
+      amount: 10000,
+      fee: 10,
+      balance: 1000,
+      channel: '支付宝',
+      name: 'hehe',
+      orderNo: 123123,
+      createdAt: '2018-03-05T06:00:23.000Z',
+      remark: '备注'
+    }],
     auditId: '',
     fund: {},
     user: {},
@@ -129,8 +140,8 @@ describe('<WithdrawAudit/>', ()=>{
 
   })
 
-  it('renders <View />', () => {
-    subject = (<View {...state} />)
+  it('renders <WithdrawView />', () => {
+    subject = (<WithdrawView {...state} />)
     expect(renderer.create(subject).toJSON()).toMatchSnapshot()
   })
 
@@ -139,11 +150,23 @@ describe('<WithdrawAudit/>', ()=>{
     expect(renderer.create(subject).toJSON()).toMatchSnapshot()
   })
 
+  it('render <TopupView/>', () => {
+    subject = (<TopupView {...state} channel="topup"  />)
+    expect(renderer.create(subject).toJSON()).toMatchSnapshot()
+  })
+
+  it('render <TopupView/>', () => {
+    subject = (<TopupView {...state} channel="topup" from="2018-03-02" to="2018-03-03" />)
+    expect(renderer.create(subject).toJSON()).toMatchSnapshot()
+  })
+
   it('Action Load', (done) => {
     let setState = jest.fn()
-    reducer(setState, state).take(3).toArray().subscribe(x=>{
-      expect(setState.mock.calls.length).toEqual(3)
+    reducer(setState, state).take(4).toArray().subscribe(x=>{
+      expect(setState.mock.calls.length).toEqual(4)
       done()
     },err=>console.log(err))
   })
+
+
 })

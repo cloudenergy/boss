@@ -15,6 +15,7 @@ export default class WithdrawAudit extends React.Component {
     super(props)
     this.state = {
       withDraw: [],
+      topup: [],
       auditId: '',
       fund: {},
       channel: 'withdraw',
