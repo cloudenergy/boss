@@ -16,14 +16,13 @@ const Filter = (props) => (
         ))}
       </select>
       <div className="btn-group btn-group-toggle" data-toggle="buttons">
-        <label className={"btn btn-primary" + (channel=="withdraw" ? ' active': '')} onClick={e=>{
-            console.log(channel)
+        <label className={"btn btn-primary" + (channel==="withdraw" ? ' active': '')} onClick={e=>{
           actions.next(AuditAction.Switch("withdraw"))
           }}>
-          <input type="radio" name="withdraw" autocomplete="off" defaultChecked={channel=="withdraw"} /> 支出
+          <input type="radio" name="withdraw" autocomplete="off" defaultChecked={channel==="withdraw"} /> 支出
         </label>
-        <label className={"btn btn-primary" + (channel=="topup" ? ' active': '')} onClick={e=>actions.next(AuditAction.Switch("topup"))}>
-          <input type="radio" name="topup" autocomplete="off" defaultChecked={channel=="topup"} /> 收入
+        <label className={"btn btn-primary" + (channel==="topup" ? ' active': '')} onClick={e=>actions.next(AuditAction.Switch("topup"))}>
+          <input type="radio" name="topup" autocomplete="off" defaultChecked={channel==="topup"} /> 收入
           </label>
           </div>
           </div>

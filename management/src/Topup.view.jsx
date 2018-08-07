@@ -42,7 +42,6 @@ const statusMap = {
   'PROCESSFAILURE': {color: 'text-danger', text: '处理失败'},
   'DONE': {color: 'text-success', text: '交易成功'}
 }
-const lensStatusMap = (status, val) => r.lensPath([status, val])
 
 export default function View(props){
   let searched = props.query? props.fuse.search(props.query): props.withDraw
