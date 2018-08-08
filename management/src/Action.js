@@ -10,5 +10,6 @@ export const AuditAction = Type({
   Query:[String],
   Edit:[Number],
   Filters: [Object],
+  Range: [Object],
   Update:[Object, Object],
 })
