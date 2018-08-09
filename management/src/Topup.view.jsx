@@ -73,7 +73,7 @@ export default function View(props){
     let status = r.path(['filters', 'status'], props)
     return createdAt > Date.parse(r.path(['filters', 'from'], props)) &&
            (createdAt - 0) < (Date.parse(r.path(['filters', 'to'], props)) - 0 + aDay) &&
-           (status=== '' || channelCatergory.find(r.compose(r.contains(status), r.prop('category'))))
+           (status=== '' || channelCatergory.find(r.compose(r.contains(status), r.prop('catergory'))))
   })
 
   let selected = filtered.find(p=> r.prop('id')(p) === props.auditId )
