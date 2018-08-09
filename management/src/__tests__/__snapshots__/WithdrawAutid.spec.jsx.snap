@@ -151,6 +151,23 @@ Array [
                             <dt
                                 className="col-4"
                             >
+                                交易状态
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            >
+                                <span
+                                    className={undefined}
+                                />
+                            </dd>
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
                                 充值时间
                                 :
                             </dt>
@@ -245,19 +262,24 @@ Array [
                                 全部状态
                             </option>
                             <option
-                                value="PENDING"
+                                value="支付宝"
                             >
-                                待审核
+                                支付宝
                             </option>
                             <option
-                                value="PROCESSFAILURE"
+                                value="微信"
                             >
-                                处理失败
+                                微信
                             </option>
                             <option
-                                value="DONE"
+                                value="微信公众号"
                             >
-                                交易成功
+                                微信公众号
+                            </option>
+                            <option
+                                value="人工充值"
+                            >
+                                人工充值
                             </option>
                         </select>
                         <div
@@ -354,11 +376,47 @@ Array [
                             <th
                                 scope="col"
                             >
+                                交易状态
+                            </th>
+                            <th
+                                scope="col"
+                            >
                                 充值时间
                             </th>
                         </tr>
                     </thead>
-                    <tbody />
+                    <tbody>
+                        <tr
+                            data-toggle="modal"
+                            onClick={[Function]}
+                        >
+                            <td />
+                            <td />
+                            <td />
+                            <td>
+                                支付宝
+                            </td>
+                            <td>
+                                hehe
+                            </td>
+                            <td>
+                                123123
+                            </td>
+                            <td>
+                                备注
+                            </td>
+                            <td>
+                                <span
+                                    className="text-warning"
+                                >
+                                    待处理
+                                </span>
+                            </td>
+                            <td>
+                                2018年07月05日 16:00
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -518,6 +576,23 @@ Array [
                             <dt
                                 className="col-4"
                             >
+                                交易状态
+                                :
+                            </dt>
+                            <dd
+                                className="col-8"
+                            >
+                                <span
+                                    className={undefined}
+                                />
+                            </dd>
+                        </dl>
+                        <dl
+                            className="row"
+                        >
+                            <dt
+                                className="col-4"
+                            >
                                 充值时间
                                 :
                             </dt>
@@ -612,19 +687,24 @@ Array [
                                 全部状态
                             </option>
                             <option
-                                value="PENDING"
+                                value="支付宝"
                             >
-                                待审核
+                                支付宝
                             </option>
                             <option
-                                value="PROCESSFAILURE"
+                                value="微信"
                             >
-                                处理失败
+                                微信
                             </option>
                             <option
-                                value="DONE"
+                                value="微信公众号"
                             >
-                                交易成功
+                                微信公众号
+                            </option>
+                            <option
+                                value="人工充值"
+                            >
+                                人工充值
                             </option>
                         </select>
                         <div
@@ -721,35 +801,16 @@ Array [
                             <th
                                 scope="col"
                             >
+                                交易状态
+                            </th>
+                            <th
+                                scope="col"
+                            >
                                 充值时间
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr
-                            data-toggle="modal"
-                            onClick={[Function]}
-                        >
-                            <td />
-                            <td />
-                            <td />
-                            <td>
-                                支付宝
-                            </td>
-                            <td>
-                                hehe
-                            </td>
-                            <td>
-                                123123
-                            </td>
-                            <td>
-                                备注
-                            </td>
-                            <td>
-                                2018年03月05日 17:00
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody />
                 </table>
             </div>
         </div>

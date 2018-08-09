@@ -11,6 +11,14 @@ import {$$} from './utils'
 const {Context, Var} = AuditContext
 const aDay = 86400000
 const datef = x => x && dateformat(Date.parse(x), 'yyyy年mm月dd日 HH:MM')
+
+const lensStatusMap = (status, val) => r.lensPath([status, val])
+const statusMap = {
+  'pending': {color: 'text-warning', text:'待处理'},
+  'declined': {color: 'text-danger', text: '失败'},
+  'approved': {color: 'text-success', text: '成功'}
+}
+
 const TopupTable =[{
   name: '金额',
   lens: r.compose($$,r.prop('amount'))
@@ -34,13 +42,21 @@ const TopupTable =[{
   name: '备注',
   lens: r.prop('remark')
 },{
+  name: '交易状态',
+  lens: r.compose(status=><span className={r.view(lensStatusMap(status, 'color'))(statusMap)}>
+    {r.view(lensStatusMap(status, 'text'))(statusMap)}
+  </span>,
+        r.prop('status'))
+},{
   name: '充值时间',
   lens: r.compose(datef, r.prop('createdAt'))
 }]
-const statusMap = {
-  'PENDING': {color: 'text-warning', text:'待审核'},
-  'PROCESSFAILURE': {color: 'text-danger', text: '处理失败'},
-  'DONE': {color: 'text-success', text: '交易成功'}
+
+const channelFilter = {
+  '支付宝': { text:'支付宝'},
+  '微信': {text: '微信'},
+  '微信公众号': { text: '微信公众号'},
+  '人工充值': { text: '人工充值'},
 }
 
 export default function View(props){
@@ -79,7 +95,7 @@ export default function View(props){
             <div className="card-body">
               <div className="form-group row">
                 <input className="form-control col-2" type="search" placeholder="搜索" aria-label="Search" onChange={e=> Var.next(AuditAction.Query(e.target.value))} />
-                <Filter from={props.filters.from} to={props.filters.to} statusMap={statusMap} />
+                <Filter from={props.filters.from} to={props.filters.to} statusMap={channelFilter} />
                 <div className="col-2">
                   平台总金额: <span className="text-warning">{$$(props.summary.sum)}</span>元
                 </div>
