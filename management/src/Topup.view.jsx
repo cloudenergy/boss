@@ -80,8 +80,8 @@ export default function View(props){
   let contextValue = {
     actions: Var,
     table: TopupTable,
-    idLens: r.prop('id'),
-    statusLens: r.compose(r.equals("PENDING"), r.prop('status')),
+    idLens: r.prop('orderNo'),
+    statusLens: r.compose(r.equals("pending"), r.prop('status')),
     modalId: "auditing",
     channel: props.channel,
   }
