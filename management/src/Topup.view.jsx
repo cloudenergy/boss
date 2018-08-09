@@ -68,12 +68,15 @@ const channelFilter = {
 
 export default function View(props){
   let searched = props.query? props.fuse.search(props.query): props.topup
+  let status = r.path(['filters', 'status'], props)
   let filtered = searched.filter(data =>{
     let createdAt = Date.parse(r.prop('createdAt')(data))
-    let status = r.path(['filters', 'status'], props)
     return createdAt > Date.parse(r.path(['filters', 'from'], props)) &&
            (createdAt - 0) < (Date.parse(r.path(['filters', 'to'], props)) - 0 + aDay) &&
-           (status=== '' || channelCatergory.find(r.compose(r.contains(status), r.prop('catergory'))))
+           (status=== '' || r.compose(
+             r.contains(r.prop('status', data)),
+             r.find(r.compose(r.equals(status), r.prop('text'))),
+           )(channelCatergory))
   })
 
   let selected = filtered.find(p=> r.prop('id')(p) === props.auditId )

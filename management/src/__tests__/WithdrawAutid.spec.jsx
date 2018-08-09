@@ -25,7 +25,18 @@ const topupData = [{
   createdAt: '2018-07-05T06:00:23.000Z',
   status: 'pending',
   remark: '备注'
-}]
+},{
+  amount: 10000,
+  fee: 10,
+  balance: 1000,
+  channel: '微信转账',
+  name: 'hehe',
+  orderNo: 123124,
+  createdAt: '2018-03-05T06:00:23.000Z',
+  status: 'pending',
+  remark: '备注'
+}
+]
 
 const data = {withDraw:[
   {
@@ -102,8 +113,9 @@ rest.mockImplementation(url=>{
   switch(url){
     case "environments": return Observable.of({response: [{key:'user', id: 123}]});
     case 'boss/incomeSummary': return Observable.of({response:{"sum":14409,"withdraw":0,"fee":0,"arrears":[{"value":"-394404","count":11}],"frozen":400,"balance":13922.546}});
-    case 'boss/withDraw?from=2018-07-01&to=2018-07-28': return Observable.of({response:{"withDraw":[{"id":3,"projectId":"6376305154160988160","amount":400,"fundChannelId":26,"operator":"6413312023169470466","auditor":0,"status":"PENDING","createdAt":"2018-07-26T13:24:02.000Z","updatedAt":"2018-07-26T13:24:02.000Z","deletedAt":null,"auth":null,"channel":{"id":26,"flow":"pay","projectId":"6376305154160988160","category":"online","tag":"alipay","name":"丁新城","status":"PASSED","createdAt":"2018-07-18T12:49:52.000Z","updatedAt":"2018-07-20T12:21:36.000Z","deletedAt":null,"project":{"id":"6376305154160988160","logoUrl":null,"name":"测试项目","address":null,"description":null,"telephone":null,"createdAt":"2018-03-05T06:00:23.000Z","updatedAt":"2018-03-05T06:00:27.000Z","deletedAt":null}}},{"id":2,"projectId":"6376305154160988160","amount":1000,"fundChannelId":26,"operator":"6413312023169470466","auditor":"6413312023169470466","status":"PROCESSFAILURE","createdAt":"2018-07-26T13:05:45.000Z","updatedAt":"2018-07-26T13:17:56.000Z","deletedAt":null,"auth":{"id":"6413312023169470466","level":"OP","username":"dxcpuls","password":"c33cc8e44b724bfa0bae09dbc946f8d7","email":"","mobile":null,"allowReceiveFrom":"BOTH","lastLoggedIn":null,"createdAt":"2018-03-05T06:01:03.000Z","updatedAt":"2018-03-05T06:01:05.000Z","deletedAt":null,"projectId":"6376305154160988160"},"channel":{"id":26,"flow":"pay","projectId":"6376305154160988160","category":"online","tag":"alipay","name":"丁新城","status":"PASSED","createdAt":"2018-07-18T12:49:52.000Z","updatedAt":"2018-07-20T12:21:36.000Z","deletedAt":null,"project":{"id":"6376305154160988160","logoUrl":null,"name":"测试项目","address":null,"description":null,"telephone":null,"createdAt":"2018-03-05T06:00:23.000Z","updatedAt":"2018-03-05T06:00:27.000Z","deletedAt":null}}},{"id":1,"projectId":"6376305154160988160","amount":1000,"fundChannelId":26,"operator":"6413312023169470466","auditor":"6413312023169470466","status":"PROCESSFAILURE","createdAt":"2018-07-26T13:03:46.000Z","updatedAt":"2018-07-26T13:17:57.000Z","deletedAt":null,"auth":{"id":"6413312023169470466","level":"OP","username":"dxcpuls","password":"c33cc8e44b724bfa0bae09dbc946f8d7","email":"","mobile":null,"allowReceiveFrom":"BOTH","lastLoggedIn":null,"createdAt":"2018-03-05T06:01:03.000Z","updatedAt":"2018-03-05T06:01:05.000Z","deletedAt":null,"projectId":"6376305154160988160"},"channel":{"id":26,"flow":"pay","projectId":"6376305154160988160","category":"online","tag":"alipay","name":"丁新城","status":"PASSED","createdAt":"2018-07-18T12:49:52.000Z","updatedAt":"2018-07-20T12:21:36.000Z","deletedAt":null,"project":{"id":"6376305154160988160","logoUrl":null,"name":"测试项目","address":null,"description":null,"telephone":null,"createdAt":"2018-03-05T06:00:23.000Z","updatedAt":"2018-03-05T06:00:27.000Z","deletedAt":null}}}]}})
-    case 'boss/topup?from=2018-07-01&to=2018-07-28': return Observable.of({response:topupData})
+    case 'boss/withDraw?from=2018-01-01&to=2018-07-28': return Observable.of({response:{"withDraw":[{"id":3,"projectId":"6376305154160988160","amount":400,"fundChannelId":26,"operator":"6413312023169470466","auditor":0,"status":"PENDING","createdAt":"2018-07-26T13:24:02.000Z","updatedAt":"2018-07-26T13:24:02.000Z","deletedAt":null,"auth":null,"channel":{"id":26,"flow":"pay","projectId":"6376305154160988160","category":"online","tag":"alipay","name":"丁新城","status":"PASSED","createdAt":"2018-07-18T12:49:52.000Z","updatedAt":"2018-07-20T12:21:36.000Z","deletedAt":null,"project":{"id":"6376305154160988160","logoUrl":null,"name":"测试项目","address":null,"description":null,"telephone":null,"createdAt":"2018-03-05T06:00:23.000Z","updatedAt":"2018-03-05T06:00:27.000Z","deletedAt":null}}},{"id":2,"projectId":"6376305154160988160","amount":1000,"fundChannelId":26,"operator":"6413312023169470466","auditor":"6413312023169470466","status":"PROCESSFAILURE","createdAt":"2018-07-26T13:05:45.000Z","updatedAt":"2018-07-26T13:17:56.000Z","deletedAt":null,"auth":{"id":"6413312023169470466","level":"OP","username":"dxcpuls","password":"c33cc8e44b724bfa0bae09dbc946f8d7","email":"","mobile":null,"allowReceiveFrom":"BOTH","lastLoggedIn":null,"createdAt":"2018-03-05T06:01:03.000Z","updatedAt":"2018-03-05T06:01:05.000Z","deletedAt":null,"projectId":"6376305154160988160"},"channel":{"id":26,"flow":"pay","projectId":"6376305154160988160","category":"online","tag":"alipay","name":"丁新城","status":"PASSED","createdAt":"2018-07-18T12:49:52.000Z","updatedAt":"2018-07-20T12:21:36.000Z","deletedAt":null,"project":{"id":"6376305154160988160","logoUrl":null,"name":"测试项目","address":null,"description":null,"telephone":null,"createdAt":"2018-03-05T06:00:23.000Z","updatedAt":"2018-03-05T06:00:27.000Z","deletedAt":null}}},{"id":1,"projectId":"6376305154160988160","amount":1000,"fundChannelId":26,"operator":"6413312023169470466","auditor":"6413312023169470466","status":"PROCESSFAILURE","createdAt":"2018-07-26T13:03:46.000Z","updatedAt":"2018-07-26T13:17:57.000Z","deletedAt":null,"auth":{"id":"6413312023169470466","level":"OP","username":"dxcpuls","password":"c33cc8e44b724bfa0bae09dbc946f8d7","email":"","mobile":null,"allowReceiveFrom":"BOTH","lastLoggedIn":null,"createdAt":"2018-03-05T06:01:03.000Z","updatedAt":"2018-03-05T06:01:05.000Z","deletedAt":null,"projectId":"6376305154160988160"},"channel":{"id":26,"flow":"pay","projectId":"6376305154160988160","category":"online","tag":"alipay","name":"丁新城","status":"PASSED","createdAt":"2018-07-18T12:49:52.000Z","updatedAt":"2018-07-20T12:21:36.000Z","deletedAt":null,"project":{"id":"6376305154160988160","logoUrl":null,"name":"测试项目","address":null,"description":null,"telephone":null,"createdAt":"2018-03-05T06:00:23.000Z","updatedAt":"2018-03-05T06:00:27.000Z","deletedAt":null}}}]}})
+    case 'boss/topup?from=2018-01-01&to=2018-07-28': return Observable.of({response:topupData})
+    case 'boss/topup?from=2018-03-02&to=2018-03-05': return Observable.of({response:[topupData[1]]})
   }
 
 })
@@ -115,7 +127,7 @@ describe('<WithdrawAudit/>', ()=>{
     fund: {},
     user: {},
     filters:{
-      from: '2018-07-01',
+      from: '2018-01-01',
       to: '2018-07-28',
       status: ''
     },
@@ -139,18 +151,18 @@ describe('<WithdrawAudit/>', ()=>{
     expect(renderer.create(subject).toJSON()).toMatchSnapshot()
   })
 
-  it('renders <WithDrawAudit />', ()=> {
-    subject = (<WithdrawAudit/>)
-    expect(renderer.create(subject).toJSON()).toMatchSnapshot()
-  })
-
   it('render <TopupView/>', () => {
     subject = (<TopupView {...state} channel="topup"  />)
     expect(renderer.create(subject).toJSON()).toMatchSnapshot()
   })
 
-  it('render <TopupView/>', () => {
-    subject = (<TopupView {...state} channel="topup" filters={{from:"2018-03-02", to:"2018-03-05"}} />)
+  it('filter date in <TopupView/>', () => {
+    subject = (<TopupView {...state} channel="topup" filters={{from:"2018-03-02", to:"2018-03-05", status:''}} />)
+    expect(renderer.create(subject).toJSON()).toMatchSnapshot()
+  })
+
+  it('filter status in <TopupView/>', () => {
+    subject = (<TopupView {...state} channel="topup" filters={{from:"2018-01-01", to:"2018-07-28", status:"微信转账"}} />)
     expect(renderer.create(subject).toJSON()).toMatchSnapshot()
   })
 
