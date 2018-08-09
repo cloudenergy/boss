@@ -35,6 +35,7 @@ const reducer = (setState, state) => {
       return Observable.of(setState({channel}))
     },
     Popup: (id,status) => {
+      if(state.channel==='topup') return Observable.empty();
       let projectid = r.path(['channel', 'project', 'id'])(state.withDraw.find(p=> r.prop('id')(p) === id ))
       return rest(`projects/${projectid}/balance`)
         .map(({response})=>setState({fund:response}))
