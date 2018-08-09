@@ -14,7 +14,6 @@ const Filter = (props) => (
           actions.next(AuditAction.Range({to: e.target.value}))
       } } required/>
       <select className="col-3" onChange={e=> actions.next(AuditAction.Filters({status: e.target.value})) }>
-        <option value="">全部状态</option>
         {r.toPairs(props.statusMap).map(([key, val], index)=>(
           <option key={index} value={key}>{val.text}</option>
         ))}

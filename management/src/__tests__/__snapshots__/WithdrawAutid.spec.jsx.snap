@@ -259,7 +259,7 @@ Array [
                             <option
                                 value=""
                             >
-                                全部状态
+                                全部类型
                             </option>
                             <option
                                 value="支付宝"
@@ -267,7 +267,7 @@ Array [
                                 支付宝
                             </option>
                             <option
-                                value="微信"
+                                value="微信转账"
                             >
                                 微信
                             </option>
@@ -684,7 +684,7 @@ Array [
                             <option
                                 value=""
                             >
-                                全部状态
+                                全部类型
                             </option>
                             <option
                                 value="支付宝"
@@ -692,7 +692,7 @@ Array [
                                 支付宝
                             </option>
                             <option
-                                value="微信"
+                                value="微信转账"
                             >
                                 微信
                             </option>

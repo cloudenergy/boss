@@ -35,6 +35,7 @@ const withDrawTable =[{
   lens: r.path(['auth', 'username'])
 }]
 const statusMap = {
+  '': {text:'全部状态'},
   'PENDING': {color: 'text-warning', text:'待审核'},
   'PROCESSFAILURE': {color: 'text-danger', text: '处理失败'},
   'DONE': {color: 'text-success', text: '交易成功'}
