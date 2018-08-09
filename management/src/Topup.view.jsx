@@ -54,13 +54,14 @@ const TopupTable =[{
 
 const channelCatergory = [
   {text: '支付宝', catergory: ['支付宝']},
-  {text: '微信转账', catergory: ['微信', '微信公众号']},
+  {text: '微信转账', catergory: ['微信转账']},
+  {text: '微信公众号', catergory: ['微信公众号']},
   {text: '人工充值', catergory: ['现金','POS刷卡','其他','支票','账扣','冲正']},
 ]
 const channelFilter = {
   '': {text: '全部类型'},
   '支付宝': { text:'支付宝'},
-  '微信转账': {text: '微信'},
+  '微信转账': {text: '微信转账'},
   '微信公众号': { text: '微信公众号'},
   '人工充值': { text: '人工充值'},
 }
@@ -72,7 +73,7 @@ export default function View(props){
     let status = r.path(['filters', 'status'], props)
     return createdAt > Date.parse(r.path(['filters', 'from'], props)) &&
            (createdAt - 0) < (Date.parse(r.path(['filters', 'to'], props)) - 0 + aDay) &&
-           (status=== '' || channelCatergory.find(c=> status in c.catergory))
+           (status=== '' || channelCatergory.find(r.compose(r.contains(status), r.prop('category'))))
   })
 
   let selected = filtered.find(p=> r.prop('id')(p) === props.auditId )
