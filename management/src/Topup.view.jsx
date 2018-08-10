@@ -4,7 +4,6 @@ import './Finance.css'
 import dateformat from 'dateformat'
 import {AuditAction} from './Action'
 import {AuditContext} from './Context'
-import Confirm from './audit/Confirm'
 import Table from './audit/Table'
 import Filter from './audit/Filter'
 import {$$} from './utils'
@@ -80,21 +79,17 @@ export default function View(props){
            (status=== '' || r.contains(r.prop('channel', data), catergory))
   })
 
-  let selected = filtered.find(p=> r.prop('id')(p) === props.auditId )
-
   let contextValue = {
     actions: Var,
     table: TopupTable,
-    idLens: r.prop('orderNo'),
+    idLens: r.always(0),
     statusLens: r.compose(r.equals("pending"), r.prop('status')),
-    modalId: "auditing",
+    modalId: "not-exist",
     channel: props.channel,
   }
 
   return (
     <Context.Provider value={contextValue}>
-      <Confirm table={TopupTable} enable={props.auditEnable} data={selected} auditId={props.auditId} />
-
       <div className="accordion" id="banking-audit">
         <div className="card">
           <div className="card-header bg-info">
