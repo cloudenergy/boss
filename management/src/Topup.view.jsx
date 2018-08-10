@@ -55,7 +55,7 @@ const TopupTable =[{
 const channelCatergory = [
   {text: '支付宝', catergory: ['支付宝']},
   {text: '微信转账', catergory: ['微信转账']},
-  {text: '微信公众号', catergory: ['微信公众号']},
+  {text: '微信公众号', catergory: ['微信']},
   {text: '人工充值', catergory: ['现金','POS刷卡','其他','支票','账扣','冲正']},
 ]
 const channelFilter = {
@@ -69,14 +69,15 @@ const channelFilter = {
 export default function View(props){
   let searched = props.query? props.fuse.search(props.query): props.topup
   let status = r.path(['filters', 'status'], props)
+  let catergory = r.compose(
+    r.prop('catergory'),
+    r.find(r.compose(r.equals(status), r.prop('text'))),
+  )(channelCatergory) || []
   let filtered = searched.filter(data =>{
     let createdAt = Date.parse(r.prop('createdAt')(data))
     return createdAt > Date.parse(r.path(['filters', 'from'], props)) &&
            (createdAt - 0) < (Date.parse(r.path(['filters', 'to'], props)) - 0 + aDay) &&
-           (status=== '' || r.compose(
-             r.contains(r.prop('status', data)),
-             r.find(r.compose(r.equals(status), r.prop('text'))),
-           )(channelCatergory))
+           (status=== '' || r.contains(r.prop('channel', data), catergory))
   })
 
   let selected = filtered.find(p=> r.prop('id')(p) === props.auditId )
