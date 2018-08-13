@@ -66,7 +66,7 @@ const channelFilter = {
 }
 
 export default function View(props){
-  let searched = props.query? props.fuse.search(props.query): props.topup
+  let searched = props.query? props.topupFuse.search(props.query): props.topup
   let status = r.path(['filters', 'status'], props)
   let catergory = r.compose(
     r.prop('catergory'),

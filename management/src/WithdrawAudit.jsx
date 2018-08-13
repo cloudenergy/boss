@@ -33,7 +33,8 @@ export default class WithdrawAudit extends React.Component {
       },
       auditEnable: true,
       query: "",
-      fuse: new Fuse([], fuseOpt)
+      withdrawFuse: new Fuse([], withDrawFuseOpt),
+      topupFuse: new Fuse([], topupFuseOpt),
     }
   }
   componentDidMount() {

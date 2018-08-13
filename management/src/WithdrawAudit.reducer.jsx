@@ -1,24 +1,27 @@
 import {AuditContext} from './Context'
 import {AuditAction} from './Action'
-import {rest} from './utils'
+import {rest} from './utils-eff'
+import {nextDayOf} from './utils'
 import {Observable} from 'rxjs-compat'
 import * as r from 'ramda'
 import Fuse from 'fuse.js'
 import fuseOptFrom from './fuseOpt'
 
 const {Var} = AuditContext
-const withDrawFuseOpt = fuseOptFrom(['channel.project.name', 'channel.name', 'createdAt'])
-const topupFuseOpt = fuseOptFrom(['name'])
+export const withDrawFuseOpt = fuseOptFrom(['channel.project.name', 'channel.name', 'createdAt'])
+
+export const topupFuseOpt = fuseOptFrom(['name', 'channel', 'orderNo', 'remark', 'status', 'createdAt'])
+
 const reducer = (setState, state) => {
-  let withDraw = (from, to) => rest(`boss/withDraw?from=${from}&to=${to}`)
+  let withDraw = (from, to) => rest(`boss/withDraw?from=${from}&to=${nextDayOf(to)}`)
     .map(({response})=>setState({
       withDraw: response.withDraw,
-      fuse: new Fuse(response.withDraw, withDrawFuseOpt)
+      withdrawFuse: new Fuse(response.withDraw, withDrawFuseOpt)
     }))
-  let topup = (from, to) => rest(`boss/topup?from=${from}&to=${to}`)
+  let topup = (from, to) => rest(`boss/topup?from=${from}&to=${nextDayOf(to)}`)
     .map(({response}) => setState({
       topup: response,
-      fuse: new Fuse(response, topupFuseOpt)
+      topupFuse: new Fuse(response, topupFuseOpt)
     }))
   return  Var.startWith(AuditAction.Load).flatMap(action => action.case({
     Load: () => {
