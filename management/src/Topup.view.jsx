@@ -6,9 +6,10 @@ import {AuditAction} from './Action'
 import {AuditContext} from './Context'
 import Table from './audit/Table'
 import Filter from './audit/Filter'
-import {$$} from './utils'
+import {$$} from './utils-eff'
+import {nextDayOf} from './utils'
+
 const {Context, Var} = AuditContext
-const aDay = 86400000
 const datef = x => x && dateformat(Date.parse(x), 'yyyy年mm月dd日 HH:MM')
 
 const lensStatusMap = (status, val) => r.lensPath([status, val])
@@ -75,8 +76,9 @@ export default function View(props){
   let filtered = searched.filter(data =>{
     let createdAt = Date.parse(r.prop('createdAt')(data))
     return createdAt > Date.parse(r.path(['filters', 'from'], props)) &&
-           (createdAt - 0) < (Date.parse(r.path(['filters', 'to'], props)) - 0 + aDay) &&
-           (status=== '' || r.contains(r.prop('channel', data), catergory))
+           (createdAt - 0) < Date.parse(nextDayOf(r.path(['filters', 'to'],props)))
+&&
+                                        (status=== '' || r.contains(r.prop('channel', data), catergory))
   })
 
   let contextValue = {

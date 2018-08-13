@@ -1,7 +1,6 @@
 
 import React from 'react'
 import {Observable} from 'rxjs-compat'
-import {rest} from './utils'
 import * as r from 'ramda'
 import './Finance.css'
 import fuseOptFrom from './fuseOpt'
@@ -12,7 +11,7 @@ import {AuditContext} from './Context'
 import Confirm from './audit/Confirm'
 import Edit from './audit/Edit'
 import Table from './audit/Table'
-import {modal} from './utils'
+import {modal,rest} from './utils-eff'
 
 const {Context, Var} = AuditContext
 

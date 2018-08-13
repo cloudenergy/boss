@@ -1,7 +1,7 @@
 import {AuditAction} from '../Action'
 import React from 'react'
 import {AuditContext} from '../Context'
-import {modal} from '../utils'
+import {modal} from '../utils-eff'
 
 const {Context} = AuditContext
 const Table = ({data}) => (

@@ -7,9 +7,10 @@ import {AuditContext} from './Context'
 import Confirm from './audit/Confirm'
 import Table from './audit/Table'
 import Filter from './audit/Filter'
-import {$$} from './utils'
+import {$$} from './utils-eff'
+import {nextDayOf} from './utils'
+
 const {Context, Var} = AuditContext
-const aDay = 86400000
 const datef = x => x && dateformat(Date.parse(x), 'yyyy年mm月dd日 HH:MM')
 const withDrawTable =[{
   name: '项目名称',
@@ -43,12 +44,12 @@ const statusMap = {
 const lensStatusMap = (status, val) => r.lensPath([status, val])
 
 export default function View(props){
-  let searched = props.query? props.fuse.search(props.query): props.withDraw
+  let searched = props.query? props.withdrawFuse.search(props.query): props.withDraw
   let filtered = searched.filter(data =>{
     let createdAt = Date.parse(r.prop('createdAt')(data))
     let status = r.path(['filters', 'status'], props)
     return createdAt > Date.parse(r.path(['filters', 'from'], props)) &&
-           (createdAt - 0) < (Date.parse(r.path(['filters', 'to'], props)) - 0 + aDay) &&
+           (createdAt - 0) < Date.parse(nextDayOf(r.path(['filters', 'to'],props))) &&
            (status=== '' || status === r.prop('status', data))
   })
 

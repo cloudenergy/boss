@@ -2,7 +2,7 @@ import {AuditAction} from '../Action'
 import React from 'react'
 import logo from '../logo.png'
 import {AuditContext} from '../Context'
-import {modal} from '../utils'
+import {modal} from '../utils-eff'
 
 const {Context} = AuditContext
 

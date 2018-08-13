@@ -1,14 +1,11 @@
 import React from 'react'
 import './Finance.css'
-import fuseOptFrom from './fuseOpt'
 import Fuse from 'fuse.js'
 import dateformat from 'dateformat'
-import {now} from './utils'
-import reducer from './WithdrawAudit.reducer'
+import {now} from './utils-eff'
+import reducer, {withDrawFuseOpt, topupFuseOpt} from './WithdrawAudit.reducer'
 import WithdrawView from './WithdrawAudit.view'
 import TopupView from './Topup.view'
-
-const fuseOpt = fuseOptFrom(['channel.project.name', 'channel.name', 'createdAt'])
 
 export default class WithdrawAudit extends React.Component {
   constructor(props) {
